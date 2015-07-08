@@ -1,0 +1,119 @@
+<?php
+
+function hb_label_menu()
+{
+    $items['admin/commerce/products/label/%'] = array(
+        'title' => 'Inventory Label',
+        'page callback' => '_hb_label_print_page',
+        'access arguments' => array('print inventory labels'),
+        'page arguments' => array(4),
+        'type' => MENU_CALLBACK,
+    );
+    
+    $items['admin/commerce/products/scan'] = array(
+        'title' => 'Scan inventory label to find a product',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('hb_label_scan_form'),
+        'access arguments' => array('print inventory labels'),
+        'type' => MENU_CALLBACK,
+    );
+    
+    return $items;
+}
+
+function hb_label_permission()
+{
+    return array(
+        'print inventory labels' => array(
+            'title' => t('Print inventory labels'),
+            'description' => t('Allows access to print inventory labels for products.'),
+        ),
+    );
+}
+
+function _hb_label_print_page($pid)
+{
+    $p = commerce_product_load($pid);
+    $sku = $p->sku;
+    $title = $p->title;
+    $clothing_type = taxonomy_term_load($p->field_clothing_type[$p->language][0]['tid'])->name;
+    $age = taxonomy_term_load($p->field_age[$p->language][0]['tid'])->name;
+    $sex = taxonomy_term_load($p->field_sex[$p->language][0]['tid'])->name;
+    
+    include(dirname(__FILE__).'/templates/label.tpl.php');
+}
+
+function hb_label_preprocess_views_view(&$vars)
+{
+    if ($vars['view']->name == 'commerce_backoffice_products')
+    {
+        drupal_add_js('/'.drupal_get_path('module','hb_label').'/js/popup.js');
+    }
+    else if ($vars['view']->name == 'commerce_line_item_table')
+    {
+        drupal_add_js('/'.drupal_get_path('module','hb_label').'/js/order.js');
+    }
+}
+
+function hb_label_forms($form_id, $args)
+{
+    $forms = array();
+    $forms['scan_find_product'] = array('callback' => '_hb_label_form');
+    return $forms;
+}
+function hb_label_scan_form()
+{
+    $form = array(
+        'product_id' => array(
+            '#type' => 'textfield',
+            '#title' => t('Scan barcode'),
+            '#required' => TRUE,
+            '#attributes' => array(
+                'required' => 'required',
+            ),
+            '#attached' => array(
+                'js' => array(
+                    array(
+                        'data' => '/'.drupal_get_path('module','hb_label').'/js/scan_form.js',
+                        'type' => 'file'
+                    )
+                ),
+            ),
+        ),
+        'submit' => array(
+            '#type' => 'submit',
+            '#value' => t('Submit'),
+            '#attributes' => array(
+                'class' => array('button', 'white')
+            )
+        )
+    );
+    return $form;
+}
+function hb_label_scan_form_submit($form, &$form_state)
+{
+    $pid = (int)$form_state['values']['product_id'];
+    $product = commerce_product_load($pid);
+    if (!$product)
+    {
+        drupal_set_message('Product not found', 'error');
+    }
+    else 
+    {
+        drupal_goto('/admin/commerce/products/'.$pid.'/edit');
+    }
+    
+    return;
+}
+
+function hb_label_coffee_commands()
+{
+    $commands = array();
+    $commands[] = array(
+        'value' => 'admin/commerce/products/scan',
+        'label' => 'Scan product to find/edit',
+        'command' => ':scan',
+    );
+    
+    return $commands;
+}
