@@ -54,6 +54,9 @@ class views_handler_filter_combine extends views_handler_filter_string {
     $fields = array();
     // Only add the fields if they have a proper field and table alias.
     foreach ($this->options['fields'] as $id) {
+      if (!isset($this->view->field[$id])) {
+        continue;  
+      }
       $field = $this->view->field[$id];
       // Always add the table of the selected fields to be sure a table alias
       // exists.

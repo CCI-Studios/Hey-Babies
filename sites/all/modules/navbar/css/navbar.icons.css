@@ -163,6 +163,20 @@
 .no-svg .navbar-icon-structure.navbar-active:before {
   background-image: url("../icons/000000/orgchart.png");
 }
+.navbar-icon-store:before {
+    background-image: url("../icons/787878/store.svg");
+}
+.no-svg .navbar-icon-store:before {
+    background-image: url("../icons/787878/store.png");
+}
+.navbar-icon-store:active:before,
+.navbar-icon-store.navbar-active:before {
+    background-image: url("../icons/000000/store.svg");
+}
+.no-svg .navbar-icon-store:active:before,
+.no-svg .navbar-icon-store.navbar-active:before {
+    background-image: url("../icons/000000/store.png");
+}
 .navbar-icon-appearance:before {
   background-image: url("../icons/787878/paintbrush.svg");
 }
