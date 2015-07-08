@@ -1,0 +1,8 @@
+name = EasyPost API
+description = Provides EasyPost API integration with Drupal Commerce.
+package = EasyPost
+
+dependencies[] = commerce
+dependencies[] = commerce_shipping
+dependencies[] = xautoload
+core = 7.x

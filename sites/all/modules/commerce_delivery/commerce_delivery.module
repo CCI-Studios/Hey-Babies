@@ -281,6 +281,7 @@ function commerce_delivery_field_extra_fields() {
  */
 function commerce_delivery_by_order_view($order) {
   $destination = drupal_get_destination();
+  $views = new stdClass();
   $views->content = '<ul class="action-links"><li>';
   $views->content .= l(t('Add delivery'), 'admin/commerce/deliveries/add/' . $order->order_id,
                         array('query' => $destination));
