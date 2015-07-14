@@ -1,0 +1,30 @@
+.menu-main-menu
+{
+    clear: none;
+    background: none;
+    
+    li
+    {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+.block-menu-menu-footer-menu
+{
+    float: none;
+    max-width: none;
+    width: auto;
+    
+    .block-content ul ul
+    {
+        float: none;
+        width: auto;
+        
+        li
+        {
+            float: left;
+            margin-right: 2.5%;
+        }
+    }
+}

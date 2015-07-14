@@ -77,9 +77,15 @@
 
     <div class="navigation"><div><div>
         <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" class="logo">
-          <img src="<?php print $base_path.$directory; ?>/img/hb-logo-white.svg" alt="Hey Babies" />
+          <img src="<?php print $base_path.$directory; ?>/img/hb-logo-white-horizontal.svg" alt="Hey Babies" />
         </a>
-      <?php print render($page['navigation']); ?>
+        <?php print render($page['navigation']); ?>
+        <div class="menu-main-menu">
+            <?php
+            $mainmenu = menu_tree('main-menu');
+            print drupal_render($mainmenu);
+            ?>
+        </div>
     </div></div></div>
 
     <div class="header"><div><div>
@@ -109,8 +115,15 @@
     </div></div></div> <!-- /.main-wrapper -->
 
     <div class="footer"><div><div>
-      <?php print render($page['footer']); ?>
-      <div class="copyright">&copy; hey babies <?php print date('Y'); ?></div>
+      <div class="footer-top">
+        <?php print render($page['footer']); ?>
+        <div class="clearfix"></div>
+      </div>
+      <div class="footer-bottom">
+        <?php print render($page['footer2']); ?>
+        <div class="footer-logo"><a href="<?php print $front_page; ?>"><img src="<?php print $base_path.$directory; ?>/img/hb-logo-white.svg" alt="" /></a></div>
+        <div class="copyright">&copy; hey babies <?php print date('Y'); ?></div>
+      </div>
     </div></div></div> <!-- /.footer -->
 
 
