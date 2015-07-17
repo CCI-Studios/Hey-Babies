@@ -96,7 +96,7 @@
     </div>
   <?php endif; ?>
 
-  <div class="content"<?php print $content_attributes; ?>>
+  <div class="node-content"<?php print $content_attributes; ?>>
     <?php
       hide($content['comments']);
       hide($content['links']);

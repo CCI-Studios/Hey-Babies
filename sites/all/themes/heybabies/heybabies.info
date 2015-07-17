@@ -2,6 +2,7 @@ name = Hey Babies
 description = Hey Babies Custom
 core = 7.x
 
+scripts[] = js/headers.js
 scripts[] = js/search.js
 
 stylesheets[all][] = css/screen.css

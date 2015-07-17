@@ -9,34 +9,11 @@
  */
 function hey_babies_taxonomy_default_vocabularies() {
   return array(
-    'age' => array(
-      'name' => 'Age',
-      'machine_name' => 'age',
-      'description' => '',
-      'hierarchy' => 0,
-      'module' => 'taxonomy',
-      'weight' => 0,
-      'rdf_mapping' => array(
-        'rdftype' => array(
-          0 => 'skos:ConceptScheme',
-        ),
-        'name' => array(
-          'predicates' => array(
-            0 => 'dc:title',
-          ),
-        ),
-        'description' => array(
-          'predicates' => array(
-            0 => 'rdfs:comment',
-          ),
-        ),
-      ),
-    ),
     'clothing_type' => array(
       'name' => 'Clothing type',
       'machine_name' => 'clothing_type',
       'description' => '',
-      'hierarchy' => 0,
+      'hierarchy' => 1,
       'module' => 'taxonomy',
       'weight' => 0,
       'rdf_mapping' => array(
@@ -81,6 +58,29 @@ function hey_babies_taxonomy_default_vocabularies() {
     'sex' => array(
       'name' => 'Sex',
       'machine_name' => 'sex',
+      'description' => '',
+      'hierarchy' => 0,
+      'module' => 'taxonomy',
+      'weight' => 0,
+      'rdf_mapping' => array(
+        'rdftype' => array(
+          0 => 'skos:ConceptScheme',
+        ),
+        'name' => array(
+          'predicates' => array(
+            0 => 'dc:title',
+          ),
+        ),
+        'description' => array(
+          'predicates' => array(
+            0 => 'rdfs:comment',
+          ),
+        ),
+      ),
+    ),
+    'size' => array(
+      'name' => 'Size',
+      'machine_name' => 'size',
       'description' => '',
       'hierarchy' => 0,
       'module' => 'taxonomy',

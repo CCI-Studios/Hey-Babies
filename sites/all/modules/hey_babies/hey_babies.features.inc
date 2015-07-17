@@ -75,10 +75,58 @@ function hey_babies_commerce_tax_default_types() {
 }
 
 /**
+ * Implements hook_views_api().
+ */
+function hey_babies_views_api($module = NULL, $api = NULL) {
+  return array("api" => "3.0");
+}
+
+/**
+ * Implements hook_image_default_styles().
+ */
+function hey_babies_image_default_styles() {
+  $styles = array();
+
+  // Exported image style: product_thumb.
+  $styles['product_thumb'] = array(
+    'label' => 'Product thumb',
+    'effects' => array(
+      2 => array(
+        'name' => 'image_scale',
+        'data' => array(
+          'width' => 200,
+          'height' => 200,
+          'upscale' => 0,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
+  return $styles;
+}
+
+/**
  * Implements hook_node_info().
  */
 function hey_babies_node_info() {
   $items = array(
+    'front_feature' => array(
+      'name' => t('Front Feature'),
+      'base' => 'node_content',
+      'description' => '',
+      'has_title' => '1',
+      'title_label' => t('Title'),
+      'help' => '',
+    ),
+    'front_header' => array(
+      'name' => t('Front Header'),
+      'base' => 'node_content',
+      'description' => '',
+      'has_title' => '1',
+      'title_label' => t('Title'),
+      'help' => '',
+    ),
     'page' => array(
       'name' => t('Basic page'),
       'base' => 'node_content',
