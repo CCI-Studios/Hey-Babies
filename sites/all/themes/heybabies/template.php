@@ -32,6 +32,10 @@ function heybabies_form_alter(&$form, &$form_state, $form_id)
     {
         $form['search_block_form']['#attributes']['placeholder'] = 'Search';
     }
+    else if (substr($form_id, 0, 30) == 'commerce_cart_add_to_cart_form')
+    {
+        $form['submit']['#value'] = 'add to bag';
+    }
 }
 
 function heybabies_preprocess_html(&$vars)

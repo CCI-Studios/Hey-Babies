@@ -102,6 +102,7 @@ features[taxonomy][] = tags
 features[user_role][] = administrator
 features[views_view][] = front_features
 features[views_view][] = front_headers
+features[views_view][] = product_node
 features[views_view][] = products
 features[views_view][] = recent
 features_exclude[dependencies][ckeditor] = ckeditor
