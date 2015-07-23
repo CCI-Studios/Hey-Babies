@@ -77,7 +77,7 @@ function commerce_canadapost_build_rate_request($order) {
     }
 
     // Wrap request data into mailing-scenario container and convert to xml.
-    $rate_request_element = new SimpleXMLElement('<mailing-scenario xmlns="http://www.canadapost.ca/ws/ship/rate-v3"/>');
+    $rate_request_element = new SimpleXMLElement('<mailing-scenario xmlns="http://www.canadapost.ca/ws/ship/rate-v2"/>');
     commerce_simplexml_add_children($rate_request_element, $rate_request_data);
 
     $rate_request[] = $rate_request_element;

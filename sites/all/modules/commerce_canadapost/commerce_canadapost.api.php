@@ -20,8 +20,15 @@
 function hook_commerce_canadapost_build_rate_request_alter(&$rate_request, $order) {
   // EXAMPLE: Add 24 hours to the turnaround time if today is Friday.
   if (date('l') == 'Friday') {
+    // Get turnaround time (saved in hours).
+    $turnaround_time = variable_get('commerce_canadapost_turnaround', 0);
+
+    // Add an additional 24 hours.
+    $turnaround_time += 24;
+
+    // Update the rate request.
     foreach ($rate_request as &$rate_request_element) {
-      $rate_request_element->{'expected-mailing-date'} = date($rate_request_element->{'expected-mailing-date'}, strtotime('+24 hours'));
+      $rate_request_element->{'expected-mailing-date'} = date('Y-m-d', strtotime('+' . $turnaround_time . ' hours'));
     }
   }
 }

@@ -164,7 +164,7 @@ function commerce_canadapost_services_list() {
       }
     }
 
-    // Cache service list (append active language).
+    // Cache service list (append language).
     cache_set('commerce_canadapost_services_list:' . commerce_canadapost_get_language(), $services, 'cache', CACHE_TEMPORARY);
   }
 

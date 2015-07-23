@@ -262,9 +262,9 @@ function commerce_canadapost_api_request($target_url, $xml = '', $message = '', 
 
   // Build the array of header information for the request.
   $headers = array(
-    'Content-type'    => 'application/vnd.cpc.ship.rate-v3+xml',
-    'Accept'          => 'application/vnd.cpc.ship.rate-v3+xml',
-    'Accept-language' => commerce_canadapost_get_language() . '-CA',
+    'Content-type'    => 'application/vnd.cpc.ship.rate-v2+xml',
+    'Accept'          => 'application/vnd.cpc.ship.rate-v2+xml',
+    'Accept-language' => commerce_canadapost_get_language(),
     'User-Agent'      => 'Drupal Commerce Canada Post shipping module',
   );
 
@@ -285,7 +285,6 @@ function commerce_canadapost_api_request($target_url, $xml = '', $message = '', 
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
-    curl_setopt($ch, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_0);
     curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
     curl_setopt($ch, CURLOPT_USERPWD, $api_key);
 
@@ -313,10 +312,6 @@ function commerce_canadapost_api_request($target_url, $xml = '', $message = '', 
     }
 
     $request = drupal_http_request($target_url, $options);
-    if ($request->error)
-    {
-        drupal_set_message($request->error);
-    }
     $result = $request->data;
 
     if (isset($request->error)) {
@@ -428,17 +423,20 @@ function commerce_canadapost_service_markup($rate) {
 }
 
 /**
- * Helper function that returns a two character language code.
+ * Helper function that returns a language code.
  *
- * The web services API can return results in en-CA and fr-CA. If the active
- * interface language is neither, requests/results will default to english.
+ * The Canada Post web services API accepts en-CA and fr-CA. French results will
+ * be requested if the active language starts with 'fr'. Default to English.
  *
  * @return string
- *   en (default) or fr
+ *   en-CA (default) or fr-CA
  */
 function commerce_canadapost_get_language() {
+  // Get first two characters of current language code.
   global $language;
-  return strtolower($language->language) == 'fr' ? 'fr' : 'en';
+  $langcode = strtolower(substr($language->language, 0, 2));
+
+  return ($langcode == 'fr') ? 'fr-CA' : 'en-CA';
 }
 
 /**

@@ -173,13 +173,6 @@ function commerce_canadapost_settings_form($form, &$form_state) {
     'unit' => 'g',
   ));
 
-  // Build options list for weight units.
-  $weight_units = array();
-  // Flip array so that metric comes first (smallest to largest).
-  foreach (array_reverse(physical_weight_units()) as $unit) {
-    $weight_units[$unit['abbreviation']] = $unit['name'];
-  }
-
   // These two fields get combined together with #prefix, #suffix, and css.
   $form['markup']['commerce_canadapost_weight_markup'] = array(
     '#type' => 'textfield',
@@ -193,7 +186,9 @@ function commerce_canadapost_settings_form($form, &$form_state) {
     '#type' => 'select',
     '#suffix' => '</div>',
     '#description' => t('An amount of weight to add to each package.'),
-    '#options' => $weight_units,
+    // Get an options list for weight units.
+    // Reverse the array so that metric comes first (smallest to largest).
+    '#options' => array_reverse(physical_weight_unit_options()),
     '#default_value' => $weight_markup['unit'],
   );
 
