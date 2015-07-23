@@ -1032,5 +1032,291 @@ price Desc|highest price',
   $handler->display->display_options['filters']['field_sex_tid']['vocabulary'] = 'sex';
   $export['recent'] = $view;
 
+  $view = new view();
+  $view->name = 'social';
+  $view->description = '';
+  $view->tag = 'default';
+  $view->base_table = 'node';
+  $view->human_name = 'Social';
+  $view->core = 7;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Master */
+  $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['title'] = '#heybabies';
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['row_plugin'] = 'fields';
+  /* Header: Global: Unfiltered text */
+  $handler->display->display_options['header']['area_text_custom']['id'] = 'area_text_custom';
+  $handler->display->display_options['header']['area_text_custom']['table'] = 'views';
+  $handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
+  $handler->display->display_options['header']['area_text_custom']['label'] = 'popup buttons';
+  $handler->display->display_options['header']['area_text_custom']['content'] = '<a href="#" class="popup-prev popup-arrow popup-button" title="previous">Previous social item</a>
+<a href="#" class="popup-close popup-button" title="close">Close</a>
+<a href="#" class="popup-next popup-arrow popup-button" title="next">Next social item</a>
+<div class="popup-cover"></div>';
+  /* Field: Content: Nid */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'node';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  $handler->display->display_options['fields']['nid']['label'] = '';
+  $handler->display->display_options['fields']['nid']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
+  /* Field: Content: Photo */
+  $handler->display->display_options['fields']['field_photo']['id'] = 'field_photo';
+  $handler->display->display_options['fields']['field_photo']['table'] = 'field_data_field_photo';
+  $handler->display->display_options['fields']['field_photo']['field'] = 'field_photo';
+  $handler->display->display_options['fields']['field_photo']['label'] = '';
+  $handler->display->display_options['fields']['field_photo']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_photo']['alter']['text'] = '<a href="#">[field_photo]</a>';
+  $handler->display->display_options['fields']['field_photo']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_photo']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_photo']['settings'] = array(
+    'image_style' => 'medium',
+    'image_link' => '',
+  );
+  /* Field: Content: Photo */
+  $handler->display->display_options['fields']['field_photo_1']['id'] = 'field_photo_1';
+  $handler->display->display_options['fields']['field_photo_1']['table'] = 'field_data_field_photo';
+  $handler->display->display_options['fields']['field_photo_1']['field'] = 'field_photo';
+  $handler->display->display_options['fields']['field_photo_1']['label'] = '';
+  $handler->display->display_options['fields']['field_photo_1']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_photo_1']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_photo_1']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_photo_1']['settings'] = array(
+    'image_style' => 'social_large',
+    'image_link' => '',
+  );
+  /* Field: Content: Username */
+  $handler->display->display_options['fields']['field_username']['id'] = 'field_username';
+  $handler->display->display_options['fields']['field_username']['table'] = 'field_data_field_username';
+  $handler->display->display_options['fields']['field_username']['field'] = 'field_username';
+  $handler->display->display_options['fields']['field_username']['label'] = '';
+  $handler->display->display_options['fields']['field_username']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_username']['element_label_colon'] = FALSE;
+  /* Field: Content: Social Link */
+  $handler->display->display_options['fields']['field_social_link']['id'] = 'field_social_link';
+  $handler->display->display_options['fields']['field_social_link']['table'] = 'field_data_field_social_link';
+  $handler->display->display_options['fields']['field_social_link']['field'] = 'field_social_link';
+  $handler->display->display_options['fields']['field_social_link']['label'] = '';
+  $handler->display->display_options['fields']['field_social_link']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_social_link']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_social_link']['alter']['text'] = '<a href="[field_social_link]" target="_blank">[field_username]</a>';
+  $handler->display->display_options['fields']['field_social_link']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_social_link']['empty'] = '[field_username]';
+  /* Field: Content: Body */
+  $handler->display->display_options['fields']['body']['id'] = 'body';
+  $handler->display->display_options['fields']['body']['table'] = 'field_data_body';
+  $handler->display->display_options['fields']['body']['field'] = 'body';
+  $handler->display->display_options['fields']['body']['label'] = '';
+  $handler->display->display_options['fields']['body']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['body']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['body']['type'] = 'text_plain';
+  /* Field: Content: Shop Link */
+  $handler->display->display_options['fields']['field_shop_link']['id'] = 'field_shop_link';
+  $handler->display->display_options['fields']['field_shop_link']['table'] = 'field_data_field_shop_link';
+  $handler->display->display_options['fields']['field_shop_link']['field'] = 'field_shop_link';
+  $handler->display->display_options['fields']['field_shop_link']['label'] = '';
+  $handler->display->display_options['fields']['field_shop_link']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_shop_link']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_shop_link']['alter']['text'] = '<a href="[field_shop_link]">shop</a>';
+  $handler->display->display_options['fields']['field_shop_link']['element_label_colon'] = FALSE;
+  /* Field: Related products */
+  $handler->display->display_options['fields']['view']['id'] = 'view';
+  $handler->display->display_options['fields']['view']['table'] = 'views';
+  $handler->display->display_options['fields']['view']['field'] = 'view';
+  $handler->display->display_options['fields']['view']['ui_name'] = 'Related products';
+  $handler->display->display_options['fields']['view']['label'] = '';
+  $handler->display->display_options['fields']['view']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['view']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['view']['view'] = 'social_related_products';
+  $handler->display->display_options['fields']['view']['arguments'] = '[!nid]';
+  /* Field: Global: Custom text */
+  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['label'] = '';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<div class="photo">[field_photo_1]</div>
+<div class="right">
+<div class="social-username">[field_social_link]</div>
+<div class="body">[body]</div>
+[view]
+<div class="shop-link">[field_shop_link]</div>
+</div>';
+  $handler->display->display_options['fields']['nothing']['element_type'] = 'div';
+  $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['nothing']['element_wrapper_class'] = 'popup';
+  /* Sort criterion: Content: Post date */
+  $handler->display->display_options['sorts']['created']['id'] = 'created';
+  $handler->display->display_options['sorts']['created']['table'] = 'node';
+  $handler->display->display_options['sorts']['created']['field'] = 'created';
+  $handler->display->display_options['sorts']['created']['order'] = 'DESC';
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'social_item' => 'social_item',
+  );
+
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page');
+  $handler->display->display_options['path'] = 'social';
+  $export['social'] = $view;
+
+  $view = new view();
+  $view->name = 'social_related_products';
+  $view->description = '';
+  $view->tag = 'default';
+  $view->base_table = 'node';
+  $view->human_name = 'Social related products';
+  $view->core = 7;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Master */
+  $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['title'] = '<none>';
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['style_plugin'] = 'slick';
+  $handler->display->display_options['style_options']['asnavfor_auto'] = 0;
+  $handler->display->display_options['style_options']['preserve_keys'] = 0;
+  $handler->display->display_options['style_options']['slide_field_wrapper'] = 0;
+  $handler->display->display_options['style_options']['slide_caption'] = array(
+    'field_image' => 0,
+    'title' => 0,
+  );
+  $handler->display->display_options['style_options']['override'] = 0;
+  $handler->display->display_options['style_options']['overridables'] = array(
+    'arrows' => 0,
+    'autoplay' => 0,
+    'dots' => 0,
+    'draggable' => 0,
+  );
+  $handler->display->display_options['row_plugin'] = 'fields';
+  /* Header: Global: Unfiltered text */
+  $handler->display->display_options['header']['area_text_custom']['id'] = 'area_text_custom';
+  $handler->display->display_options['header']['area_text_custom']['table'] = 'views';
+  $handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
+  $handler->display->display_options['header']['area_text_custom']['label'] = 'shop similar items';
+  $handler->display->display_options['header']['area_text_custom']['content'] = '<h3>shop similar items</h3>';
+  /* Relationship: Entity Reference: Referenced Entity */
+  $handler->display->display_options['relationships']['field_related_products_target_id']['id'] = 'field_related_products_target_id';
+  $handler->display->display_options['relationships']['field_related_products_target_id']['table'] = 'field_data_field_related_products';
+  $handler->display->display_options['relationships']['field_related_products_target_id']['field'] = 'field_related_products_target_id';
+  $handler->display->display_options['relationships']['field_related_products_target_id']['label'] = 'Related products';
+  /* Relationship: Content: Referenced products */
+  $handler->display->display_options['relationships']['field_product_product_id']['id'] = 'field_product_product_id';
+  $handler->display->display_options['relationships']['field_product_product_id']['table'] = 'field_data_field_product';
+  $handler->display->display_options['relationships']['field_product_product_id']['field'] = 'field_product_product_id';
+  $handler->display->display_options['relationships']['field_product_product_id']['relationship'] = 'field_related_products_target_id';
+  $handler->display->display_options['relationships']['field_product_product_id']['label'] = 'Products';
+  $handler->display->display_options['relationships']['field_product_product_id']['required'] = TRUE;
+  /* Field: Content: Path */
+  $handler->display->display_options['fields']['path']['id'] = 'path';
+  $handler->display->display_options['fields']['path']['table'] = 'node';
+  $handler->display->display_options['fields']['path']['field'] = 'path';
+  $handler->display->display_options['fields']['path']['relationship'] = 'field_related_products_target_id';
+  $handler->display->display_options['fields']['path']['label'] = '';
+  $handler->display->display_options['fields']['path']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['path']['element_label_colon'] = FALSE;
+  /* Field: Commerce Product: Image */
+  $handler->display->display_options['fields']['field_image']['id'] = 'field_image';
+  $handler->display->display_options['fields']['field_image']['table'] = 'field_data_field_image';
+  $handler->display->display_options['fields']['field_image']['field'] = 'field_image';
+  $handler->display->display_options['fields']['field_image']['relationship'] = 'field_product_product_id';
+  $handler->display->display_options['fields']['field_image']['label'] = '';
+  $handler->display->display_options['fields']['field_image']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['field_image']['alter']['path'] = '[path]';
+  $handler->display->display_options['fields']['field_image']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_image']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_image']['settings'] = array(
+    'image_style' => 'product_thumb',
+    'image_link' => '',
+  );
+  $handler->display->display_options['fields']['field_image']['delta_limit'] = '1';
+  $handler->display->display_options['fields']['field_image']['delta_offset'] = '0';
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['relationship'] = 'field_related_products_target_id';
+  $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  $handler->display->display_options['fields']['title']['element_type'] = 'div';
+  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+  /* Field: Commerce Product: Size */
+  $handler->display->display_options['fields']['field_size']['id'] = 'field_size';
+  $handler->display->display_options['fields']['field_size']['table'] = 'field_data_field_size';
+  $handler->display->display_options['fields']['field_size']['field'] = 'field_size';
+  $handler->display->display_options['fields']['field_size']['relationship'] = 'field_product_product_id';
+  $handler->display->display_options['fields']['field_size']['label'] = '';
+  $handler->display->display_options['fields']['field_size']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_size']['type'] = 'taxonomy_term_reference_plain';
+  /* Field: Commerce Product: Price */
+  $handler->display->display_options['fields']['commerce_price']['id'] = 'commerce_price';
+  $handler->display->display_options['fields']['commerce_price']['table'] = 'field_data_commerce_price';
+  $handler->display->display_options['fields']['commerce_price']['field'] = 'commerce_price';
+  $handler->display->display_options['fields']['commerce_price']['relationship'] = 'field_product_product_id';
+  $handler->display->display_options['fields']['commerce_price']['label'] = '';
+  $handler->display->display_options['fields']['commerce_price']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['commerce_price']['click_sort_column'] = 'amount';
+  $handler->display->display_options['fields']['commerce_price']['settings'] = array(
+    'calculation' => '0',
+  );
+  /* Contextual filter: Content: Nid */
+  $handler->display->display_options['arguments']['nid']['id'] = 'nid';
+  $handler->display->display_options['arguments']['nid']['table'] = 'node';
+  $handler->display->display_options['arguments']['nid']['field'] = 'nid';
+  $handler->display->display_options['arguments']['nid']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['nid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['nid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['nid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['nid']['specify_validation'] = TRUE;
+  $handler->display->display_options['arguments']['nid']['validate']['type'] = 'node';
+  $handler->display->display_options['arguments']['nid']['validate_options']['types'] = array(
+    'social_item' => 'social_item',
+  );
+  $handler->display->display_options['arguments']['nid']['validate_options']['access'] = TRUE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'social_item' => 'social_item',
+  );
+
+  /* Display: Block */
+  $handler = $view->new_display('block', 'Block', 'block');
+  $export['social_related_products'] = $view;
+
   return $export;
 }

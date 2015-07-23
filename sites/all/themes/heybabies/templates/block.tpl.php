@@ -44,7 +44,7 @@
  * @ingroup themeable
  */
 ?>
-<div class="<?php print $classes; ?> <?php print $block_html_id; ?>"<?php print $attributes; ?>>
+<div class="<?php print $classes; ?> <?php print $block_html_id; ?>"<?php print $attributes; if (in_array('contributions', $classes_array)) print ' id="contributions"';?>>
 
   <?php print render($title_prefix); ?>
 <?php if ($block->subject): ?>

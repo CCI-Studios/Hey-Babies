@@ -961,3 +961,225 @@ p
         }
     }
 }
+
+.view-social
+{
+    padding: 60px 30px;
+    overflow: hidden;
+    
+    & > .view-content
+    {
+        max-width: 940px;
+        margin: 0 auto;
+        
+        & > .views-row
+        {
+            float: left;
+            width: 25%;
+        }
+    }
+    .views-field-field-photo
+    {
+        padding: 10px;
+        
+        img
+        {
+            display: block;
+            margin: 0 auto;
+            width: 100%;
+            height: auto;
+        }
+    }
+    
+    .popup
+    {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        height: 540px;
+        width: 840px;
+        margin-top: -270px;
+        margin-left: -420px;
+        z-index: 101;
+        background: white;
+    }
+    .photo
+    {
+        float: left;
+        
+        img
+        {
+            display: block;
+        }
+    }
+    .right
+    {
+        overflow: hidden;
+        padding: 30px;
+    }
+    .social-username
+    {
+        color: $seafoam;
+        font-weight: bold;
+        padding-left: 32px;
+        margin-bottom: 14px;
+        background: url(../img/icon-social-ig.svg) no-repeat left center;
+        
+        a
+        {
+            color: $seafoam;
+            text-decoration: none;
+            
+            &:hover
+            {
+                text-decoration: underline;
+            }
+        }
+    }
+    .body
+    {
+        font-size: 0.9444em;
+    }
+    .shop-link a
+    {
+        display: block;
+        margin: 20px auto 0 auto;
+        color: $seafoam;
+        width: 160px;
+        line-height: 40px;
+        text-decoration: none;
+        border: 2px solid $seafoam;
+        border-radius: 4px;
+        outline-color: $seafoam;
+        font-weight: 500;
+        text-align: center;
+        transition: all 0.2s;
+        
+        &:hover
+        {
+            background: $seafoam;
+            color: white;
+        }
+    }
+    .popup-cover
+    {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: black;
+        opacity: 0.6;
+        z-index: 100;
+    }
+    .popup-button
+    {
+        display: none;
+    }
+    .popup-arrow
+    {
+        position: fixed;
+        top: 50%;
+        width: 22px;
+        height: 42px;
+        margin-top: -21px;
+        background-repeat: no-repeat;
+        font-size: 0;
+        text-decoration: none;
+        z-index: 101;
+    }
+    .popup-prev
+    {
+        background-image: url(../img/arrow-large-left.svg);
+        left: 50%;
+        margin-left: -492px;
+    }
+    .popup-next
+    {
+        background-image: url(../img/arrow-large-right.svg);
+        right: 50%;
+        margin-right: -492px;
+    }
+    .popup-close
+    {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 42px;
+        height: 42px;
+        margin-left: -21px;
+        margin-top: -342px;
+        background: url(../img/icon-large-close.svg) no-repeat;
+        font-size: 0;
+        text-decoration: none;
+        z-index: 101;
+    }
+}
+.view-social-related-products
+{
+    margin-top: 30px;
+    text-align: center;
+    
+    .view-content
+    {
+        position: relative;
+    }
+    
+    img
+    {
+        display: block;
+        margin: 0 auto;
+    }
+    .views-field-title a
+    {
+        color: $seafoam;
+        font-weight: 500;
+        text-decoration: none;
+        
+        &:hover
+        {
+            text-decoration: underline;
+        }
+    }
+    .views-field-field-size,
+    .views-field-commerce-price
+    {
+        color: #b4b4b4;
+        font-weight: bold;
+        font-size: 0.777em;
+        display: inline-block;
+        line-height: 1;
+    }
+    .views-field-field-size
+    {
+        padding-right: 8px;
+        margin-right: 4px;
+        border-right: 2px solid #b4b4b4;
+    }
+    
+    .slick-arrow
+    {
+        font-size: 0;
+        display: block;
+        width: 12px;
+        height: 23px;
+        position: absolute;
+        top: 50%;
+        margin-top: -12px;
+        background-repeat: no-repeat;
+        background-position: center center;
+        text-decoration: none;
+    }
+    .slick-prev
+    {
+        left: 0;
+        background-image: url(../img/arrow-left.svg);
+    }
+    .slick-next
+    {
+        right: 0;
+        background-image: url(../img/arrow-right.svg);
+    }
+}
