@@ -30,7 +30,7 @@
  */
 ?>
 <div class="search-button">
-    <a href="#" title="Open search">Open search</a>
+    <a href="#" title="Open search">search</a>
 </div>
 <div class="search-container">
   <?php if (empty($variables['form']['#block']->subject)): ?>

@@ -11,6 +11,164 @@ function hey_babies_views_default_views() {
   $export = array();
 
   $view = new view();
+  $view->name = 'child_terms';
+  $view->description = '';
+  $view->tag = 'default';
+  $view->base_table = 'taxonomy_term_data';
+  $view->human_name = 'Child terms';
+  $view->core = 7;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Master */
+  $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['style_plugin'] = 'list';
+  $handler->display->display_options['style_options']['wrapper_class'] = '';
+  $handler->display->display_options['row_plugin'] = 'fields';
+  /* Header: Global: Unfiltered text */
+  $handler->display->display_options['header']['area_text_custom']['id'] = 'area_text_custom';
+  $handler->display->display_options['header']['area_text_custom']['table'] = 'views';
+  $handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
+  $handler->display->display_options['header']['area_text_custom']['content'] = '<div class="label-terms">type</div>';
+  /* No results behavior: Global: View area */
+  $handler->display->display_options['empty']['view']['id'] = 'view';
+  $handler->display->display_options['empty']['view']['table'] = 'views';
+  $handler->display->display_options['empty']['view']['field'] = 'view';
+  $handler->display->display_options['empty']['view']['empty'] = TRUE;
+  $handler->display->display_options['empty']['view']['view_to_insert'] = 'child_terms:filter_1';
+  $handler->display->display_options['empty']['view']['inherit_arguments'] = TRUE;
+  /* Relationship: Taxonomy term: Parent term */
+  $handler->display->display_options['relationships']['parent']['id'] = 'parent';
+  $handler->display->display_options['relationships']['parent']['table'] = 'taxonomy_term_hierarchy';
+  $handler->display->display_options['relationships']['parent']['field'] = 'parent';
+  /* Field: Taxonomy term: Name */
+  $handler->display->display_options['fields']['name_2']['id'] = 'name_2';
+  $handler->display->display_options['fields']['name_2']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['fields']['name_2']['field'] = 'name';
+  $handler->display->display_options['fields']['name_2']['label'] = '';
+  $handler->display->display_options['fields']['name_2']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['name_2']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['name_2']['convert_spaces'] = TRUE;
+  /* Field: Taxonomy term: Name */
+  $handler->display->display_options['fields']['name_1']['id'] = 'name_1';
+  $handler->display->display_options['fields']['name_1']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['fields']['name_1']['field'] = 'name';
+  $handler->display->display_options['fields']['name_1']['relationship'] = 'parent';
+  $handler->display->display_options['fields']['name_1']['label'] = '';
+  $handler->display->display_options['fields']['name_1']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['name_1']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['name_1']['convert_spaces'] = TRUE;
+  /* Field: Taxonomy term: Name */
+  $handler->display->display_options['fields']['name']['id'] = 'name';
+  $handler->display->display_options['fields']['name']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['fields']['name']['field'] = 'name';
+  $handler->display->display_options['fields']['name']['label'] = '';
+  $handler->display->display_options['fields']['name']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['name']['alter']['text'] = '<a href="#" data-term="[name_2]" data-parent="[name_1]">[name]</a>';
+  $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
+  $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
+  /* Contextual filter: Taxonomy term: Parent term */
+  $handler->display->display_options['arguments']['parent']['id'] = 'parent';
+  $handler->display->display_options['arguments']['parent']['table'] = 'taxonomy_term_hierarchy';
+  $handler->display->display_options['arguments']['parent']['field'] = 'parent';
+  $handler->display->display_options['arguments']['parent']['relationship'] = 'parent';
+  $handler->display->display_options['arguments']['parent']['default_action'] = 'empty';
+  $handler->display->display_options['arguments']['parent']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['parent']['default_argument_options']['argument'] = '0';
+  $handler->display->display_options['arguments']['parent']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['parent']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['parent']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['parent']['specify_validation'] = TRUE;
+  $handler->display->display_options['arguments']['parent']['validate']['type'] = 'taxonomy_term';
+  $handler->display->display_options['arguments']['parent']['validate_options']['vocabularies'] = array(
+    'clothing_type' => 'clothing_type',
+  );
+  $handler->display->display_options['arguments']['parent']['validate_options']['type'] = 'convert';
+  $handler->display->display_options['arguments']['parent']['validate_options']['transform'] = TRUE;
+  $handler->display->display_options['arguments']['parent']['validate']['fail'] = 'empty';
+  /* Contextual filter: Taxonomy term: Parent term */
+  $handler->display->display_options['arguments']['parent_1']['id'] = 'parent_1';
+  $handler->display->display_options['arguments']['parent_1']['table'] = 'taxonomy_term_hierarchy';
+  $handler->display->display_options['arguments']['parent_1']['field'] = 'parent';
+  $handler->display->display_options['arguments']['parent_1']['default_action'] = 'empty';
+  $handler->display->display_options['arguments']['parent_1']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['parent_1']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['parent_1']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['parent_1']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['parent_1']['specify_validation'] = TRUE;
+  $handler->display->display_options['arguments']['parent_1']['validate']['type'] = 'taxonomy_term';
+  $handler->display->display_options['arguments']['parent_1']['validate_options']['vocabularies'] = array(
+    'clothing_type' => 'clothing_type',
+  );
+  $handler->display->display_options['arguments']['parent_1']['validate_options']['type'] = 'convert';
+  $handler->display->display_options['arguments']['parent_1']['validate_options']['transform'] = TRUE;
+  /* Filter criterion: Taxonomy term: Vocabulary */
+  $handler->display->display_options['filters']['vid']['id'] = 'vid';
+  $handler->display->display_options['filters']['vid']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['filters']['vid']['field'] = 'vid';
+  $handler->display->display_options['filters']['vid']['value'] = array(
+    5 => '5',
+  );
+
+  /* Display: 2 contextual filters */
+  $handler = $view->new_display('block', '2 contextual filters', 'filter_2');
+
+  /* Display: 1 contextual filter */
+  $handler = $view->new_display('block', '1 contextual filter', 'filter_1');
+  $handler->display->display_options['defaults']['empty'] = FALSE;
+  /* No results behavior: Global: View area */
+  $handler->display->display_options['empty']['view']['id'] = 'view';
+  $handler->display->display_options['empty']['view']['table'] = 'views';
+  $handler->display->display_options['empty']['view']['field'] = 'view';
+  $handler->display->display_options['empty']['view']['empty'] = TRUE;
+  $handler->display->display_options['empty']['view']['view_to_insert'] = 'child_terms:root';
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: Taxonomy term: Parent term */
+  $handler->display->display_options['arguments']['parent_1']['id'] = 'parent_1';
+  $handler->display->display_options['arguments']['parent_1']['table'] = 'taxonomy_term_hierarchy';
+  $handler->display->display_options['arguments']['parent_1']['field'] = 'parent';
+  $handler->display->display_options['arguments']['parent_1']['default_action'] = 'empty';
+  $handler->display->display_options['arguments']['parent_1']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['parent_1']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['parent_1']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['parent_1']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['parent_1']['specify_validation'] = TRUE;
+  $handler->display->display_options['arguments']['parent_1']['validate']['type'] = 'taxonomy_term';
+  $handler->display->display_options['arguments']['parent_1']['validate_options']['vocabularies'] = array(
+    'clothing_type' => 'clothing_type',
+  );
+  $handler->display->display_options['arguments']['parent_1']['validate_options']['type'] = 'convert';
+  $handler->display->display_options['arguments']['parent_1']['validate_options']['transform'] = TRUE;
+
+  /* Display: root terms */
+  $handler = $view->new_display('block', 'root terms', 'root');
+  $handler->display->display_options['defaults']['empty'] = FALSE;
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Taxonomy term: Vocabulary */
+  $handler->display->display_options['filters']['vid']['id'] = 'vid';
+  $handler->display->display_options['filters']['vid']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['filters']['vid']['field'] = 'vid';
+  $handler->display->display_options['filters']['vid']['value'] = array(
+    5 => '5',
+  );
+  /* Filter criterion: Taxonomy term: Parent term */
+  $handler->display->display_options['filters']['parent']['id'] = 'parent';
+  $handler->display->display_options['filters']['parent']['table'] = 'taxonomy_term_hierarchy';
+  $handler->display->display_options['filters']['parent']['field'] = 'parent';
+  $handler->display->display_options['filters']['parent']['value']['value'] = '0';
+  $export['child_terms'] = $view;
+
+  $view = new view();
   $view->name = 'front_features';
   $view->description = '';
   $view->tag = 'default';
@@ -532,6 +690,12 @@ price Desc|highest price',
   $handler->display->display_options['header']['area_text_custom_2']['field'] = 'area_text_custom';
   $handler->display->display_options['header']['area_text_custom_2']['label'] = 'show filters';
   $handler->display->display_options['header']['area_text_custom_2']['content'] = '<a href="#" class="show-filters">shop by</a>';
+  /* Header: Global: View area */
+  $handler->display->display_options['header']['view']['id'] = 'view';
+  $handler->display->display_options['header']['view']['table'] = 'views';
+  $handler->display->display_options['header']['view']['field'] = 'view';
+  $handler->display->display_options['header']['view']['view_to_insert'] = 'child_terms:filter_2';
+  $handler->display->display_options['header']['view']['inherit_arguments'] = TRUE;
   /* No results behavior: Global: Unfiltered text */
   $handler->display->display_options['empty']['area_text_custom']['id'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
@@ -681,6 +845,13 @@ price Desc|highest price',
   $handler->display->display_options['filters']['field_size_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_size_tid']['vocabulary'] = 'size';
   $handler->display->display_options['filters']['field_size_tid']['error_message'] = FALSE;
+  /* Filter criterion: Commerce Product: Stock (commerce_stock) */
+  $handler->display->display_options['filters']['commerce_stock_value']['id'] = 'commerce_stock_value';
+  $handler->display->display_options['filters']['commerce_stock_value']['table'] = 'field_data_commerce_stock';
+  $handler->display->display_options['filters']['commerce_stock_value']['field'] = 'commerce_stock_value';
+  $handler->display->display_options['filters']['commerce_stock_value']['relationship'] = 'field_product_product_id';
+  $handler->display->display_options['filters']['commerce_stock_value']['operator'] = '>';
+  $handler->display->display_options['filters']['commerce_stock_value']['value']['value'] = '0';
 
   /* Display: Page (girls) */
   $handler = $view->new_display('page', 'Page (girls)', 'page_girls');
@@ -735,6 +906,13 @@ price Desc|highest price',
   $handler->display->display_options['filters']['field_size_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_size_tid']['vocabulary'] = 'size';
   $handler->display->display_options['filters']['field_size_tid']['error_message'] = FALSE;
+  /* Filter criterion: Commerce Product: Stock (commerce_stock) */
+  $handler->display->display_options['filters']['commerce_stock_value']['id'] = 'commerce_stock_value';
+  $handler->display->display_options['filters']['commerce_stock_value']['table'] = 'field_data_commerce_stock';
+  $handler->display->display_options['filters']['commerce_stock_value']['field'] = 'commerce_stock_value';
+  $handler->display->display_options['filters']['commerce_stock_value']['relationship'] = 'field_product_product_id';
+  $handler->display->display_options['filters']['commerce_stock_value']['operator'] = '>';
+  $handler->display->display_options['filters']['commerce_stock_value']['value']['value'] = '0';
   $handler->display->display_options['path'] = 'boys';
 
   /* Display: Page (moms) */
@@ -786,6 +964,13 @@ price Desc|highest price',
   $handler->display->display_options['filters']['field_size_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_size_tid']['vocabulary'] = 'size';
   $handler->display->display_options['filters']['field_size_tid']['error_message'] = FALSE;
+  /* Filter criterion: Commerce Product: Stock (commerce_stock) */
+  $handler->display->display_options['filters']['commerce_stock_value']['id'] = 'commerce_stock_value';
+  $handler->display->display_options['filters']['commerce_stock_value']['table'] = 'field_data_commerce_stock';
+  $handler->display->display_options['filters']['commerce_stock_value']['field'] = 'commerce_stock_value';
+  $handler->display->display_options['filters']['commerce_stock_value']['relationship'] = 'field_product_product_id';
+  $handler->display->display_options['filters']['commerce_stock_value']['operator'] = '>';
+  $handler->display->display_options['filters']['commerce_stock_value']['value']['value'] = '0';
   $handler->display->display_options['path'] = 'moms';
 
   /* Display: Page (new) */
@@ -827,6 +1012,13 @@ price Desc|highest price',
   $handler->display->display_options['filters']['field_size_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_size_tid']['vocabulary'] = 'size';
   $handler->display->display_options['filters']['field_size_tid']['error_message'] = FALSE;
+  /* Filter criterion: Commerce Product: Stock (commerce_stock) */
+  $handler->display->display_options['filters']['commerce_stock_value']['id'] = 'commerce_stock_value';
+  $handler->display->display_options['filters']['commerce_stock_value']['table'] = 'field_data_commerce_stock';
+  $handler->display->display_options['filters']['commerce_stock_value']['field'] = 'commerce_stock_value';
+  $handler->display->display_options['filters']['commerce_stock_value']['relationship'] = 'field_product_product_id';
+  $handler->display->display_options['filters']['commerce_stock_value']['operator'] = '>';
+  $handler->display->display_options['filters']['commerce_stock_value']['value']['value'] = '0';
   $handler->display->display_options['path'] = 'new';
   $export['products'] = $view;
 
@@ -948,6 +1140,13 @@ price Desc|highest price',
   );
   $handler->display->display_options['filters']['field_sex_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_sex_tid']['vocabulary'] = 'sex';
+  /* Filter criterion: Commerce Product: Stock (commerce_stock) */
+  $handler->display->display_options['filters']['commerce_stock_value']['id'] = 'commerce_stock_value';
+  $handler->display->display_options['filters']['commerce_stock_value']['table'] = 'field_data_commerce_stock';
+  $handler->display->display_options['filters']['commerce_stock_value']['field'] = 'commerce_stock_value';
+  $handler->display->display_options['filters']['commerce_stock_value']['relationship'] = 'field_product_product_id';
+  $handler->display->display_options['filters']['commerce_stock_value']['operator'] = '>';
+  $handler->display->display_options['filters']['commerce_stock_value']['value']['value'] = '0';
 
   /* Display: Block (girls) */
   $handler = $view->new_display('block', 'Block (girls)', 'block_girls');
@@ -994,6 +1193,13 @@ price Desc|highest price',
   );
   $handler->display->display_options['filters']['field_sex_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_sex_tid']['vocabulary'] = 'sex';
+  /* Filter criterion: Commerce Product: Stock (commerce_stock) */
+  $handler->display->display_options['filters']['commerce_stock_value']['id'] = 'commerce_stock_value';
+  $handler->display->display_options['filters']['commerce_stock_value']['table'] = 'field_data_commerce_stock';
+  $handler->display->display_options['filters']['commerce_stock_value']['field'] = 'commerce_stock_value';
+  $handler->display->display_options['filters']['commerce_stock_value']['relationship'] = 'field_product_product_id';
+  $handler->display->display_options['filters']['commerce_stock_value']['operator'] = '>';
+  $handler->display->display_options['filters']['commerce_stock_value']['value']['value'] = '0';
 
   /* Display: Block (mom) */
   $handler = $view->new_display('block', 'Block (mom)', 'block_mom');
@@ -1030,7 +1236,157 @@ price Desc|highest price',
   );
   $handler->display->display_options['filters']['field_sex_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_sex_tid']['vocabulary'] = 'sex';
+  /* Filter criterion: Commerce Product: Stock (commerce_stock) */
+  $handler->display->display_options['filters']['commerce_stock_value']['id'] = 'commerce_stock_value';
+  $handler->display->display_options['filters']['commerce_stock_value']['table'] = 'field_data_commerce_stock';
+  $handler->display->display_options['filters']['commerce_stock_value']['field'] = 'commerce_stock_value';
+  $handler->display->display_options['filters']['commerce_stock_value']['relationship'] = 'field_product_product_id';
+  $handler->display->display_options['filters']['commerce_stock_value']['operator'] = '>';
+  $handler->display->display_options['filters']['commerce_stock_value']['value']['value'] = '0';
   $export['recent'] = $view;
+
+  $view = new view();
+  $view->name = 'related_products';
+  $view->description = '';
+  $view->tag = 'default';
+  $view->base_table = 'node';
+  $view->human_name = 'Related Products';
+  $view->core = 7;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Master */
+  $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['title'] = '<none>';
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '4';
+  $handler->display->display_options['style_plugin'] = 'list';
+  $handler->display->display_options['style_options']['wrapper_class'] = '';
+  $handler->display->display_options['row_plugin'] = 'fields';
+  /* Header: Global: Unfiltered text */
+  $handler->display->display_options['header']['area_text_custom']['id'] = 'area_text_custom';
+  $handler->display->display_options['header']['area_text_custom']['table'] = 'views';
+  $handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
+  $handler->display->display_options['header']['area_text_custom']['content'] = '<h2>more like this</h2>';
+  /* Relationship: Products */
+  $handler->display->display_options['relationships']['field_product_product_id']['id'] = 'field_product_product_id';
+  $handler->display->display_options['relationships']['field_product_product_id']['table'] = 'field_data_field_product';
+  $handler->display->display_options['relationships']['field_product_product_id']['field'] = 'field_product_product_id';
+  $handler->display->display_options['relationships']['field_product_product_id']['ui_name'] = 'Products';
+  $handler->display->display_options['relationships']['field_product_product_id']['label'] = 'Products';
+  $handler->display->display_options['relationships']['field_product_product_id']['required'] = TRUE;
+  /* Field: Content: Path */
+  $handler->display->display_options['fields']['path']['id'] = 'path';
+  $handler->display->display_options['fields']['path']['table'] = 'node';
+  $handler->display->display_options['fields']['path']['field'] = 'path';
+  $handler->display->display_options['fields']['path']['label'] = '';
+  $handler->display->display_options['fields']['path']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['path']['element_label_colon'] = FALSE;
+  /* Field: Commerce Product: Image */
+  $handler->display->display_options['fields']['field_image']['id'] = 'field_image';
+  $handler->display->display_options['fields']['field_image']['table'] = 'field_data_field_image';
+  $handler->display->display_options['fields']['field_image']['field'] = 'field_image';
+  $handler->display->display_options['fields']['field_image']['relationship'] = 'field_product_product_id';
+  $handler->display->display_options['fields']['field_image']['label'] = '';
+  $handler->display->display_options['fields']['field_image']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['field_image']['alter']['path'] = '[path]';
+  $handler->display->display_options['fields']['field_image']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_image']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_image']['settings'] = array(
+    'image_style' => 'medium',
+    'image_link' => '',
+  );
+  $handler->display->display_options['fields']['field_image']['delta_limit'] = '1';
+  $handler->display->display_options['fields']['field_image']['delta_offset'] = '0';
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['title']['link_to_node'] = FALSE;
+  /* Sort criterion: Global: Random */
+  $handler->display->display_options['sorts']['random']['id'] = 'random';
+  $handler->display->display_options['sorts']['random']['table'] = 'views';
+  $handler->display->display_options['sorts']['random']['field'] = 'random';
+  /* Contextual filter: Content: Nid (exclude) */
+  $handler->display->display_options['arguments']['nid']['id'] = 'nid';
+  $handler->display->display_options['arguments']['nid']['table'] = 'node';
+  $handler->display->display_options['arguments']['nid']['field'] = 'nid';
+  $handler->display->display_options['arguments']['nid']['ui_name'] = 'Content: Nid (exclude)';
+  $handler->display->display_options['arguments']['nid']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['nid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['nid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['nid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['nid']['specify_validation'] = TRUE;
+  $handler->display->display_options['arguments']['nid']['validate']['type'] = 'node';
+  $handler->display->display_options['arguments']['nid']['validate_options']['types'] = array(
+    'product' => 'product',
+  );
+  $handler->display->display_options['arguments']['nid']['not'] = TRUE;
+  /* Contextual filter: Commerce Product: Sex (field_sex) */
+  $handler->display->display_options['arguments']['field_sex_tid']['id'] = 'field_sex_tid';
+  $handler->display->display_options['arguments']['field_sex_tid']['table'] = 'field_data_field_sex';
+  $handler->display->display_options['arguments']['field_sex_tid']['field'] = 'field_sex_tid';
+  $handler->display->display_options['arguments']['field_sex_tid']['relationship'] = 'field_product_product_id';
+  $handler->display->display_options['arguments']['field_sex_tid']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['field_sex_tid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_sex_tid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_sex_tid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['field_sex_tid']['specify_validation'] = TRUE;
+  $handler->display->display_options['arguments']['field_sex_tid']['validate']['type'] = 'taxonomy_term';
+  $handler->display->display_options['arguments']['field_sex_tid']['validate_options']['vocabularies'] = array(
+    'sex' => 'sex',
+  );
+  /* Contextual filter: Taxonomy Entity Index: Has taxonomy term ID on Commerce Product (with depth and indexed in taxonomy_entity_index) */
+  $handler->display->display_options['arguments']['taxonomy_entity_index_tid_depth']['id'] = 'taxonomy_entity_index_tid_depth';
+  $handler->display->display_options['arguments']['taxonomy_entity_index_tid_depth']['table'] = 'commerce_product';
+  $handler->display->display_options['arguments']['taxonomy_entity_index_tid_depth']['field'] = 'taxonomy_entity_index_tid_depth';
+  $handler->display->display_options['arguments']['taxonomy_entity_index_tid_depth']['relationship'] = 'field_product_product_id';
+  $handler->display->display_options['arguments']['taxonomy_entity_index_tid_depth']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['taxonomy_entity_index_tid_depth']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['taxonomy_entity_index_tid_depth']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['taxonomy_entity_index_tid_depth']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['taxonomy_entity_index_tid_depth']['specify_validation'] = TRUE;
+  $handler->display->display_options['arguments']['taxonomy_entity_index_tid_depth']['validate']['type'] = 'taxonomy_term';
+  $handler->display->display_options['arguments']['taxonomy_entity_index_tid_depth']['validate_options']['vocabularies'] = array(
+    'clothing_type' => 'clothing_type',
+    'tags' => 'tags',
+  );
+  $handler->display->display_options['arguments']['taxonomy_entity_index_tid_depth']['depth'] = '1';
+  $handler->display->display_options['arguments']['taxonomy_entity_index_tid_depth']['break_phrase'] = TRUE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'product' => 'product',
+  );
+  /* Filter criterion: Commerce Product: Stock (commerce_stock) */
+  $handler->display->display_options['filters']['commerce_stock_value']['id'] = 'commerce_stock_value';
+  $handler->display->display_options['filters']['commerce_stock_value']['table'] = 'field_data_commerce_stock';
+  $handler->display->display_options['filters']['commerce_stock_value']['field'] = 'commerce_stock_value';
+  $handler->display->display_options['filters']['commerce_stock_value']['relationship'] = 'field_product_product_id';
+  $handler->display->display_options['filters']['commerce_stock_value']['operator'] = '>';
+  $handler->display->display_options['filters']['commerce_stock_value']['value']['value'] = '0';
+
+  /* Display: Block */
+  $handler = $view->new_display('block', 'Block', 'block');
+  $export['related_products'] = $view;
 
   $view = new view();
   $view->name = 'social';
@@ -1178,6 +1534,76 @@ price Desc|highest price',
   $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['path'] = 'social';
   $export['social'] = $view;
+
+  $view = new view();
+  $view->name = 'social_block';
+  $view->description = '';
+  $view->tag = 'default';
+  $view->base_table = 'node';
+  $view->human_name = 'Social Block';
+  $view->core = 7;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Master */
+  $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['title'] = 'share the look';
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '4';
+  $handler->display->display_options['style_plugin'] = 'list';
+  $handler->display->display_options['style_options']['wrapper_class'] = '';
+  $handler->display->display_options['row_plugin'] = 'fields';
+  /* Header: Global: Unfiltered text */
+  $handler->display->display_options['header']['area_text_custom']['id'] = 'area_text_custom';
+  $handler->display->display_options['header']['area_text_custom']['table'] = 'views';
+  $handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
+  $handler->display->display_options['header']['area_text_custom']['content'] = '<p>Tag your photo #heybabies and you may see it here!</p>';
+  /* Footer: Global: Unfiltered text */
+  $handler->display->display_options['footer']['area_text_custom']['id'] = 'area_text_custom';
+  $handler->display->display_options['footer']['area_text_custom']['table'] = 'views';
+  $handler->display->display_options['footer']['area_text_custom']['field'] = 'area_text_custom';
+  $handler->display->display_options['footer']['area_text_custom']['content'] = '<a href="/social">#heybabies</a>';
+  /* Field: Content: Photo */
+  $handler->display->display_options['fields']['field_photo']['id'] = 'field_photo';
+  $handler->display->display_options['fields']['field_photo']['table'] = 'field_data_field_photo';
+  $handler->display->display_options['fields']['field_photo']['field'] = 'field_photo';
+  $handler->display->display_options['fields']['field_photo']['label'] = '';
+  $handler->display->display_options['fields']['field_photo']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['field_photo']['alter']['path'] = 'social';
+  $handler->display->display_options['fields']['field_photo']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_photo']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_photo']['settings'] = array(
+    'image_style' => 'medium',
+    'image_link' => '',
+  );
+  /* Sort criterion: Content: Post date */
+  $handler->display->display_options['sorts']['created']['id'] = 'created';
+  $handler->display->display_options['sorts']['created']['table'] = 'node';
+  $handler->display->display_options['sorts']['created']['field'] = 'created';
+  $handler->display->display_options['sorts']['created']['order'] = 'DESC';
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'social_item' => 'social_item',
+  );
+
+  /* Display: Block */
+  $handler = $view->new_display('block', 'Block', 'block');
+  $export['social_block'] = $view;
 
   $view = new view();
   $view->name = 'social_related_products';

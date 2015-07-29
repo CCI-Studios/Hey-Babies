@@ -28,5 +28,15 @@ function hey_babies_default_rules_configuration() {
       ]
     }
   }');
+  $items['rules_add_to_cart_redirect_to_cart'] = entity_import('rules_config', '{ "rules_add_to_cart_redirect_to_cart" : {
+      "LABEL" : "Add to Cart Redirect to Cart",
+      "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
+      "TAGS" : [ "commerce" ],
+      "REQUIRES" : [ "rules", "commerce_cart" ],
+      "ON" : { "commerce_cart_product_add" : [] },
+      "DO" : [ { "redirect" : { "url" : "cart" } } ]
+    }
+  }');
   return $items;
 }

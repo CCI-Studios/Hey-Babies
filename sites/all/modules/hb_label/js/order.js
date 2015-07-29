@@ -1,7 +1,7 @@
 (function($){
     $(function(){
-        $(".entity-commerce-order").before("<form action='' method='post' id='order_product_scan' style='display:block; margin-bottom:1em;'><label>Scan products in this order: <input type='text' class='form-text' /></label></form>");
-        $("form#order_product_scan").on("submit", formSubmit).find("input").focus();
+        $(".page-admin .entity-commerce-order").before("<form action='' method='post' id='order_product_scan' style='display:block; margin-bottom:1em;'><label>Scan products in this order: <input type='text' class='form-text' /></label></form>");
+        $(".page-admin form#order_product_scan").on("submit", formSubmit).find("input").focus();
     });
     
     function formSubmit()

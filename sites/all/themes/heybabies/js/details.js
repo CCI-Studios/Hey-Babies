@@ -14,7 +14,7 @@
             slide: 'li',
             dots: false,
             arrows: false,
-            slidesToShow: 8,
+            slidesToShow: 5,
             slidesToScroll: 1,
             focusOnSelect: true,
             vertical: true,

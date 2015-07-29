@@ -1,0 +1,32 @@
+.navigation
+{
+    position: relative;
+}
+.page-wrapper
+{
+    padding-top: 0;
+}
+
+.block-search-form .search-button a,
+.block-system-user-menu a.account-icon
+{
+    font-size: 0;
+    padding-left: 0;
+    padding-right: 0;
+    width: 57px;
+    background-position: center center;
+}
+
+.block-commerce-cart-cart .block-content
+{
+    a
+    {
+        font-size: 0;
+    }
+    .num
+    {
+        font-size: 18px;
+        margin-left: 0;
+        vertical-align: middle;
+    }
+}

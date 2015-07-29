@@ -34,7 +34,105 @@ function heybabies_form_alter(&$form, &$form_state, $form_id)
     }
     else if (substr($form_id, 0, 30) == 'commerce_cart_add_to_cart_form')
     {
-        $form['submit']['#value'] = 'add to bag';
+        if ($form['#attributes']['class']['stock'] != 'out-of-stock')
+        {
+            $form['submit']['#value'] = 'add to bag';
+        }
+        else
+        {
+            $form['submit']['#value'] = 'item sold';
+        }
+    }
+    else if ($form_id == 'views_form_commerce_cart_form_default')
+    {
+        unset($form['actions']['submit']);
+    }
+    else if ($form_id == 'commerce_checkout_form_checkout')
+    {
+        $form['#attached']['js'][] = drupal_get_path('theme', 'heybabies') . '/js/checkout.js';
+        unset($form['buttons']['cancel']);
+        unset($form['buttons']['#type']);
+        $form['buttons']['continue']['#value'] = 'continue';
+        
+        $form['customer_profile_shipping']['heading'] = array('#markup'=>'<h2>shipping</h2>', '#weight'=>-100);
+        $form['customer_profile_billing']['heading'] = array('#markup'=>'<h2>billing</h2>', '#weight'=>-100);
+        
+        if (isset($form['account']))
+        {
+            $form['account']['login']['mail']['#type'] = 'emailfield';
+            $form['account']['login']['mail']['#title'] = 'email';
+            $form['account']['login']['mail']['#attributes']['placeholder'] = 'email';
+            $form['account']['login']['#prefix'] = '<div class="account-login-container"><h2>contact</h2>';
+        }
+        foreach (array('customer_profile_shipping', 'customer_profile_billing') as $profile)
+        {
+            $form[$profile]['commerce_customer_address']['und'][0]['name_block']['name_line']['#title'] = 'your name';
+            $form[$profile]['commerce_customer_address']['und'][0]['name_block']['name_line']['#attributes']['placeholder'] = 'your name';
+            $form[$profile]['commerce_customer_address']['und'][0]['street_block']['thoroughfare']['#title'] = 'address';
+            $form[$profile]['commerce_customer_address']['und'][0]['street_block']['thoroughfare']['#attributes']['placeholder'] = 'address';
+            $form[$profile]['commerce_customer_address']['und'][0]['street_block']['premise']['#title'] = 'address 2';
+            $form[$profile]['commerce_customer_address']['und'][0]['street_block']['premise']['#attributes']['placeholder'] = 'address 2';
+            $form[$profile]['commerce_customer_address']['und'][0]['locality_block']['locality']['#title'] = 'city';
+            $form[$profile]['commerce_customer_address']['und'][0]['locality_block']['locality']['#attributes']['placeholder'] = 'city';
+            $form[$profile]['commerce_customer_address']['und'][0]['locality_block']['administrative_area']['#title'] = 'province';
+            $form[$profile]['commerce_customer_address']['und'][0]['locality_block']['postal_code']['#title'] = 'postal code';
+            $form[$profile]['commerce_customer_address']['und'][0]['locality_block']['postal_code']['#attributes']['placeholder'] = 'postal code';
+            if (empty($form[$profile]['commerce_customer_address']['und'][0]['locality_block']['administrative_area']['#value']))
+            {
+                $form[$profile]['commerce_customer_address']['und'][0]['locality_block']['administrative_area']['#value'] = 'ON';
+            }
+            $form[$profile]['field_phone_number']['und'][0]['value']['#attributes']['placeholder'] = 'phone number';
+        }
+    }
+    else if ($form_id == 'commerce_checkout_form_shipping')
+    {    
+        foreach($form['commerce_shipping']['shipping_service'] as $key=>$value)
+        {
+            if (isset($form['commerce_shipping']['shipping_service'][$key]['#description']))
+            {
+                unset($form['commerce_shipping']['shipping_service'][$key]['#description']);
+            }
+        }
+        foreach($form['commerce_shipping']['shipping_service']['#options'] as $key=>$value)
+        {
+            if (substr($value, 0, 10) == 'Shipping: ')
+            {
+                $form['commerce_shipping']['shipping_service']['#options'][$key] = substr($value, 10);
+            }
+        }
+        unset($form['buttons']['#type']);
+        $form['buttons']['continue']['#value'] = 'continue';
+        $form['buttons']['back']['#value'] = 'back';
+        unset($form['buttons']['back']['#prefix']);
+    }
+    else if ($form_id == 'commerce_checkout_form_review')
+    {
+        unset($form['help']);
+        unset($form['checkout_review']['review']['#data']['cart_contents']['title']);
+        $form['commerce_payment']['heading'] = array('#markup'=>'<h2>payment</h2>', '#weight'=>-100);
+        
+        unset($form['buttons']['#type']);
+        $form['buttons']['continue']['#value'] = 'place order';
+        $form['buttons']['back']['#value'] = 'back';
+        unset($form['buttons']['back']['#prefix']);
+        
+        $form['commerce_payment']['payment_details']['credit_card']['owner']['#title'] = 'cardholder name';
+        $form['commerce_payment']['payment_details']['credit_card']['owner']['#attributes']['placeholder'] = 'cardholder name';
+        $form['commerce_payment']['payment_details']['credit_card']['number']['#title'] = 'card number';
+        $form['commerce_payment']['payment_details']['credit_card']['number']['#attributes']['placeholder'] = 'card number';
+        $form['commerce_payment']['payment_details']['#prefix'] = '<div class="payment-details-form">';
+        $form['commerce_payment']['payment_details']['credit_card']['exp_month']['#title'] = 'expiry';
+        $form['commerce_payment']['payment_details']['credit_card']['code']['#title'] = 'security code';
+        $form['commerce_payment']['payment_details']['credit_card']['code']['#attributes']['placeholder'] = 'security code';
+        
+        if (count($form['commerce_payment']['payment_method']['#options'] == 1))
+        {
+            $form['commerce_payment']['payment_method']['#attributes']['class'][] = 'hidden';
+        }
+        
+        $form['checkout_review']['review']['#data']['account']['title'] = 'contact';
+        $form['checkout_review']['review']['#data']['customer_profile_shipping']['title'] = 'shipping';
+        $form['checkout_review']['review']['#data']['customer_profile_billing']['title'] = 'billing';
     }
 }
 
@@ -47,10 +145,14 @@ function heybabies_preprocess_html(&$vars)
     {
         $vars['classes_array'][] = 'path-' . drupal_clean_css_identifier($alias);
     }
-    
-    if (in_array($aliases[0], array('new','girls','boys','moms')))
+    $menu_item = menu_get_item();
+    if ($menu_item['page_callback'] == 'views_page' && !empty($menu_item['page_arguments']) && $menu_item['page_arguments'][0] == 'products')
     {
         $vars['classes_array'][] = 'product-listing';
+    }
+    else
+    {
+        $vars['classes_array'][] = 'not-product-listing';
     }
 }
 
@@ -89,10 +191,8 @@ function heybabies_pager($variables)
     }
     // End of generation loop preparation.
 
-    //$li_first = theme('pager_first', array('text' => (isset($tags[0]) ? $tags[0] : t('« first')), 'element' => $element, 'parameters' => $parameters));
     $li_previous = theme('pager_previous', array('text' => (isset($tags[1]) ? $tags[1] : t('‹ previous')), 'element' => $element, 'interval' => 1, 'parameters' => $parameters));
     $li_next = theme('pager_next', array('text' => (isset($tags[3]) ? $tags[3] : t('next ›')), 'element' => $element, 'interval' => 1, 'parameters' => $parameters));
-    //$li_last = theme('pager_last', array('text' => (isset($tags[4]) ? $tags[4] : t('last »')), 'element' => $element, 'parameters' => $parameters));
 
     if ($pager_total[$element] > 1) {
       if ($li_previous) {
@@ -154,5 +254,59 @@ function heybabies_pager($variables)
         'attributes' => array('class' => array('pager')),
       ));
     }
+}
+
+function heybabies_menu_local_task($variables)
+{
+    $link = $variables['element']['#link'];
+    $link_text = $link['title'];
+    if ($link_text == 'View') return;
+
+    if (!empty($variables['element']['#active'])) {
+        // Add text to indicate active tab for non-visual users.
+        $active = '<span class="element-invisible">' . t('(active tab)') . '</span>';
+
+        // If the link does not contain HTML already, check_plain() it now.
+        // After we set 'html'=TRUE the link will not be sanitized by l().
+        if (empty($link['localized_options']['html'])) {
+            $link['title'] = check_plain($link['title']);
+        }
+        $link['localized_options']['html'] = TRUE;
+        $link_text = t('!local-task-title!active', array('!local-task-title' => $link['title'], '!active' => $active));
+    }
+
+    return '<li' . (!empty($variables['element']['#active']) ? ' class="active"' : '') . '>' . l($link_text, $link['href'], $link['localized_options']) . "</li>\n";
+}
+
+function heybabies_commerce_checkout_review($variables)
+{
+    $form = $variables['form'];
+    $rows = '<div class="review-information">';
+    foreach ($form['#data'] as $pane_id => $data)
+    {
+        if ($pane_id == 'account')
+        {
+            $pane_id = 'checkout_account';
+        }
+        $rows .= '<div class="'.$pane_id.'">';
+        if (isset($data['title']))
+        {
+            $rows .= '<h2>'.strtolower($data['title']).'</h2>';
+        }
+        if (is_array($data['data']))
+        {
+            foreach($data['data'] as $key=>$value)
+            {
+                $rows .= '<div class="field-content">'.$value.'</div>';
+            }
+        }
+        else
+        {
+            $rows .= $data['data'];
+        }
+        $rows .= '</div>';
+    }
+    $rows .= '</div>';
+    return $rows;
 }
 ?>

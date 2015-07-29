@@ -3,6 +3,7 @@ description = Hey Babies Custom
 core = 7.x
 
 scripts[] = js/headers.js
+scripts[] = js/menu.js
 scripts[] = js/search.js
 scripts[] = js/filters.js
 scripts[] = js/social.js

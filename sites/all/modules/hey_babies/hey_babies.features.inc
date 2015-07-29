@@ -87,6 +87,38 @@ function hey_babies_views_api($module = NULL, $api = NULL) {
 function hey_babies_image_default_styles() {
   $styles = array();
 
+  // Exported image style: product_detail.
+  $styles['product_detail'] = array(
+    'label' => 'Product detail',
+    'effects' => array(
+      4 => array(
+        'name' => 'image_scale',
+        'data' => array(
+          'width' => 520,
+          'height' => 620,
+          'upscale' => 0,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
+  // Exported image style: product_detail_thumb.
+  $styles['product_detail_thumb'] = array(
+    'label' => 'Product detail thumb',
+    'effects' => array(
+      3 => array(
+        'name' => 'image_scale',
+        'data' => array(
+          'width' => 50,
+          'height' => 50,
+          'upscale' => 0,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
   // Exported image style: product_thumb.
   $styles['product_thumb'] = array(
     'label' => 'Product thumb',
@@ -97,6 +129,21 @@ function hey_babies_image_default_styles() {
           'width' => 200,
           'height' => 200,
           'upscale' => 0,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
+  // Exported image style: social_large.
+  $styles['social_large'] = array(
+    'label' => 'Social large',
+    'effects' => array(
+      5 => array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 540,
+          'height' => 540,
         ),
         'weight' => 1,
       ),
@@ -137,6 +184,14 @@ function hey_babies_node_info() {
     ),
     'product' => array(
       'name' => t('Product'),
+      'base' => 'node_content',
+      'description' => '',
+      'has_title' => '1',
+      'title_label' => t('Title'),
+      'help' => '',
+    ),
+    'social_item' => array(
+      'name' => t('Social Item'),
       'base' => 'node_content',
       'description' => '',
       'has_title' => '1',
