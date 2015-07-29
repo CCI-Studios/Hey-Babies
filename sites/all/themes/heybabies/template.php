@@ -50,6 +50,10 @@ function heybabies_form_alter(&$form, &$form_state, $form_id)
     else if ($form_id == 'commerce_checkout_form_checkout')
     {
         $form['#attached']['js'][] = drupal_get_path('theme', 'heybabies') . '/js/checkout.js';
+        
+        unset($form['commerce_coupon']['coupon_code']['#description']);
+        $form['commerce_coupon']['coupon_code']['#title'] = 'discount code';
+        
         unset($form['buttons']['cancel']);
         unset($form['buttons']['#type']);
         $form['buttons']['continue']['#value'] = 'continue';

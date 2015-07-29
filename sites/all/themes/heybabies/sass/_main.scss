@@ -1528,6 +1528,10 @@ div.messages
     }
 }
 
+.path-checkout .title
+{
+    text-transform: lowercase;
+}
 .view-commerce-cart-summary
 {
     float: right;
@@ -1591,9 +1595,45 @@ div.messages
         line-height: 2;
     }
 }
-.path-checkout .title
+.commerce_coupon
 {
-    text-transform: lowercase;
+    float: right;
+    clear: right;
+    width: 300px;
+    padding-top: 10px;
+    // border-top: 2px solid $seafoam;
+    
+    .form-item
+    {
+        border-bottom: 1px solid $seafoam;
+        margin: 0;
+    }
+    label
+    {
+        font-weight: 100;
+        float: left;
+        width: 40%;
+        color: $seafoam;
+        line-height: 2;
+        margin-right: -2px;
+    }
+    input
+    {
+        display: block;
+        width: 50%;
+        padding: 0 5%;
+        border: 0;
+        outline-color: $seafoam;
+        color: $seafoam;
+        font-size: 1em;
+        line-height: 2;
+        font-weight: 100;
+        
+        &.error
+        {
+            border-width: 1px;
+        }
+    }
 }
 .customer_profile_shipping,
 .customer_profile_billing,
