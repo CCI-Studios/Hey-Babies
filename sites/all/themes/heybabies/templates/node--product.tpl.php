@@ -39,7 +39,7 @@ foreach (array($clothing_type_parent, $clothing_type) as $term)
 }(document, 'script', 'facebook-jssdk'));</script>
 <div class="fb-share-button" data-layout="button"></div>
 
-<a href="https://twitter.com/share" class="twitter-share-button" data-via="heybabies" data-count="none" data-hashtags="heybabies" data-dnt="true">Tweet</a>
+<a href="https://twitter.com/share" class="twitter-share-button" data-via="heybabiesinc" data-count="none" data-hashtags="heybabies" data-dnt="true">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
 <a href="//www.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark" ><img src="//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_gray_20.png" /></a>

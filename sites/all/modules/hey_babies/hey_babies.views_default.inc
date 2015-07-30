@@ -675,21 +675,6 @@ price Desc|highest price',
   $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all_label'] = 'view all';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
-  /* Header: Global: Result summary */
-  $handler->display->display_options['header']['result']['id'] = 'result';
-  $handler->display->display_options['header']['result']['table'] = 'views';
-  $handler->display->display_options['header']['result']['field'] = 'result';
-  $handler->display->display_options['header']['result']['content'] = '<div class="view-summary">
-<div class="link-new"><a href="">new</a></div>
-<div class="summary">showing items @start - @end of @total</div>
-<div class="link-all"><a href="?items_per_page=All">view all</a></div>
-</div>';
-  /* Header: Global: Unfiltered text */
-  $handler->display->display_options['header']['area_text_custom_2']['id'] = 'area_text_custom_2';
-  $handler->display->display_options['header']['area_text_custom_2']['table'] = 'views';
-  $handler->display->display_options['header']['area_text_custom_2']['field'] = 'area_text_custom';
-  $handler->display->display_options['header']['area_text_custom_2']['label'] = 'show filters';
-  $handler->display->display_options['header']['area_text_custom_2']['content'] = '<a href="#" class="show-filters">shop by</a>';
   /* Header: Global: View area */
   $handler->display->display_options['header']['view']['id'] = 'view';
   $handler->display->display_options['header']['view']['table'] = 'views';
@@ -826,6 +811,13 @@ price Desc|highest price',
   );
   $handler->display->display_options['filters']['field_sex_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_sex_tid']['vocabulary'] = 'sex';
+  /* Filter criterion: Commerce Product: Stock (commerce_stock) */
+  $handler->display->display_options['filters']['commerce_stock_value']['id'] = 'commerce_stock_value';
+  $handler->display->display_options['filters']['commerce_stock_value']['table'] = 'field_data_commerce_stock';
+  $handler->display->display_options['filters']['commerce_stock_value']['field'] = 'commerce_stock_value';
+  $handler->display->display_options['filters']['commerce_stock_value']['relationship'] = 'field_product_product_id';
+  $handler->display->display_options['filters']['commerce_stock_value']['operator'] = '>';
+  $handler->display->display_options['filters']['commerce_stock_value']['value']['value'] = '0';
   /* Filter criterion: Commerce Product: Size (field_size) */
   $handler->display->display_options['filters']['field_size_tid']['id'] = 'field_size_tid';
   $handler->display->display_options['filters']['field_size_tid']['table'] = 'field_data_field_size';
@@ -845,13 +837,6 @@ price Desc|highest price',
   $handler->display->display_options['filters']['field_size_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_size_tid']['vocabulary'] = 'size';
   $handler->display->display_options['filters']['field_size_tid']['error_message'] = FALSE;
-  /* Filter criterion: Commerce Product: Stock (commerce_stock) */
-  $handler->display->display_options['filters']['commerce_stock_value']['id'] = 'commerce_stock_value';
-  $handler->display->display_options['filters']['commerce_stock_value']['table'] = 'field_data_commerce_stock';
-  $handler->display->display_options['filters']['commerce_stock_value']['field'] = 'commerce_stock_value';
-  $handler->display->display_options['filters']['commerce_stock_value']['relationship'] = 'field_product_product_id';
-  $handler->display->display_options['filters']['commerce_stock_value']['operator'] = '>';
-  $handler->display->display_options['filters']['commerce_stock_value']['value']['value'] = '0';
 
   /* Display: Page (girls) */
   $handler = $view->new_display('page', 'Page (girls)', 'page_girls');
@@ -1003,10 +988,11 @@ price Desc|highest price',
   $handler->display->display_options['filters']['field_size_tid']['expose']['label'] = 'size';
   $handler->display->display_options['filters']['field_size_tid']['expose']['operator'] = 'field_size_tid_op';
   $handler->display->display_options['filters']['field_size_tid']['expose']['identifier'] = 'size';
+  $handler->display->display_options['filters']['field_size_tid']['expose']['remember'] = TRUE;
   $handler->display->display_options['filters']['field_size_tid']['expose']['multiple'] = TRUE;
   $handler->display->display_options['filters']['field_size_tid']['expose']['remember_roles'] = array(
     2 => '2',
-    1 => 0,
+    1 => '1',
     3 => 0,
   );
   $handler->display->display_options['filters']['field_size_tid']['type'] = 'select';

@@ -97,7 +97,7 @@
       <div class="content"><div><div>
         <a id="main-content"></a>
         <?php print render($title_prefix); ?>
-        <?php if ($title): ?><h1 class="title" class="page-title"><?php print $title; ?></h1><?php endif; ?>
+        <?php if ($title): ?><h1 class="title" class="page-title"><div><?php print $title; ?></div></h1><?php endif; ?>
         <?php print render($title_suffix); ?>
         <?php print $messages; ?>
         <?php if ($tabs): ?><div class="action-tabs"><?php print render($tabs); ?></div><?php endif; ?>
