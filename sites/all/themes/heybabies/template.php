@@ -92,7 +92,7 @@ function heybabies_form_alter(&$form, &$form_state, $form_id)
     {    
         foreach($form['commerce_shipping']['shipping_service'] as $key=>$value)
         {
-            if (isset($form['commerce_shipping']['shipping_service'][$key]['#description']))
+            if (isset($form['commerce_shipping']['shipping_service'][$key]['#description']) && !empty($form['commerce_shipping']['shipping_service'][$key]['#description']))
             {
                 unset($form['commerce_shipping']['shipping_service'][$key]['#description']);
             }
@@ -137,6 +137,10 @@ function heybabies_form_alter(&$form, &$form_state, $form_id)
         $form['checkout_review']['review']['#data']['account']['title'] = 'contact';
         $form['checkout_review']['review']['#data']['customer_profile_shipping']['title'] = 'shipping';
         $form['checkout_review']['review']['#data']['customer_profile_billing']['title'] = 'billing';
+    }
+    else if ($form_id == 'user_profile_form')
+    {
+        $form['#attributes']['class'][] = 'edit-account';
     }
 }
 
@@ -312,5 +316,10 @@ function heybabies_commerce_checkout_review($variables)
     }
     $rows .= '</div>';
     return $rows;
+}
+
+function heybabies_js_alter(&$js)
+{
+    unset($js[drupal_get_path('module', 'user').'/user.js']);
 }
 ?>

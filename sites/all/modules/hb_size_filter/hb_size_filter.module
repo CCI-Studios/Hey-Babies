@@ -7,7 +7,7 @@ function hb_size_filter_views_pre_view(&$view, &$display_id, &$args)
         {
             $view->exposed_input = array();
         }
-        if (isset($_COOKIE['SESSsize']))
+        if (isset($_COOKIE['SESSsize']) && $_COOKIE['SESSsize'])
         {
             $sizes = explode('+', $_COOKIE['SESSsize']);
             $view->exposed_input['size'] = $sizes;

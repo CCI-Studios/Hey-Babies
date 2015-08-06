@@ -64,8 +64,8 @@ function easypost_commerce_checkout_pane_info() {
 function easypost_commerce_shipping_method_info() {
   $shipping_methods = array();
 
-  $shipping_methods['easypost_shipping_method'] = array(
-    'title' => t('EasyPost shipping method'),
+  $shipping_methods['easypost'] = array(
+    'title' => t('EasyPost'),
     'description' => t('Provides integration into the EasyPost Shipping API.'),
   );
 
@@ -77,12 +77,11 @@ function easypost_commerce_shipping_method_info() {
  */
 function easypost_commerce_shipping_service_info() {
   $shipping_services = array();
-
-  $shipping_services['easypost_shipping_service'] = array(
-    'title' => t('EasyPost shipping service'),
+  
+  $shipping_services['easypost_shipping_upsstandard'] = array(
+    'title' => t('UPS Standard'),
     'description' => t('A dynamic service rate which is set during checkout.'),
-    'display_title' => t('EasyPost'),
-    'shipping_method' => 'easypost_shipping_method',
+    'shipping_method' => 'easypost',
     'price_component' => 'shipping',
     'callbacks' => array(
       'rate' => 'easypost_service_rate',
@@ -97,11 +96,42 @@ function easypost_commerce_shipping_service_info() {
  * is selected by the customer.
  */
 function easypost_service_rate($shipping_service, $order) {
-  return array(
-    'amount' => 0,
-    'currency_code' => 'USD',
-    'data' => array(),
-  );
+    $full_service_name = $shipping_service['name'];
+    $service_name = substr($full_service_name, strrpos($full_service_name, '_')+1);
+    
+    $rates = commerce_shipping_rates_cache_get('easypost', $order, variable_get('commerce_easypost_cache_timeout', 60));
+    
+    if (!$rates && _easypost_return_status())
+    {
+        $profile_id = $order->commerce_customer_shipping['und'][0]['profile_id'];
+        $addresses = _easypost_return_addresses($profile_id);
+
+        // Return parcel objects.
+        $parcels = _easypost_parcel_params($order);
+        foreach ($parcels as $parcel) {
+          $shipment_params = array(
+            'from_address' => $addresses['from_address'],
+            'to_address' => $addresses['to_address'],
+            'parcel' => $parcel,
+          );
+
+          $shipment = \EasyPost\Shipment::create($shipment_params);
+          $raw_rates = $shipment->get_rates();
+
+          foreach ($raw_rates->rates as $rate) {
+            $rates[strtolower($rate['service'])] = array(
+              'amount' => $rate['rate']*100,
+              'currency_code' => 'CAD',
+              'data' => array(),
+            );
+          }
+        }
+        
+        // Cache these rates.
+        commerce_shipping_rates_cache_set('easypost', $order, $rates);
+    }
+    
+    return isset($rates[$service_name]) ? $rates[$service_name] : FALSE;
 }
 
 /**
@@ -209,7 +239,5 @@ function _easypost_parcel_params($order) {
  * Implements hook_form_alter().
  */
 function easypost_form_commerce_checkout_form_shipping_alter(&$form, $form_state) {
-  // Attach ajax wrapper for commerce shipping services.
-  $form['commerce_shipping']['shipping_service']['#prefix'] = '<div id="commerce-shipping-ajax-wrapper">';
-  $form['commerce_shipping']['shipping_service']['#suffix'] = '</div>';
+  unset($form['commerce_shipping']['shipping_service']['#ajax']);
 }
