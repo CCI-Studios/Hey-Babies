@@ -1,0 +1,74 @@
+.form-type-textfield,
+.form-type-password
+{
+    border-bottom: 1px solid $seafoam;
+    
+    label
+    {
+        float: left;
+        width: 33.333%;
+        color: $seafoam;
+        line-height: 2;
+        margin-right: -2px;
+        font-weight: 500;
+        text-align: left;
+    }
+    input
+    {
+        display: block;
+        width: 63.666%;
+        padding: 0 1.5%;
+        border: 0;
+        background: none;
+        color: #333;
+        outline-color: $seafoam;
+        font-weight: 100;
+        font-size: 1em;
+        line-height: 2;
+        
+        &.error
+        {
+            border-width: 1px;
+        }
+    }
+}
+
+.form-required
+{
+    display: none;
+}
+
+.form-actions input
+{
+    display: inline-block;
+    min-width: 120px;
+    padding: 0 20px;
+    text-align: center;
+    background: $seafoam;
+    border-radius: 4px;
+    -webkit-apperance: none;
+    text-decoration: none;
+    cursor: pointer;
+    color: white;
+    font-weight: 500;
+    border: 0;
+    font-size: 1em;
+    line-height: 40px;
+    outline-color: $seafoam;
+    
+    &:hover
+    {
+        background: #8ac5ab;
+    }
+}
+
+.edit-account
+{
+    max-width: 480px;
+    margin: 0 auto;
+    
+    .form-actions
+    {
+        text-align: center;
+    }
+}

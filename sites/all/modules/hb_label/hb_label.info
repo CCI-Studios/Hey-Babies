@@ -1,0 +1,4 @@
+name = Hey Babies (Custom) Inventory Label Printing
+description = Print an inventory label for a product.
+core = 7.x
+version = "7.x-1.x"

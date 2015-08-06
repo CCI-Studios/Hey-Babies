@@ -1,0 +1,50 @@
+.view-social
+{
+    .popup
+    {
+        width: 100%;
+        height: 480px;
+        margin-top: -240px;
+        margin-left: 0;
+        left: 0;
+    }
+    .popup-arrow
+    {
+        margin-top: -302px;
+    }
+    .popup-close
+    {
+        margin-top: -302px;
+    }
+    .popup-prev
+    {
+        left: 20px;
+        margin-left: 0;
+    }
+    .popup-next
+    {
+        right: 20px;
+        margin-right: 0;
+    }
+    .photo img
+    {
+        width: 480px;
+        height: 480px;
+    }
+    .right
+    {
+        padding: 20px;
+    }
+    .social-username
+    {
+        margin-bottom: 10px;
+    }
+    .shop-link a
+    {
+        margin-top: 10px;
+    }
+}
+.view-social-related-products
+{
+    margin-top: 10px;
+}

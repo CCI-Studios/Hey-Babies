@@ -1,0 +1,22 @@
+@media screen and (min-width: 1200px)
+{
+    @import "responsive-min1200";
+}
+@media screen and (min-width: 1400px)
+{
+    @import "responsive-min1400";
+}
+
+
+@media screen and (max-width: 1000px)
+{
+    @import "responsive-max1000";
+}
+@media screen and (max-width: 860px)
+{
+    @import "responsive-max860";
+}
+@media screen and (max-width: 680px)
+{
+    @import "responsive-max680";
+}

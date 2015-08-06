@@ -1,0 +1,4 @@
+name = Hey Babies (Custom) Size Filter for Views
+description = Filter size saved to SESSION
+core = 7.x
+version = "7.x-1.x"

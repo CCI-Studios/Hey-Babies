@@ -1,0 +1,247 @@
+<?php
+
+/**
+ * @file
+ * easypost.module
+ *
+ * @todo,
+ * - Quantity of products, I.E. 3 of product X and 1 of product B
+ * - Support predefined packages via field on product entity
+ * - Pass customer selected service rate as shipping rate
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function easypost_menu() {
+  $items['admin/commerce/config/easypost'] = array(
+    'title' => 'Administer EasyPost Settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('easypost_admin_settings_form'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'includes/easypost.admin.inc',
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
+ 
+/**
+ * Implements hook_libraries_info().
+ */
+function easypost_libraries_info() {
+  return array(
+    'easypost' => array(
+      'name' => 'EasyPost API',
+      'vendor url' => 'https://www.easypost.com',
+      'download url' => 'https://github.com/EasyPost/easypost-php',
+      'version' => '2.0',
+      'xautoload' => function($api) {
+        $api->namespaceRoot('EasyPost', 'lib');
+      },
+    ),
+  );
+}
+
+/**
+ * Implements hook_commerce_checkout_pane_info().
+ */
+function easypost_commerce_checkout_pane_info() {
+  $checkout_panes['checkout_easypost'] = array(
+    'title' => t('EasyPost'),
+    'file' => 'includes/easypost.checkout_pane.inc', 
+    'base' => 'easypost_pane',
+    'page' => 'checkout', 
+    'fieldset' => FALSE,
+  );
+
+  return $checkout_panes;
+}
+
+/**
+ * Implements hook_commerce_shipping_method_info().
+ */
+function easypost_commerce_shipping_method_info() {
+  $shipping_methods = array();
+
+  $shipping_methods['easypost'] = array(
+    'title' => t('EasyPost'),
+    'description' => t('Provides integration into the EasyPost Shipping API.'),
+  );
+
+  return $shipping_methods;
+}
+
+/**
+ * Implements hook_commerce_shipping_service_info().
+ */
+function easypost_commerce_shipping_service_info() {
+  $shipping_services = array();
+  
+  $shipping_services['easypost_shipping_upsstandard'] = array(
+    'title' => t('UPS Standard'),
+    'description' => t('A dynamic service rate which is set during checkout.'),
+    'shipping_method' => 'easypost',
+    'price_component' => 'shipping',
+    'callbacks' => array(
+      'rate' => 'easypost_service_rate',
+    ),
+  );
+
+  return $shipping_services;
+}
+
+/**
+ * Shipping service callback: holds an empty amount until a carrier & service
+ * is selected by the customer.
+ */
+function easypost_service_rate($shipping_service, $order) {
+    $full_service_name = $shipping_service['name'];
+    $service_name = substr($full_service_name, strrpos($full_service_name, '_')+1);
+    
+    $rates = commerce_shipping_rates_cache_get('easypost', $order, variable_get('commerce_easypost_cache_timeout', 60));
+    
+    if (!$rates && _easypost_return_status())
+    {
+        $profile_id = $order->commerce_customer_shipping['und'][0]['profile_id'];
+        $addresses = _easypost_return_addresses($profile_id);
+
+        // Return parcel objects.
+        $parcels = _easypost_parcel_params($order);
+        foreach ($parcels as $parcel) {
+          $shipment_params = array(
+            'from_address' => $addresses['from_address'],
+            'to_address' => $addresses['to_address'],
+            'parcel' => $parcel,
+          );
+
+          $shipment = \EasyPost\Shipment::create($shipment_params);
+          $raw_rates = $shipment->get_rates();
+
+          foreach ($raw_rates->rates as $rate) {
+            $rates[strtolower($rate['service'])] = array(
+              'amount' => $rate['rate']*100,
+              'currency_code' => 'CAD',
+              'data' => array(),
+            );
+          }
+        }
+        
+        // Cache these rates.
+        commerce_shipping_rates_cache_set('easypost', $order, $rates);
+    }
+    
+    // print '<pre>';
+    // print_r($order);
+    // exit;
+    
+    return isset($rates[$service_name]) ? $rates[$service_name] : FALSE;
+}
+
+/**
+ * Set EasyPost API key.
+ */
+function _easypost_return_status() {
+  $status = FALSE;
+
+  $variable = variable_get('easypost_apikey', 'test');
+  if ($api_key = variable_get('easypost_' . $variable . '_apikey', FALSE)) {
+    \EasyPost\EasyPost::setApiKey($api_key);
+
+    $status = TRUE;
+  }
+  else {
+    drupal_set_message(t('No EasyPost API key found.'), 'warning');
+  }
+
+  return $status;
+}
+
+/**
+ * Query EasyPost API & create address objects for both seller & customer.
+ */
+function _easypost_return_addresses($profile_id) {
+  $addresses = FALSE;
+
+  if ($country = variable_get('easypost_country', FALSE)) {
+    $from_address_params = array(
+      'name' => 'Admin',
+      'street1' => variable_get('easypost_address_one', ''),
+      'sreet2' => variable_get('easypost_address_two', 'New Farm'),
+      'city' => variable_get('easypost_locality', ''),
+      'state' => variable_get('easypost_state', ''),
+      'zip' => variable_get('easypost_postalcode', ''),
+      'country' => variable_get('easypost_country', '')
+    );
+
+    $addresses['from_address'] = \EasyPost\Address::create($from_address_params);
+  }
+
+  $customer = commerce_customer_profile_load($profile_id);
+  if ($customer) {
+    $to_address_params = array(
+      'name' => $customer->commerce_customer_address['und'][0]['name_line'],
+      'street1' => $customer->commerce_customer_address['und'][0]['premise'],
+      'sreet2' => $customer->commerce_customer_address['und'][0]['thoroughfare'],
+      'city' => $customer->commerce_customer_address['und'][0]['locality'],
+      'state' => $customer->commerce_customer_address['und'][0]['administrative_area'],
+      'zip' => $customer->commerce_customer_address['und'][0]['postal_code'],
+      'country' => $customer->commerce_customer_address['und'][0]['country']
+    );
+
+    $addresses['to_address'] = \EasyPost\Address::create($to_address_params);
+ }
+
+  return $addresses;
+}
+
+/**
+ * Find each products physical attribute fields, dimensions & weight.
+ * @todo, Allow admin to pick dimensions measurement and convert?
+ */
+function _easypost_parcel_params($order) {
+  global $language;
+
+  // @todo, Admin picks entity/ bundle?
+  $fields_info = field_info_instances('commerce_product', 'product');
+  foreach ($fields_info as $field_name => $value) {
+    $field_info = field_info_field($field_name);
+    if ($field_info['type'] == 'physical_dimensions') {
+      $field_dimensions = $field_name;
+    }
+    if ($field_info['type'] == 'physical_weight') {
+      $field_weight = $field_name;
+    }
+  }
+
+  // Load product entity.
+  foreach (entity_metadata_wrapper('commerce_order', $order)->commerce_line_items as $delta => $line_item_wrapper) {
+    if (in_array($line_item_wrapper->type->value(), commerce_product_line_item_types())) {
+      $product = commerce_product_load($line_item_wrapper->commerce_product->raw());
+      $dimensions[$product->product_id] = $product->{$field_dimensions}['und'][0];
+      $dimensions[$product->product_id] += $product->{$field_weight}['und'][0];
+    }
+  }
+
+  // Create a parcel for each product.
+  foreach ($dimensions as $product_id => $value) {
+    $parcel_params = array(
+      'length' => $value['length'],
+      'width' => $value['width'],
+      'height' => $value['height'],
+      'predefined_package' => NULL,
+      'weight' => $value['weight'],
+    );
+
+    $parcel[$product_id] = \EasyPost\Parcel::create($parcel_params);
+  }
+
+  return $parcel;
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function easypost_form_commerce_checkout_form_shipping_alter(&$form, $form_state) {
+  unset($form['commerce_shipping']['shipping_service']['#ajax']);
+}

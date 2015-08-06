@@ -1,0 +1,22 @@
+name = Hey Babies
+description = Hey Babies Custom
+core = 7.x
+
+scripts[] = js/headers.js
+scripts[] = js/menu.js
+scripts[] = js/search.js
+scripts[] = js/filters.js
+scripts[] = js/social.js
+
+stylesheets[all][] = css/screen.css
+
+regions[navigation] = Navigation
+regions[header] = Header
+regions[help] = Help
+regions[content] = Content
+regions[sidebar] = Sidebar
+regions[footer] = Footer
+regions[footer2] = Footer Bottom
+
+settings[magic_css_excludes] = system/system.menus.css
+settings[magic_footer_js] = 1

@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Hey Babies feature.
+ */
+
+include_once 'hey_babies.features.inc';
