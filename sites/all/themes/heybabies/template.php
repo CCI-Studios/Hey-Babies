@@ -92,7 +92,7 @@ function heybabies_form_alter(&$form, &$form_state, $form_id)
     {    
         foreach($form['commerce_shipping']['shipping_service'] as $key=>$value)
         {
-            if (isset($form['commerce_shipping']['shipping_service'][$key]['#description']) && !empty($form['commerce_shipping']['shipping_service'][$key]['#description']))
+            if (is_array($form['commerce_shipping']['shipping_service'][$key]) && isset($form['commerce_shipping']['shipping_service'][$key]['#description']))
             {
                 unset($form['commerce_shipping']['shipping_service'][$key]['#description']);
             }
