@@ -141,12 +141,6 @@ function heybabies_form_alter(&$form, &$form_state, $form_id)
     else if ($form_id == 'user_profile_form')
     {
         $form['#attributes']['class'][] = 'edit-account';
-<<<<<<< HEAD
-        // print '<pre>';
-        // print htmlspecialchars(print_r($form, true));
-        // exit;
-=======
->>>>>>> 1dcf1b5543f64f04b18ecebc6d8eed529b820ff4
     }
 }
 
