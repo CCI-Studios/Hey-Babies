@@ -131,10 +131,6 @@ function easypost_service_rate($shipping_service, $order) {
         commerce_shipping_rates_cache_set('easypost', $order, $rates);
     }
     
-    // print '<pre>';
-    // print_r($order);
-    // exit;
-    
     return isset($rates[$service_name]) ? $rates[$service_name] : FALSE;
 }
 
