@@ -232,6 +232,47 @@ function hey_babies_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance:
+  // 'commerce_order-commerce_order-field_tracking_number'
+  $field_instances['commerce_order-commerce_order-field_tracking_number'] = array(
+    'bundle' => 'commerce_order',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'administrator' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 8,
+      ),
+    ),
+    'entity_type' => 'commerce_order',
+    'field_name' => 'field_tracking_number',
+    'label' => 'Tracking Number',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => -1,
+    ),
+  );
+
   // Exported field_instance: 'commerce_product-product-commerce_price'
   $field_instances['commerce_product-product-commerce_price'] = array(
     'bundle' => 'product',
@@ -1839,6 +1880,7 @@ function hey_babies_field_default_field_instances() {
   t('Stock');
   t('Tags');
   t('Text position');
+  t('Tracking Number');
   t('Username');
   t('eg. /girls/tops/hoodies');
 

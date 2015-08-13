@@ -38,5 +38,16 @@ function hey_babies_default_rules_configuration() {
       "DO" : [ { "redirect" : { "url" : "cart" } } ]
     }
   }');
+  $items['rules_validate_maximum_1_coupon'] = entity_import('rules_config', '{ "rules_validate_maximum_1_coupon" : {
+      "LABEL" : "Validate maximum 1 coupon",
+      "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
+      "REQUIRES" : [ "commerce_coupon" ],
+      "ON" : { "commerce_coupon_validate" : [] },
+      "DO" : [
+        { "commerce_coupon_action_remove_all_coupons_from_order" : { "commerce_order" : [ "commerce_order" ] } }
+      ]
+    }
+  }');
   return $items;
 }
