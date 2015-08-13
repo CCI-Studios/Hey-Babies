@@ -25,6 +25,7 @@
         font-weight: 100;
         font-size: 1em;
         line-height: 2;
+        margin: 0;
         
         &.error
         {
@@ -70,5 +71,46 @@
     .form-actions
     {
         text-align: center;
+    }
+}
+
+#user-login,
+#user-register-form,
+#user-pass
+{
+    max-width: 360px;
+    margin: 0 auto;
+    
+    label
+    {
+        text-transform: lowercase;
+    }
+    .description
+    {
+        display: none;
+    }
+    .form-submit
+    {
+        text-transform: lowercase;
+        margin: 0 auto;
+        width: 100%;
+        padding: 0;
+        display: block;
+    }
+    .forgot_pass
+    {
+        text-align: right;
+        margin-top: 0.75em;
+    }
+}
+#user-pass
+{
+    label
+    {
+        width: 40.333%;
+    }
+    input
+    {
+        width: 56.666%;
     }
 }

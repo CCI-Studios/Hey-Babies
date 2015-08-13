@@ -1731,12 +1731,13 @@ div.addressfield-container-inline
 .commerce_shipping
 {
     label[for^=edit-commerce-shipping-shipping-service-ups],
-    label[for^=edit-commerce-shipping-shipping-service-easypost-shipping-ups]
+    label[for^=edit-commerce-shipping-shipping-service-easypost-ups]
     {
         padding-left: 24px;
         background: url(../img/logo_ups.svg) no-repeat 2px center;
     }
-    label[for^=edit-commerce-shipping-shipping-service-canadapost]
+    label[for^=edit-commerce-shipping-shipping-service-canadapost],
+    label[for^=edit-commerce-shipping-shipping-service-easypost-cpc]
     {
         padding-left: 24px;
         background: url(../img/logo_cpc.svg) no-repeat 0 center;

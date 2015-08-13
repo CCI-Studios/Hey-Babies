@@ -28,7 +28,49 @@ function heybabies_commerce_cart_empty_block()
 
 function heybabies_form_alter(&$form, &$form_state, $form_id)
 {
-    if ($form_id == 'search_block_form')
+    if ($form_id == 'user_login')
+    {
+        drupal_set_title(t('Log in'));
+        
+        $form['name']['#attributes']['placeholder'] = 'username';
+        $form['pass']['#attributes']['placeholder'] = 'password';
+        $form['actions']['forgot_pass'] = array(
+            '#markup' => '<div class="forgot_pass"><a href="/user/password">forgot password?</a></div>',
+        );
+    }
+    else if ($form_id == 'user_profile_form')
+    {
+        unset($form['account']['name']['#description']);
+        unset($form['account']['pass']['#description']);
+        unset($form['account']['mail']['#description']);
+        unset($form['account']['current_pass']['#description']);
+        unset($form['mimemail']);
+        unset($form['timezone']);
+    }
+    else if ($form_id == 'user_register_form')
+    {
+        drupal_set_title(t('Register'));
+        
+        unset($form['account']['name']['#description']);
+        unset($form['account']['mail']['#description']);
+        $form['account']['name']['#attributes']['placeholder'] = 'username';
+        $form['account']['name']['#title'] = 'username';
+        $form['account']['mail']['#attributes']['placeholder'] = 'email';
+        $form['account']['mail']['#title'] = 'email';
+    }
+    else if ($form_id == 'user_pass')
+    {
+        drupal_set_title(t('Reset password'));
+        
+        $form['name']['#attributes']['placeholder'] = 'username or email';
+        $form['name']['#title'] = 'username or email';
+        $form['description'] = array(
+            '#markup' => t('Submit your username or email address to receive a link to reset your password.'),
+            '#weight' => 0,
+        );
+        $form['actions']['submit']['#value'] = 'reset password';
+    }
+    else if ($form_id == 'search_block_form')
     {
         $form['search_block_form']['#attributes']['placeholder'] = 'Search';
     }
@@ -58,6 +100,8 @@ function heybabies_form_alter(&$form, &$form_state, $form_id)
         unset($form['buttons']['#type']);
         $form['buttons']['continue']['#value'] = 'continue';
         
+        $form['customer_profile_shipping']['addressbook']['#title'] = 'saved addresses';
+        unset($form['customer_profile_shipping']['addressbook']['#description']);
         $form['customer_profile_shipping']['heading'] = array('#markup'=>'<h2>shipping</h2>', '#weight'=>-100);
         $form['customer_profile_billing']['heading'] = array('#markup'=>'<h2>billing</h2>', '#weight'=>-100);
         
@@ -89,21 +133,25 @@ function heybabies_form_alter(&$form, &$form_state, $form_id)
         }
     }
     else if ($form_id == 'commerce_checkout_form_shipping')
-    {    
-        foreach($form['commerce_shipping']['shipping_service'] as $key=>$value)
+    {
+        if (isset($form['commerce_shipping']) && isset($form['commerce_shipping']['shipping_service']))
         {
-            if (is_array($form['commerce_shipping']['shipping_service'][$key]) && isset($form['commerce_shipping']['shipping_service'][$key]['#description']))
+            foreach($form['commerce_shipping']['shipping_service'] as $key=>$value)
             {
-                unset($form['commerce_shipping']['shipping_service'][$key]['#description']);
+                if (is_array($form['commerce_shipping']['shipping_service'][$key]) && isset($form['commerce_shipping']['shipping_service'][$key]['#description']))
+                {
+                    unset($form['commerce_shipping']['shipping_service'][$key]['#description']);
+                }
+            }
+            foreach($form['commerce_shipping']['shipping_service']['#options'] as $key=>$value)
+            {
+                if (substr($value, 0, 10) == 'Shipping: ')
+                {
+                    $form['commerce_shipping']['shipping_service']['#options'][$key] = substr($value, 10);
+                }
             }
         }
-        foreach($form['commerce_shipping']['shipping_service']['#options'] as $key=>$value)
-        {
-            if (substr($value, 0, 10) == 'Shipping: ')
-            {
-                $form['commerce_shipping']['shipping_service']['#options'][$key] = substr($value, 10);
-            }
-        }
+        
         unset($form['buttons']['#type']);
         $form['buttons']['continue']['#value'] = 'continue';
         $form['buttons']['back']['#value'] = 'back';

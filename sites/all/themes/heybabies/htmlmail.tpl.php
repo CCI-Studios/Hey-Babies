@@ -45,7 +45,7 @@ $theme = $base.'/'.drupal_get_path('theme', 'heybabies');
     
     
     <a href="<?php print $base;?>" style="display:block; text-align:center; padding: 20px 0; border-bottom: 1px solid #e6e6e6;">
-        <img src='<?php print $theme;?>/img/hb-logo2.png' width='160' height='117' alt='Hey Babies' />
+        <img src='<?php print $theme;?>/img/hb-logo2.png' width='160' height='117' alt='' />
     </a>
     <table class="container" width="600" style="margin:30px auto;font-size:14px;" border="0" cellpadding="0"><tr><td>
         <?php print $body; ?>
