@@ -44,21 +44,6 @@ function easypost_libraries_info() {
 }
 
 /**
- * Implements hook_commerce_checkout_pane_info().
- */
-function easypost_commerce_checkout_pane_info() {
-  $checkout_panes['checkout_easypost'] = array(
-    'title' => t('EasyPost'),
-    'file' => 'includes/easypost.checkout_pane.inc', 
-    'base' => 'easypost_pane',
-    'page' => 'checkout', 
-    'fieldset' => FALSE,
-  );
-
-  return $checkout_panes;
-}
-
-/**
  * Implements hook_commerce_shipping_method_info().
  */
 function easypost_commerce_shipping_method_info() {
@@ -78,13 +63,78 @@ function easypost_commerce_shipping_method_info() {
 function easypost_commerce_shipping_service_info() {
   $shipping_services = array();
   
-  $shipping_services['easypost_shipping_upsstandard'] = array(
-    'title' => t('UPS Standard'),
-    'description' => t('A dynamic service rate which is set during checkout.'),
+  $shipping_services['easypost_cpc_expeditedparcel'] = array(
+    'title' => t('Canada Post Expedited Parcel'),
     'shipping_method' => 'easypost',
     'price_component' => 'shipping',
     'callbacks' => array(
       'rate' => 'easypost_service_rate',
+    ),
+    'data' => array(
+        'carrier_label' => 'Canada Post',
+        'service_label' => 'Expedited Parcel',
+        'carrier_code' => 'CanadaPost',
+        'service_code' => 'ExpeditedParcel',
+    ),
+  );
+  
+  $shipping_services['easypost_cpc_xpresspost'] = array(
+    'title' => t('Canada Post XpressPost'),
+    'shipping_method' => 'easypost',
+    'price_component' => 'shipping',
+    'callbacks' => array(
+      'rate' => 'easypost_service_rate',
+    ),
+    'data' => array(
+        'carrier_label' => 'Canada Post',
+        'service_label' => 'Xpresspost',
+        'carrier_code' => 'CanadaPost',
+        'service_code' => 'Xpresspost',
+    ),
+  );
+  
+  $shipping_services['easypost_cpc_priority'] = array(
+    'title' => t('Canada Post Priority'),
+    'shipping_method' => 'easypost',
+    'price_component' => 'shipping',
+    'callbacks' => array(
+      'rate' => 'easypost_service_rate',
+    ),
+    'data' => array(
+        'carrier_label' => 'Canada Post',
+        'service_label' => 'Priority',
+        'carrier_code' => 'CanadaPost',
+        'service_code' => 'Priority',
+    ),
+  );
+  
+  $shipping_services['easypost_ups_upsstandard'] = array(
+    'title' => t('UPS Standard'),
+    'shipping_method' => 'easypost',
+    'price_component' => 'shipping',
+    'callbacks' => array(
+      'rate' => 'easypost_service_rate',
+    ),
+    'data' => array(
+        'carrier_label' => 'UPS',
+        'service_label' => 'Standard',
+        'carrier_code' => 'UPS',
+        'service_code' => 'UPSStandard',
+    ),
+  );
+  
+  $shipping_services['easypost_ups_2nddayair'] = array(
+    'title' => t('UPS 2nd Day Air'),
+    'shipping_method' => 'easypost',
+    'price_component' => 'shipping',
+    'callbacks' => array(
+      'rate' => 'easypost_service_rate',
+    ),
+    'data' => array(
+        'carrier_label' => 'UPS',
+        'service_label' => '2nd Day Air',
+        'carrier_code' => 'UPS',
+        'service_code' => '2ndDayAir',
     ),
   );
 
@@ -101,37 +151,29 @@ function easypost_service_rate($shipping_service, $order) {
     
     $rates = commerce_shipping_rates_cache_get('easypost', $order, variable_get('commerce_easypost_cache_timeout', 60));
     
-    if (!$rates && _easypost_return_status())
+    if (!$rates)
     {
-        $profile_id = $order->commerce_customer_shipping['und'][0]['profile_id'];
-        $addresses = _easypost_return_addresses($profile_id);
+        $shipment = _easypost_shipment($order);
+        $raw_rates = $shipment->get_rates();
 
-        // Return parcel objects.
-        $parcels = _easypost_parcel_params($order);
-        foreach ($parcels as $parcel) {
-          $shipment_params = array(
-            'from_address' => $addresses['from_address'],
-            'to_address' => $addresses['to_address'],
-            'parcel' => $parcel,
-          );
-
-          $shipment = \EasyPost\Shipment::create($shipment_params);
-          $raw_rates = $shipment->get_rates();
-
-          foreach ($raw_rates->rates as $rate) {
+        foreach ($raw_rates->rates as $rate) {
             $rates[strtolower($rate['service'])] = array(
-              'amount' => $rate['rate']*100,
-              'currency_code' => 'CAD',
-              'data' => array(),
+                'amount' => $rate['rate']*100,
+                'currency_code' => 'CAD',
+                'data' => array(),
             );
-          }
         }
         
         // Cache these rates.
         commerce_shipping_rates_cache_set('easypost', $order, $rates);
     }
     
-    return isset($rates[$service_name]) ? $rates[$service_name] : FALSE;
+    $rate = isset($rates[$service_name]) ? $rates[$service_name] : FALSE;
+    if ($rate)
+    {
+        $rate['data'] = $shipping_service['data'];
+    }
+    return $rate;
 }
 
 /**
@@ -156,88 +198,124 @@ function _easypost_return_status() {
 /**
  * Query EasyPost API & create address objects for both seller & customer.
  */
-function _easypost_return_addresses($profile_id) {
+function _easypost_addresses($profile_id) {
   $addresses = FALSE;
 
   if ($country = variable_get('easypost_country', FALSE)) {
     $from_address_params = array(
-      'name' => 'Admin',
+      'name' => variable_get('easypost_name', ''),
       'street1' => variable_get('easypost_address_one', ''),
-      'sreet2' => variable_get('easypost_address_two', 'New Farm'),
+      'sreet2' => variable_get('easypost_address_two', ''),
       'city' => variable_get('easypost_locality', ''),
       'state' => variable_get('easypost_state', ''),
       'zip' => variable_get('easypost_postalcode', ''),
-      'country' => variable_get('easypost_country', '')
+      'country' => variable_get('easypost_country', ''),
+      'phone' => variable_get('easypost_phone', ''),
     );
 
-    $addresses['from_address'] = \EasyPost\Address::create($from_address_params);
+    $addresses['from_address'] = $from_address_params;
   }
 
   $customer = commerce_customer_profile_load($profile_id);
   if ($customer) {
     $to_address_params = array(
       'name' => $customer->commerce_customer_address['und'][0]['name_line'],
-      'street1' => $customer->commerce_customer_address['und'][0]['premise'],
-      'sreet2' => $customer->commerce_customer_address['und'][0]['thoroughfare'],
+      'street1' => $customer->commerce_customer_address['und'][0]['thoroughfare'],
+      'sreet2' => $customer->commerce_customer_address['und'][0]['premise'],
       'city' => $customer->commerce_customer_address['und'][0]['locality'],
       'state' => $customer->commerce_customer_address['und'][0]['administrative_area'],
       'zip' => $customer->commerce_customer_address['und'][0]['postal_code'],
       'country' => $customer->commerce_customer_address['und'][0]['country']
     );
 
-    $addresses['to_address'] = \EasyPost\Address::create($to_address_params);
+    $addresses['to_address'] = $to_address_params;
  }
 
   return $addresses;
 }
 
-/**
- * Find each products physical attribute fields, dimensions & weight.
- * @todo, Allow admin to pick dimensions measurement and convert?
- */
-function _easypost_parcel_params($order) {
-  global $language;
-
-  // @todo, Admin picks entity/ bundle?
-  $fields_info = field_info_instances('commerce_product', 'product');
-  foreach ($fields_info as $field_name => $value) {
-    $field_info = field_info_field($field_name);
-    if ($field_info['type'] == 'physical_dimensions') {
-      $field_dimensions = $field_name;
+function _easypost_shipment($order, $measurements = NULL)
+{
+    _easypost_return_status();
+    $profile_id = $order->commerce_customer_shipping[LANGUAGE_NONE][0]['profile_id'];
+    $addresses = _easypost_addresses($profile_id);
+    if (!$measurements)
+    {
+        $measurements = array(
+            'length' => 16,
+            'width' => 16,
+            'height' => 8,
+            'weight' => 32,
+        );
     }
-    if ($field_info['type'] == 'physical_weight') {
-      $field_weight = $field_name;
-    }
-  }
-
-  // Load product entity.
-  foreach (entity_metadata_wrapper('commerce_order', $order)->commerce_line_items as $delta => $line_item_wrapper) {
-    if (in_array($line_item_wrapper->type->value(), commerce_product_line_item_types())) {
-      $product = commerce_product_load($line_item_wrapper->commerce_product->raw());
-      $dimensions[$product->product_id] = $product->{$field_dimensions}['und'][0];
-      $dimensions[$product->product_id] += $product->{$field_weight}['und'][0];
-    }
-  }
-
-  // Create a parcel for each product.
-  foreach ($dimensions as $product_id => $value) {
-    $parcel_params = array(
-      'length' => $value['length'],
-      'width' => $value['width'],
-      'height' => $value['height'],
-      'predefined_package' => NULL,
-      'weight' => $value['weight'],
+    $shipment_params = array(
+        'from_address' => $addresses['from_address'],
+        'to_address' => $addresses['to_address'],
+        'parcel' => $measurements,
+        'currency' => 'CAD',
     );
 
-    $parcel[$product_id] = \EasyPost\Parcel::create($parcel_params);
-  }
-
-  return $parcel;
+    return \EasyPost\Shipment::create($shipment_params);
 }
 
-/**
- * Implements hook_form_alter().
- */
-function easypost_form_commerce_checkout_form_shipping_alter(&$form, $form_state) {
-  unset($form['commerce_shipping']['shipping_service']['#ajax']);
+function easypost_generate_shipping_label($order, $measurements)
+{
+    $line_items = $order->commerce_order_total[LANGUAGE_NONE][0]['data']['components'];
+    foreach ($line_items as $line_item)
+    {
+        if ($line_item['name'] == 'shipping')
+        {
+            $data = $line_item['price']['data'];
+            $carrier = $data['carrier_code'];
+            $service = $data['service_code'];
+            
+            $shipment = _easypost_shipment($order, $measurements);
+            $rates = $shipment->get_rates();
+            
+            $selected_rate = NULL;
+            foreach ($rates->rates as $rate)
+            {
+                if ($rate['service'] == $service && $rate['carrier'] == $carrier)
+                {
+                    $selected_rate = $rate;
+                    break;
+                }
+            }
+            
+            $shipment->buy($selected_rate);
+            if ($shipment->postage_label->label_url)
+            {
+                $label_url = $shipment->postage_label->label_url;
+                if ($shipment->postage_label->label_size != '8.5x11')
+                {
+                    $shipment->label(array('file_format' => 'pdf'));
+                    $label_url = $shipment->postage_label->label_pdf_url;
+                    
+                }
+                
+                $tracking_url = '';
+                switch ($carrier)
+                {
+                    case 'UPS':
+                        $tracking_url = 'http://wwwapps.ups.com/WebTracking/track?track.x=Track&trackNums='.$shipment->tracking_code;
+                        break;
+                    case 'CanadaPost':
+                        $tracking_url = 'http://www.canadapost.ca/cpotools/apps/track/personal/findByTrackNumber?trackingNumber='.$shipment->tracking_code;
+                        break;
+                }
+                
+                return array(
+                    'label_url' => $label_url,
+                    'tracking_number' => $shipment->tracking_code,
+                    'tracking_url' => $tracking_url,
+                    'carrier' => $carrier,
+                    'service' => $service,
+                );
+            }
+            
+            break;
+        }
+    }
+    
+    return FALSE;
 }

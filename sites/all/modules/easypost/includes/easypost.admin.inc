@@ -49,6 +49,11 @@ function easypost_admin_settings_form($form, &$form_state) {
     '#prefix' => '<div id="testat">',
     '#suffix' => '</div>',
   );
+  $form['address']['easypost_name'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Name/organization'),
+    '#default_value' => variable_get('easypost_name', ''),
+  ); 
   $form['address']['easypost_country'] = array(
     '#type' => 'select',
     '#title' => t('Country'),
@@ -351,6 +356,12 @@ function easypost_admin_settings_form($form, &$form_state) {
     '#default_value' => variable_get('easypost_locality', ''),
     '#attributes' => array('class' => array('locality')),
     '#required' => TRUE,
+  );
+  
+  $form['address']['easypost_phone'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Phone number'),
+    '#default_value' => variable_get('easypost_phone', ''),
   );
 
   return system_settings_form($form);

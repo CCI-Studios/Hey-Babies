@@ -23,12 +23,18 @@ function hb_label_menu()
 
 function hb_label_permission()
 {
-    return array(
-        'print inventory labels' => array(
-            'title' => t('Print inventory labels'),
-            'description' => t('Allows access to print inventory labels for products.'),
-        ),
+    $permissions = array();
+    
+    $permissions['print inventory labels'] = array(
+        'title' => t('Print inventory labels'),
+        'description' => t('Allows access to print inventory labels for products.'),
     );
+    $permissions['print shipping labels'] = array(
+        'title' => t('Print shipping labels'),
+        'description' => t('Allows access to print shipping labels for orders.'),
+    );
+    
+    return $permissions;
 }
 
 function _hb_label_print_page($pid)
@@ -49,7 +55,7 @@ function hb_label_preprocess_views_view(&$vars)
     {
         drupal_add_js('/'.drupal_get_path('module','hb_label').'/js/popup.js');
     }
-    else if ($vars['view']->name == 'commerce_line_item_table')
+    else if ($vars['view']->name == 'line_items_admin')
     {
         drupal_add_js('/'.drupal_get_path('module','hb_label').'/js/order.js');
     }
@@ -116,4 +122,136 @@ function hb_label_coffee_commands()
     );
     
     return $commands;
+}
+
+/**
+ * Implements hook_entity_view_alter().
+ */
+function hb_label_entity_view_alter(&$build, $type)
+{
+    if ($type == 'commerce_order' && $build['#view_mode'] == 'administrator')
+    {
+        if ($build['#entity']->status == 'pending')
+        {
+            $oid = $build['#entity']->order_id;
+            $build['commerce_delivery_for_order'] = drupal_get_form('hb_label_shipping_label_form', $oid);
+        }
+    }
+}
+
+function hb_label_shipping_label_form($form, &$form_state, $oid)
+{
+    $form = array();
+    
+    $form['#access'] = user_access('print shipping labels');
+    $form['#attributes']['class'][] = 'element-invisible';
+    $form['#attributes']['target'] = '_blank';
+    
+    $form['box_size'] = array(
+        '#type' => 'radios',
+        '#title' => t('box size'),
+        '#default_value' => 'M',
+        '#required' => TRUE,
+        '#options' => array(
+            'S'=>'S',
+            'M'=>'M',
+            'L'=>'L',
+        ),
+    );
+    
+    $form['weight'] = array(
+        '#type' => 'textfield',
+        '#title' => t('weight'),
+        '#field_suffix' => 'oz',
+        '#required' => TRUE,
+        '#size' => '',
+        '#attributes' => array(
+            'required' => 'required',
+        ),
+    );
+    
+    $form['submit'] = array(
+        '#type' => 'submit',
+        '#value' => t('generate shipping label'),
+    );
+    
+    return $form;
+}
+
+function hb_label_shipping_label_form_submit($form, &$form_state)
+{
+    $oid = $form_state['build_info']['args'][0];
+    $box_size = $form_state['values']['box_size'];
+    $weight = $form_state['values']['weight'];
+    $measurements = array(
+        'weight' => $weight,
+    );
+    switch ($box_size)
+    {
+        case 'S':
+            $measurements['length'] = 8;
+            $measurements['width'] = 8;
+            $measurements['height'] = 4;
+            break;
+        
+        case 'L':
+            $measurements['length'] = 48;
+            $measurements['width'] = 24;
+            $measurements['height'] = 16;
+            break;
+        
+        case 'M':
+        default:
+            $measurements['length'] = 16;
+            $measurements['width'] = 16;
+            $measurements['height'] = 8;
+            break;
+    }
+    
+    hb_label_shipping_label($oid, $measurements);
+}    
+
+function hb_label_shipping_label($oid, $measurements)
+{
+    $order = commerce_order_load($oid);
+    module_load_include('module', 'easypost');
+    $shipping_info = easypost_generate_shipping_label($order, $measurements);
+    
+    $order->field_tracking_number[LANGUAGE_NONE][] = array('value'=>$shipping_info['tracking_number']);
+    commerce_order_save($order);
+    
+    $params = array(
+        'tracking_number' => $shipping_info['tracking_number'],
+        'tracking_url' => $shipping_info['tracking_url'],
+        'order_id' => $oid,
+        'user_id' =>$order->uid,
+    );
+    drupal_mail('hb_label', 'tracking_number', $order->mail, '', $params);
+    
+    drupal_goto($shipping_info['label_url'], array('external' => TRUE));
+}
+
+function hb_label_mail($key, &$message, $params)
+{
+    switch ($key)
+    {
+        case 'tracking_number':
+            $tracking_number = $params['tracking_number'];
+            $tracking_url = $params['tracking_url'];
+            $order_id = $params['order_id'];
+            $user_id = $params['user_id'];
+            global $base_url;
+            
+            $body = "<p>Your order has been shipped!</p>";
+            $body .= "<p>Tracking number: <a href='$tracking_url'>$tracking_number</a></p>";
+            $body .= "<p><a href='$base_url/user/$user_id/orders/$order_id'>View your order online</a></p>";
+            
+            $message['body'][] = $body;
+            
+            $message['subject'] = 'Order shipped';
+            $message['headers']['MIME-Version'] = '1.0';
+            $message['headers']['Content-Type'] = 'multipart/mixed;';
+            $message['headers']['Content-Type'] = 'text/html;';
+            break;
+    }
 }
