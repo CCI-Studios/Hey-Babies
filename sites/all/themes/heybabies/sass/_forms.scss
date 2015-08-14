@@ -65,12 +65,24 @@
 
 .edit-account
 {
-    max-width: 480px;
+    max-width: 400px;
     margin: 0 auto;
     
     .form-actions
     {
         text-align: center;
+    }
+    label
+    {
+        text-transform: lowercase;
+    }
+    .form-submit
+    {
+        text-transform: lowercase;
+        margin: 0 auto;
+        width: 100%;
+        padding: 0;
+        display: block;
     }
 }
 
@@ -78,7 +90,7 @@
 #user-register-form,
 #user-pass
 {
-    max-width: 360px;
+    max-width: 400px;
     margin: 0 auto;
     
     label
@@ -97,11 +109,6 @@
         padding: 0;
         display: block;
     }
-    .forgot_pass
-    {
-        text-align: right;
-        margin-top: 0.75em;
-    }
 }
 #user-pass
 {
@@ -113,4 +120,31 @@
     {
         width: 56.666%;
     }
+}
+.login-form
+{
+    float: left;
+    
+    .form-actions
+    {
+        margin-bottom: 0;
+    }
+    .form-item-remember-me
+    {
+        color: $seafoam;
+        float: left;
+    }
+    .forgot-pass
+    {
+        float: right;
+        text-align: right;
+    }
+}
+.register-form
+{
+    float: right;
+}
+.toboggan-unified
+{
+    overflow: hidden;
 }

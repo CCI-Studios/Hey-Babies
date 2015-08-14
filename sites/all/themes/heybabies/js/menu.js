@@ -5,5 +5,11 @@
             $(this).parent().toggleClass("open").find("> ul").slideToggle(200);
             return false;
         });
+        
+        $(".block-system-user-menu li.expanded > a").on("click", function(){
+            $(".menu-main-menu .open").not($(this).parent()).removeClass("open").find("> ul").hide();
+            $(this).parent().toggleClass("open");
+            return false;
+        });
     });
 })(jQuery);

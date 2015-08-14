@@ -216,6 +216,7 @@ tbody
         {
             display: none;
             position: absolute;
+            z-index: 100;
             top: 100%;
             left: 0;
             right: 0;
@@ -311,11 +312,112 @@ tbody
         }
     }
 }
-.block-system-user-menu a.account-icon
+.block-system-user-menu
 {
-    padding-left: 47px;
-    background: url(../img/icon-account.svg) no-repeat 19px center;
+    a.account-icon
+    {
+        padding-left: 47px;
+        background: url(../img/icon-account.svg) no-repeat 19px center;
+    }
+    
+    li.expanded
+    {
+        position: relative;
+        
+        & > a:after
+        {
+            content: "";
+            display: inline-block;
+            width: 14px;
+            height: 9px;
+            vertical-align: middle;
+            background: url(../img/arrow-down.svg) no-repeat center center;
+            margin-left: 5px;
+            margin-right: -9px;
+        }
+        
+        &.open
+        {
+            &:before
+            {
+                content: "";
+                position: absolute;
+                z-index: 102;
+                top: 100%;
+                left: 50%;
+                margin-left: -24px;
+                border-style: solid;
+                border-color: transparent transparent #cdcdcd transparent;
+                border-width: 0 24px 16px 24px;
+            }
+            &:after
+            {
+                content: "";
+                position: absolute;
+                z-index: 102;
+                top: 100%;
+                left: 50%;
+                margin-left: -22px;
+                border-style: solid;
+                border-color: transparent transparent white transparent;
+                border-width: 0 22px 16px 22px;
+            }
+            
+            ul
+            {
+                display: block;
+            }
+        }
+        
+        ul
+        {
+            display: none;
+            position: absolute;
+            z-index: 101;
+            left: 0;
+            right: 0;
+            top: 100%;
+            margin-top: 15px;
+            background: white;
+            border: 1px solid #cdcdcd;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            
+            li
+            {
+                display: block;
+                float: none;
+                border-right: 0;
+                border-bottom: 1px solid #e6e6e6;
+                
+                &.last
+                {
+                    border-bottom: 0;
+                }
+            }
+            a
+            {
+                display: block;
+                color: $seafoam;
+                text-shadow: none;
+                font-size: 1.25em;
+                font-weight: 100;
+                line-height: normal;
+                height: auto;
+                padding: 15px 20px;
+                
+                &:hover, &:focus
+                {
+                    background-color: rgba(0,0,0,0.025);
+                }
+                &:active
+                {
+                    background-color: rgba(0,0,0,0.05);
+                }
+            }
+        }
+    }
 }
+
 .block-commerce-cart-cart .block-content
 {
     & > div
@@ -1792,4 +1894,156 @@ div.addressfield-container-inline
 .confirm-parent, .password-parent
 {
     width: auto;
+}
+
+.view-commerce-addressbook
+{
+    margin-top: 2em;
+    
+    .views-row
+    {
+        padding-bottom: 1em;
+        margin-bottom: 1em;
+        border-bottom: 1px solid #ccc;
+    }
+}
+
+.page-user .action-tabs
+{
+    display: none;
+}
+
+.view-commerce-backoffice-user-orders
+{
+    table
+    {
+        width: 100%;
+    }
+    th
+    {
+        font-weight: 400;
+    }
+    td, th
+    {
+        border-bottom: 1px solid #e6e6e6;
+        padding: 10px;
+    }
+}
+
+.entity-commerce-order
+{
+    .order-status
+    {
+        float: left;
+    }
+    .tracking-info
+    {
+        float: right;
+        text-align: right;
+    }
+    .tracking-number
+    {
+        padding-left: 24px;
+        background-repeat: no-repeat;
+        background-position: left center;
+    }
+    .canadapost
+    {
+        background-image: url(../img/logo_cpc.svg);
+    }
+    .ups
+    {
+        background-image: url(../img/logo_ups.svg);
+    }
+}
+.view-products-in-an-order
+{
+    clear: both;
+    
+    .view-content
+    {
+        overflow: hidden;
+    }
+    .views-row
+    {
+        float: left;
+        width: 23%;
+        margin: 0 1% 20px 1%;
+        text-align: center;
+    }
+    .views-field-title
+    {
+        padding-top: 30px;
+        background: url(../img/icon-heart.svg) no-repeat center 14px;
+    }
+    .views-field-commerce-unit-price
+    {
+        color: #96d2b7;
+        font-weight: bold;
+        font-size: 0.777em;
+        padding-top: 4px;
+    }
+}
+
+.path-contact .block-system-main
+{
+    color: $seafoam;
+    font-size: 1.111em;
+    
+    .field-name-body
+    {
+        float: right;
+        padding-right: 100px;
+    }
+    form
+    {
+        overflow: hidden;
+        padding-right: 100px;
+    }
+    .form-item
+    {
+        border-bottom: 1px solid $seafoam;
+        overflow: hidden;
+        
+        label
+        {
+            font-weight: 100;
+            float: left;
+            width: 30%;
+            line-height: 2em;
+        }
+        input
+        {
+            width: 65%;
+            padding: 0 2.5%;
+            border: 0;
+            height: 2em;
+            line-height: 2em;
+            font-size: inherit;
+            color: inherit;
+            outline-color: $seafoam;
+            
+            &.error
+            {
+                border: 0;
+            }
+        }
+    }
+    .webform-component-markup
+    {
+        border-bottom: 0;
+    }
+    .form-submit
+    {
+        width: 200px;
+    }
+}
+#contact-map
+{
+    height: 450px;
+    
+    img[src="/sites/all/themes/heybabies/img/map-marker.svg"]
+    {
+        -webkit-filter: drop-shadow(0 2px 3px rgba(0,0,0,0.3));
+    }
 }

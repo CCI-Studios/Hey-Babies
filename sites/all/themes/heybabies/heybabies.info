@@ -6,6 +6,7 @@ scripts[] = js/headers.js
 scripts[] = js/menu.js
 scripts[] = js/search.js
 scripts[] = js/filters.js
+scripts[] = js/contact.js
 scripts[] = js/social.js
 
 stylesheets[all][] = css/screen.css

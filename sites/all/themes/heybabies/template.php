@@ -30,33 +30,45 @@ function heybabies_form_alter(&$form, &$form_state, $form_id)
 {
     if ($form_id == 'user_login')
     {
-        drupal_set_title(t('Log in'));
-        
-        $form['name']['#attributes']['placeholder'] = 'username';
+        $form['name']['#title'] = 'email';
+        $form['name']['#attributes']['placeholder'] = 'email';
         $form['pass']['#attributes']['placeholder'] = 'password';
-        $form['actions']['forgot_pass'] = array(
-            '#markup' => '<div class="forgot_pass"><a href="/user/password">forgot password?</a></div>',
+        $form['forgot_pass'] = array(
+            '#markup' => '<div class="form-item forgot-pass"><a href="/user/password">forgot password?</a></div>',
+            '#weight' => 12,
         );
+        unset($form['lost_password']);
+        
+        $form['actions']['#weight'] = 10;
+        $form['remember_me']['#weight'] = 11;
+    }
+    else if ($form_id == 'user_register_form')
+    {    
+        unset($form['account']['mail']['#description']);
+        $form['account']['mail']['#attributes']['placeholder'] = 'email';
+        $form['account']['mail']['#title'] = 'email';
+        $form['account']['pass']['#attributes']['placeholder'] = 'password';
+        $form['account']['pass']['#process'] = array('form_process_password_confirm', 'heybabies_alter_password_confirm');
     }
     else if ($form_id == 'user_profile_form')
     {
+        drupal_set_title(t('my profile'));
+        
+        $form['#attributes']['class'][] = 'edit-account';
         unset($form['account']['name']['#description']);
         unset($form['account']['pass']['#description']);
         unset($form['account']['mail']['#description']);
+        $form['account']['mail']['#title'] = 'email';
         unset($form['account']['current_pass']['#description']);
         unset($form['mimemail']);
         unset($form['timezone']);
-    }
-    else if ($form_id == 'user_register_form')
-    {
-        drupal_set_title(t('Register'));
+        $form['actions']['#weight'] = 10;
         
-        unset($form['account']['name']['#description']);
-        unset($form['account']['mail']['#description']);
-        $form['account']['name']['#attributes']['placeholder'] = 'username';
-        $form['account']['name']['#title'] = 'username';
-        $form['account']['mail']['#attributes']['placeholder'] = 'email';
-        $form['account']['mail']['#title'] = 'email';
+        $uid = $form['#user']->uid;
+        $form['addressbook'] = array(
+            '#markup' => views_embed_view('commerce_addressbook', 'default', $uid, 'shipping'),
+            '#weight' => 11,
+        );
     }
     else if ($form_id == 'user_pass')
     {
@@ -186,10 +198,13 @@ function heybabies_form_alter(&$form, &$form_state, $form_id)
         $form['checkout_review']['review']['#data']['customer_profile_shipping']['title'] = 'shipping';
         $form['checkout_review']['review']['#data']['customer_profile_billing']['title'] = 'billing';
     }
-    else if ($form_id == 'user_profile_form')
-    {
-        $form['#attributes']['class'][] = 'edit-account';
-    }
+}
+
+function heybabies_alter_password_confirm($element)
+{
+    $element['pass1']['#attributes']['placeholder'] = t('password');
+    $element['pass2']['#attributes']['placeholder'] = t('confirm password');
+    return $element;
 }
 
 function heybabies_preprocess_html(&$vars)
@@ -209,6 +224,14 @@ function heybabies_preprocess_html(&$vars)
     else
     {
         $vars['classes_array'][] = 'not-product-listing';
+    }
+}
+function heybabies_preprocess_page(&$vars)
+{
+    if (request_path() == 'contact')
+    {
+        $googleMapsAPIKey = 'AIzaSyD-iJhmhLIKsXb0cQV9WFfevNjk4zZBsI4';
+        drupal_add_js("https://maps.googleapis.com/maps/api/js?key=$googleMapsAPIKey", 'external');
     }
 }
 
@@ -369,5 +392,21 @@ function heybabies_commerce_checkout_review($variables)
 function heybabies_js_alter(&$js)
 {
     unset($js[drupal_get_path('module', 'user').'/user.js']);
+    unset($js[drupal_get_path('module', 'logintoboggan').'/logintoboggan.unifiedlogin.js']);
+}
+
+function heybabies_lt_unified_login_page($variables)
+{
+    $login_form = $variables['login_form'];
+    $register_form = $variables['register_form'];
+    $active_form = $variables['active_form'];
+    $output = '';
+
+    $output .= '<div class="toboggan-unified ' . $active_form . '">';
+    $output .= '<div class="login-form"><h2>log in</h2>' . $login_form . '</div>';
+    $output .= '<div class="register-form"><h2>register</h2>' . $register_form . '</div>';
+    $output .= '</div>';
+
+    return $output;
 }
 ?>
