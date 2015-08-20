@@ -38,6 +38,31 @@ function hey_babies_default_rules_configuration() {
       "DO" : [ { "redirect" : { "url" : "cart" } } ]
     }
   }');
+  $items['rules_redirect_after_customer_profile_save_delete'] = entity_import('rules_config', '{ "rules_redirect_after_customer_profile_save_delete" : {
+      "LABEL" : "Redirect after customer profile save\\/delete",
+      "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
+      "REQUIRES" : [ "rules", "entity" ],
+      "ON" : { "commerce_customer_profile_delete" : [] },
+      "IF" : [
+        { "entity_is_of_type" : {
+            "entity" : [ "commerce-customer-profile" ],
+            "type" : "commerce_customer_profile"
+          }
+        }
+      ],
+      "DO" : [ { "redirect" : { "url" : "user\\/me\\/edit" } } ]
+    }
+  }');
+  $items['rules_redirect_to_edit_profile_after_login'] = entity_import('rules_config', '{ "rules_redirect_to_edit_profile_after_login" : {
+      "LABEL" : "Redirect to edit profile after login",
+      "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
+      "REQUIRES" : [ "rules" ],
+      "ON" : { "user_login" : [] },
+      "DO" : [ { "redirect" : { "url" : "user\\/me\\/edit", "force" : "0" } } ]
+    }
+  }');
   $items['rules_validate_maximum_1_coupon'] = entity_import('rules_config', '{ "rules_validate_maximum_1_coupon" : {
       "LABEL" : "Validate maximum 1 coupon",
       "PLUGIN" : "reaction rule",
