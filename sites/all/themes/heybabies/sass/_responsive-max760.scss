@@ -81,3 +81,46 @@
         padding-right: 0;
     }
 }
+
+.view-social
+{
+    .popup
+    {
+        height: auto;
+        top: 82px;
+        bottom: 0;
+        margin-top: 0;
+        background: none;
+        overflow-y: auto;
+    }
+    .popup-button
+    {
+        top: 20px;
+        margin-top: 0;
+        z-index: 102;
+    }
+    .popup-arrow
+    {
+        width: 42px;
+        background-position: center center;
+    }
+    .photo
+    {
+        float: none;
+        max-width: 480px;
+        margin: 0 auto;
+        
+        img
+        {
+            width: 100%;
+            height: auto;
+        }
+    }
+    .right
+    {
+        background: white;
+        float: none;
+        max-width: 440px;
+        margin: 0 auto;
+    }
+}
