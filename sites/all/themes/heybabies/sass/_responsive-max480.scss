@@ -1,0 +1,191 @@
+.logo
+{
+    background: url(../img/hb-logo-white.svg) no-repeat center center;
+    width: 60px;
+    
+    img
+    {
+        display: none;
+    }
+}
+
+.title
+{
+    padding-top: 30px;
+}
+.header-logo
+{
+    display: none;
+}
+.not-front.not-product-listing .block-system-main
+{
+    padding: 30px;
+}
+
+.view-products-in-an-order .views-row
+{
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.entity-commerce-order
+{
+    .tracking-info,
+    .order-status
+    {
+        float: none;
+        text-align: left;
+    }
+}
+
+.block-menu-menu-footer-menu .block-content ul ul
+{
+    float: none;
+    width: auto;
+    text-align: center;
+}
+.block-menu-menu-footer-bottom-menu
+{
+    float: none;
+    width: 192px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+.copyright
+{
+    float: none;
+    text-align: center;
+}
+.footer-logo
+{
+    position: static;
+    margin-left: 0;
+    text-align: center;
+    padding: 8px 0;
+}
+
+.block.quote .quote-text
+{
+    font-size: 2em;
+    padding: 0 20px;
+    width: auto;
+}
+
+.block.contributions
+{
+    .block-content
+    {
+        width: auto;
+        padding: 0 20px;
+    }
+    .node-content
+    {
+        width: auto;
+    }
+    .webform-component-textfield,
+    .webform-component-email,
+    .webform-component-date
+    {
+        float: none;
+        width: auto;
+        margin: 0;
+    }
+}
+
+.view-front-headers .slick-arrow
+{
+    width: 15px;
+    background-size: contain;
+}
+
+.form-type-textfield,
+.form-type-password,
+.edit-account .form-type-select,
+.customer_profile_shipping,
+.customer_profile_billing,
+.account.form-wrapper,
+.payment-details-form,
+.commerce_payment .payment-details-form
+{
+    label
+    {
+        width: auto;
+        float: none;
+        margin: 0;
+    }
+}
+
+.customer_profile_shipping,
+.customer_profile_billing,
+.account.form-wrapper,
+.payment-details-form,
+{
+    .form-type-textfield,
+    .form-type-emailfield
+    {
+        padding-right: 2px;
+        
+        input
+        {
+            width: 97%;
+            padding: 0 1.5%;
+        }
+    }
+}
+
+.view-products > .view-content > .views-row
+{
+    width: 100%;
+    float: none;
+}
+
+.view-social > .view-content > .views-row
+{
+    width: 100%;
+    float: none;
+}
+
+.view-products .view-filters .views-widget-filter-field_size_tid .form-checkboxes
+{
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+}
+
+#user-login,
+#user-register-form,
+#user-pass
+{
+    label
+    {
+        width: 100%;
+    }
+    .form-type-textfield,
+    .form-type-password
+    {
+        padding-right: 2px;
+        
+        input
+        {
+            width: 95%;
+            padding: 0 2.5%;
+        }
+    }
+}
+
+.path-contact .block-system-main .form-item
+{
+    padding-right: 2px;
+    
+    label
+    {
+        float: none;
+        width: auto;
+    }
+    input
+    {
+        width: 95%;
+        padding: 0 2.5%;
+    }
+}

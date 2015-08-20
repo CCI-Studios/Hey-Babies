@@ -48,3 +48,70 @@
 {
     margin-top: 10px;
 }
+
+#user-profile-form
+{
+    .edit-account,
+    .form-actions
+    {
+        float: none;
+        margin-right: auto;
+        margin-left: auto;
+    }
+}
+.view-commerce-addressbook
+{
+    margin: 2em auto 0 auto;
+}
+
+.view-products > .view-content > .views-row
+{
+    width: 33.333%;
+}
+
+.view-social > .view-content > .views-row
+{
+    width: 33.333%;
+}
+
+.login-form,
+.register-form
+{
+    width: 47%;
+}
+.login-form
+{
+    margin-right: 3%;
+}
+.register-form
+{
+    margin-left: 3%;
+}
+#user-login,
+#user-register-form
+{
+    label
+    {
+        width: 40%;
+    }
+    .form-type-textfield,
+    .form-type-password
+    {
+        input
+        {
+            width: 57%;
+        }
+    }
+}
+
+img.our-story
+{
+    width: 300px !important;
+    height: auto !important;
+    margin-bottom: 30px;
+}
+
+.path-contact .block-system-main form
+{
+    padding-right: 60px;
+}

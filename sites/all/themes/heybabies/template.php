@@ -49,12 +49,14 @@ function heybabies_form_alter(&$form, &$form_state, $form_id)
         $form['account']['mail']['#title'] = 'email';
         $form['account']['pass']['#attributes']['placeholder'] = 'password';
         $form['account']['pass']['#process'] = array('form_process_password_confirm', 'heybabies_alter_password_confirm');
+        
+        $form['actions']['submit']['#value'] = t('signup');
     }
     else if ($form_id == 'user_profile_form')
     {
         drupal_set_title(t('my profile'));
         
-        $form['#attributes']['class'][] = 'edit-account';
+        $form['account']['#attributes']['class'][] = 'edit-account';
         unset($form['account']['name']['#description']);
         unset($form['account']['pass']['#description']);
         unset($form['account']['mail']['#description']);
@@ -400,11 +402,21 @@ function heybabies_lt_unified_login_page($variables)
     $login_form = $variables['login_form'];
     $register_form = $variables['register_form'];
     $active_form = $variables['active_form'];
+    
+    $login_form = '<div class="login-form"><h2>log in</h2>' . $login_form . '</div>';
+    $register_form = '<div class="register-form"><h2>signup</h2>' . $register_form . '</div>';
+    
     $output = '';
-
+    
     $output .= '<div class="toboggan-unified ' . $active_form . '">';
-    $output .= '<div class="login-form"><h2>log in</h2>' . $login_form . '</div>';
-    $output .= '<div class="register-form"><h2>register</h2>' . $register_form . '</div>';
+    if ($active_form == 'login')
+    {
+        $output .= $login_form . $register_form;
+    }
+    else
+    {
+        $output .= $register_form . $login_form;
+    }
     $output .= '</div>';
 
     return $output;

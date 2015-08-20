@@ -1,7 +1,9 @@
 .form-type-textfield,
-.form-type-password
+.form-type-password,
+.edit-account .form-type-select
 {
     border-bottom: 1px solid $seafoam;
+    overflow: hidden;
     
     label
     {
@@ -63,18 +65,29 @@
     }
 }
 
-.edit-account
+#user-profile-form
 {
-    max-width: 400px;
-    margin: 0 auto;
+    overflow: hidden;
     
+    .edit-account,
     .form-actions
     {
-        text-align: center;
+        max-width: 400px;
+        float: left;
+        margin-right: 80px;
+        
+        .form-actions
+        {
+            text-align: center;
+        }
+        label
+        {
+            text-transform: lowercase;
+        }
     }
-    label
+    .form-actions
     {
-        text-transform: lowercase;
+        clear: left;
     }
     .form-submit
     {
@@ -83,6 +96,11 @@
         width: 100%;
         padding: 0;
         display: block;
+    }
+    
+    .view-commerce-addressbook
+    {
+        overflow: hidden;
     }
 }
 

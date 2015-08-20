@@ -16,7 +16,19 @@
 {
     @import "responsive-max860";
 }
+@media screen and (max-width: 760px)
+{
+    @import "responsive-max760";
+}
 @media screen and (max-width: 680px)
 {
     @import "responsive-max680";
+}
+@media screen and (max-width: 480px)
+{
+    @import "responsive-max480";
+}
+@media screen and (max-width: 360px)
+{
+    @import "responsive-max360";
 }

@@ -13,3 +13,27 @@
         margin-right: -410px;
     }
 }
+
+.view-product-node
+{
+    .details-container
+    {
+        width: auto;
+        float: none;
+        margin-bottom: 2em;
+    }
+    .images-container
+    {
+        float: left;
+    }
+    .views-field-field-image-1,
+    .views-field-field-image
+    {
+        float: right;
+    }
+}
+
+.view-products-in-an-order .views-row
+{
+    width: 31.333%;
+}

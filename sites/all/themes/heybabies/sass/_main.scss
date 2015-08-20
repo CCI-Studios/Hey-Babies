@@ -106,6 +106,10 @@ tbody
     padding-top: 100px;
 }
 
+.float-right
+{
+    float: right;
+}
 .navigation
 {
     position: fixed;
@@ -140,11 +144,11 @@ tbody
     
     &:hover, &:focus
     {
-        background: rgba(0,0,0,0.05)
+        background-color: rgba(0,0,0,0.05)
     }
     &:active
     {
-        background: rgba(0,0,0,0.1);
+        background-color: rgba(0,0,0,0.1);
     }
     
     img
@@ -268,7 +272,7 @@ tbody
 }
 .region-navigation
 {
-    float: right;
+    float: left;
     font-size: 0.888em;
     
     .block
@@ -438,7 +442,7 @@ tbody
         background: rgba(255,255,255,0.3);
         border-radius: 3px;
         padding: 0 8px;
-        margin-left: 10px;
+        margin-left: 5px;
         height: 24px;
         line-height: 24px;
     }
@@ -470,8 +474,12 @@ tbody
     width: 100%;
     background: #b8e3d0;
     box-shadow: 0 4px 4px rgba(0,0,0,0.1);
-    z-index: 10;
+    z-index: 101;
     
+    .form-item
+    {
+        border-bottom: 0;
+    }
     .form-text
     {
         background: transparent url(../img/icon-search.svg) no-repeat 15px center;
@@ -550,6 +558,7 @@ tbody
 {
     background: white;
     overflow: hidden;
+    clear: both;
 }
 .not-front.not-product-listing .block-system-main
 {
@@ -596,7 +605,7 @@ tbody
 {
     float: left;
     width: 80%;
-    max-width: 540px;
+    max-width: 520px;
     
     .block-content
     {
@@ -1011,7 +1020,7 @@ tbody
     {
         float: left;
         width: 52px;
-        margin-right: 20px;
+        margin-right: 8px;
         
         li
         {
@@ -1034,10 +1043,10 @@ tbody
     
     .views-field-field-image-1
     {
-        float: left;
+        float: right;
         width: 520px;
-        margin-right: 20px;
         position: relative;
+        margin-right: 20px;
         
         li
         {
@@ -1084,7 +1093,7 @@ tbody
         line-height: 0.9;
         padding-bottom: 12px;
         
-        h2
+        h1
         {
             font-size: 2.5em;
         }
@@ -1146,6 +1155,11 @@ tbody
                 background: #ccc;
             }
         }
+    }
+    .details-container
+    {
+        width: 340px;
+        float: right;
     }
 }
 
@@ -1560,7 +1574,7 @@ div.messages
 {
     .view-content
     {
-        padding: 30px 0;
+        padding: 20px 0;
         
         ul
         {
@@ -1569,7 +1583,11 @@ div.messages
         li
         {
             display: inline-block;
-            margin: 0 10px;
+            margin: 10px;
+        }
+        img
+        {
+            display: block;
         }
     }
     .view-footer a
@@ -1868,7 +1886,7 @@ div.addressfield-container-inline
             display: block;
             border: 0;
             font-size: 1em;
-            width: 63.666%;
+            width: 61.666%;
             padding: 0 1.5%;
             outline-color: $seafoam;
             line-height: 2;
@@ -1884,7 +1902,7 @@ div.addressfield-container-inline
     label
     {
         float: left;
-        width: 33.333%;
+        width: 35.333%;
         color: $seafoam;
         font-weight: 500;
         line-height: 2;
@@ -1899,6 +1917,7 @@ div.addressfield-container-inline
 .view-commerce-addressbook
 {
     margin-top: 2em;
+    max-width: 300px;
     
     .views-row
     {
@@ -2046,4 +2065,37 @@ div.addressfield-container-inline
     {
         -webkit-filter: drop-shadow(0 2px 3px rgba(0,0,0,0.3));
     }
+}
+
+.mobile-menu-btn
+{
+    display: none;
+    float: left;
+    padding: 5px 0;
+    
+    a
+    {
+        font-size: 0;
+        display: block;
+        width: 57px;
+        height: 40px;
+        background: url(../img/btn-menu.svg) no-repeat center center;
+        text-decoration: none;
+        border-left: 1px solid #c6e6d0;
+        
+        &:hover, &:focus
+        {
+            background-color: rgba(0,0,0,0.05);
+        }
+        &:active
+        {
+            background-color: rgba(0,0,0,0.1);
+        }
+    }
+}
+
+img.our-story
+{
+    margin-bottom: 220px;
+    margin-left: 60px;
 }

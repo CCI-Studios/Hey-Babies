@@ -79,13 +79,19 @@
         <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" class="logo">
           <img src="<?php print $base_path.$directory; ?>/img/hb-logo-white-horizontal.svg" alt="Hey Babies" />
         </a>
-        <?php print render($page['navigation']); ?>
+        <div class="float-right">
+            <?php print render($page['navigation']); ?>
+            <div class="mobile-menu-btn">
+                <a href="#">toggle menu</a>
+            </div>
+        </div>
         <div class="menu-main-menu">
             <?php
             $mainmenu = menu_tree('main-menu');
             print drupal_render($mainmenu);
             ?>
         </div>
+        <div class="clearfix"></div>
     </div></div></div>
 
     <div class="header"><div><div>
@@ -121,8 +127,8 @@
       </div>
       <div class="footer-bottom">
         <?php print render($page['footer2']); ?>
-        <div class="footer-logo"><a href="<?php print $front_page; ?>"><img src="<?php print $base_path.$directory; ?>/img/hb-logo-white.svg" alt="" /></a></div>
         <div class="copyright">&copy; hey babies <?php print date('Y'); ?></div>
+        <div class="footer-logo"><a href="<?php print $front_page; ?>"><img src="<?php print $base_path.$directory; ?>/img/hb-logo-white.svg" alt="" /></a></div>
       </div>
     </div></div></div> <!-- /.footer -->
 

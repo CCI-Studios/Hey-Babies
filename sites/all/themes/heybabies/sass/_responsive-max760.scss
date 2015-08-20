@@ -1,0 +1,83 @@
+.mobile-hidden
+{
+    display: none;
+}
+
+.view-commerce-cart-summary,
+.commerce_coupon,
+.customer_profile_shipping,
+.customer_profile_billing,
+.account.form-wrapper,
+.checkout_account,
+.commerce_payment
+{
+    float: none;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 400px;
+}
+.customer_profile_shipping
+{
+    padding-top: 2em;
+}
+
+.checkout-continue
+{
+    display: block;
+    margin: 0 auto;
+}
+
+.block-menu-menu-footer-menu
+{
+    float: none;
+    width: auto;
+    max-width: none;
+}
+.block-menu-menu-footer-social-menu
+{
+    float: none;
+    width: 176px;
+    margin: 0 auto;
+    padding-top: 30px;
+    clear: both;
+}
+
+.login-form,
+.register-form
+{
+    float: none;
+    width: auto;
+    margin: 0;
+    overflow: hidden;
+    margin-bottom: 40px;
+    
+    h2
+    {
+        text-align: center;
+    }
+}
+.page-user-login,
+.page-user-register
+{
+    .title
+    {
+        display: none;
+    }
+    .main-wrapper .block-system-main
+    {
+        padding-top: 0;
+    }
+}
+
+.path-contact .block-system-main
+{
+    .field-name-body
+    {
+        float: none;
+        padding-right: 0;
+    }
+    form
+    {
+        padding-right: 0;
+    }
+}

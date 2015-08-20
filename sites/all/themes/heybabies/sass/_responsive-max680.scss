@@ -1,6 +1,7 @@
 .navigation
 {
     position: relative;
+    min-height: 50px;
 }
 .page-wrapper
 {
@@ -17,6 +18,84 @@
     background-position: center center;
 }
 
+.mobile-menu-btn
+{
+    display: block;
+}
+.menu-main-menu
+{
+    display: none;
+    background: white;
+    text-align: right;
+    box-shadow: 0 3px 3px rgba(0,0,0,0.2);
+    
+    li
+    {
+        display: block;
+        margin: 0;
+        padding: 0;
+    }
+    
+    a
+    {
+        color: $seafoam;
+        text-shadow: none;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        height: auto;
+        line-height: normal;
+        
+        &:hover
+        {
+            background-color: rgba(0,0,0,0.025);
+        }
+        &:active
+        {
+            background-color: rgba(0,0,0,0.05);
+        }
+    }
+    
+    &>ul>li
+    {
+        border-bottom: 1px solid $seafoam;
+        
+        &.expanded>a:after
+        {
+            background-image: url(../img/arrow-down-seafoam.svg);
+            margin-right: 0;
+            vertical-align: baseline;
+        }
+        &.open>a:after
+        {
+            background-image: url(../img/arrow-up-seafoam.svg);
+        }
+        
+        & > ul
+        {
+            position: static;
+            box-shadow: none;
+            padding: 0;
+            text-align: right;
+            
+            & > li
+            {
+                float: none;
+                width: auto;
+                padding: 0;
+                
+                & > a
+                {
+                    border-bottom: 0;
+                }
+                a
+                {
+                    padding: 10px 60px;
+                }
+            }
+        }
+    }
+}
+
 .block-commerce-cart-cart .block-content
 {
     a
@@ -28,5 +107,153 @@
         font-size: 18px;
         margin-left: 0;
         vertical-align: middle;
+    }
+}
+
+.view-product-node
+{
+    .images-container
+    {
+        float: none;
+    }
+    .views-field-field-image-1
+    {
+        float: none;
+        width: 100%;
+        
+        .cover
+        {
+            display: none;
+        }
+    }
+    .views-field-field-image
+    {
+        float: none;
+        width: 100%;
+        margin-right: 0;
+    }
+}
+
+.view-commerce-backoffice-user-orders
+{
+    table, tr, td, tbody
+    {
+        display: block;
+    }
+    thead, th
+    {
+        display: none;
+    }
+    
+    td
+    {
+        border-bottom: 0;
+    }
+    tr
+    {
+        border-bottom: 1px solid #e6e6e6;
+        padding: 1em 0;
+    }
+    .views-field-order-number
+    {
+        font-size: 1.5em;
+        
+        &:before
+        {
+            content: "Order ";
+        }
+    }
+}
+
+.view-products-in-an-order .views-row
+{
+    width: 48%;
+}
+
+.logged-in .block-system-user-menu
+{
+    a.account-icon
+    {
+        width: 14px;
+        padding-left: 35px;
+        padding-right: 18px;
+        background-position: 18px center;
+    }
+    
+    li.expanded ul
+    {
+        left: -20px;
+        right: -93px;
+    }
+}
+
+.view-front-features .views-row
+{
+    float: none;
+    width: auto;
+}
+.view-front-headers
+{
+    .background
+    {
+        height: 500px !important;
+    }
+    .views-field-body img
+    {
+        max-width: 80%;
+        height: auto !important;
+    }
+}
+
+.block.recent
+{
+    width: auto;
+    margin: 0;
+    float: none;
+}
+
+.view-products .view-filters
+{
+    .views-exposed-widget,
+    .view-child-terms.view-display-id-filter_2
+    {
+        padding: 20px 0;
+        float: none;
+    }
+}
+
+.view-products > .view-content > .views-row
+{
+    width: 50%;
+}
+
+.view-social > .view-content > .views-row
+{
+    width: 50%;
+}
+
+#contact-map
+{
+    height: 300px;
+}
+
+.search-container
+{
+    height: 96px;
+    padding: 15px 0;
+    
+    .form-type-textfield
+    {
+        position: absolute;
+        top: 15px;
+        left: 20px;
+        right: 75px;
+        margin: 0;
+    }
+    .search-close a
+    {
+        left: auto;
+        margin-left: 0;
+        right: 20px;
     }
 }
