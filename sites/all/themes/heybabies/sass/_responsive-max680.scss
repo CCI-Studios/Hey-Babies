@@ -239,7 +239,8 @@
 
 .search-container
 {
-    height: 96px;
+    height: 98px;
+    top: 50px;
     padding: 15px 0;
     
     .form-type-textfield
@@ -256,4 +257,8 @@
         margin-left: 0;
         right: 20px;
     }
+}
+.page-search .search-container
+{
+    height: 98px !important;
 }

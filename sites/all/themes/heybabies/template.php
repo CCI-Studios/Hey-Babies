@@ -86,7 +86,17 @@ function heybabies_form_alter(&$form, &$form_state, $form_id)
     }
     else if ($form_id == 'search_block_form')
     {
+        unset($form['form_build_id']);
+        unset($form['form_id']);
+        $form['#action'] = '/search';
+        $form['#method'] = 'GET';
         $form['search_block_form']['#attributes']['placeholder'] = 'Search';
+        if (isset($_GET['keys']))
+        {
+            $form['search_block_form']['#default_value'] = check_plain($_GET['keys']);
+        }
+        $form['keys'] = $form['search_block_form'];
+        unset($form['search_block_form']);
     }
     else if (substr($form_id, 0, 30) == 'commerce_cart_add_to_cart_form')
     {

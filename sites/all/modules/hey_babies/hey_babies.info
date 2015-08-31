@@ -152,6 +152,7 @@ features[views_view][] = products
 features[views_view][] = products_in_an_order
 features[views_view][] = recent
 features[views_view][] = related_products
+features[views_view][] = search_results
 features[views_view][] = social
 features[views_view][] = social_block
 features[views_view][] = social_related_products
