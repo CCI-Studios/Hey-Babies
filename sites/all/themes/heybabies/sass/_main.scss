@@ -771,10 +771,12 @@ tbody
     .view-filters
     {
         color: $seafoam;
-        border-bottom: 1px solid #e6e6e6;
         overflow: hidden;
+        width: 860px;
+        margin: 0 auto;
         
-        .views-widget-per-page
+        .views-widget-per-page,
+        .views-submit-button
         {
             display: none;
         }
@@ -801,6 +803,10 @@ tbody
         {
             padding-bottom: 30px;
         }
+        .views-widget-sort-sort_bef_combine
+        {
+            padding-right: 0;
+        }
         
         a
         {
@@ -819,6 +825,7 @@ tbody
     {
         overflow: hidden;
         padding: 30px 0;
+        border-top: 1px solid #e6e6e6;
         border-bottom: 1px solid #e6e6e6;
         
         & > .views-row
