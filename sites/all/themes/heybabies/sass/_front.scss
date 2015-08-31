@@ -415,6 +415,8 @@
             padding: 10px 15px;
             outline-color: $seafoam;
             box-sizing: border-box;
+            border-radius: 0;
+            -webkit-appearance: none;
             
             &::-webkit-input-placeholder
             {
