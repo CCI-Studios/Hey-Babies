@@ -255,11 +255,12 @@ tbody
                 & > a
                 {
                     border-bottom: 1px solid $seafoam;
+                    font-weight: bold;
                 }
             }
             ul
             {
-                font-weight: 300;
+                font-weight: 400;
                 
                 li
                 {
@@ -404,7 +405,7 @@ tbody
                 color: $seafoam;
                 text-shadow: none;
                 font-size: 1.25em;
-                font-weight: 100;
+                font-weight: 400;
                 line-height: normal;
                 height: auto;
                 padding: 15px 20px;
@@ -491,7 +492,7 @@ tbody
         width: 75%;
         margin: 0 auto;
         outline-color: white;
-        font-weight: 300;
+        font-weight: 400;
         
         &::-webkit-input-placeholder
         {
@@ -1693,7 +1694,7 @@ div.messages
     }
     label
     {
-        font-weight: 100;
+        font-weight: 400;
         float: left;
         width: 40%;
         color: $seafoam;
@@ -1710,7 +1711,7 @@ div.messages
         color: $seafoam;
         font-size: 1em;
         line-height: 2;
-        font-weight: 100;
+        font-weight: 400;
         
         &.error
         {
@@ -1756,7 +1757,7 @@ div.messages
             outline-color: $seafoam;
             line-height: 2;
             color: #333;
-            font-weight: 100;
+            font-weight: 400;
             
             &.error
             {
@@ -1896,7 +1897,7 @@ div.addressfield-container-inline
             outline-color: $seafoam;
             line-height: 2;
             color: inherit;
-            font-weight: 100;
+            font-weight: 400;
         }
     }
     .commerce-credit-card-expiration
@@ -2031,7 +2032,7 @@ div.addressfield-container-inline
         
         label
         {
-            font-weight: 100;
+            font-weight: 400;
             float: left;
             width: 30%;
             line-height: 2em;
