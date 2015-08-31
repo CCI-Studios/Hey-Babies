@@ -2275,3 +2275,16 @@ img.our-story
         display: none;
     }
 }
+
+.page-user-reset- #user-profile-form
+{
+    margin: 0 auto;
+    max-width: 400px;
+    
+    .edit-account,
+    .form-actions
+    {
+        float: none;
+        margin-right: 0;
+    }
+}

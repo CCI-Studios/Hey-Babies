@@ -65,6 +65,7 @@ function heybabies_form_alter(&$form, &$form_state, $form_id)
         unset($form['mimemail']);
         unset($form['timezone']);
         $form['actions']['#weight'] = 10;
+        $form['actions']['submit']['#value'] = t('save');
         
         $uid = $form['#user']->uid;
         $form['addressbook'] = array(
