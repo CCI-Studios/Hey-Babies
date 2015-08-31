@@ -32,3 +32,24 @@
 {
     @import "responsive-max360";
 }
+
+@media screen and (max-height: 720px) and (min-width: 1024px)
+{
+    .menu-main-menu>ul>li>ul
+    {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        
+        & > li
+        {
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+        
+        a
+        {
+            height: 35px;
+            line-height: 35px;
+        }
+    }
+}
