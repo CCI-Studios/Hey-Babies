@@ -1120,11 +1120,13 @@ tbody
     }
     .views-field-field-description
     {
-        padding: 12px 0;
+        padding-top: 12px;
         line-height: 1.2;
     }
     .views-field-add-to-cart-form
     {
+        padding-top: 12px;
+        
         .form-submit
         {
             background: $seafoam;
