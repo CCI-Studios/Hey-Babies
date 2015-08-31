@@ -20,4 +20,11 @@
             return false;
         });
     });
+    
+    $(window).on("load", function(){
+        if (window.location.pathname == "/" && window.location.hash == "#contributions")
+        {
+            $("body").scrollTop($(".contributions").position().top - $(".navigation").height());
+        }
+    });
 })(jQuery);
