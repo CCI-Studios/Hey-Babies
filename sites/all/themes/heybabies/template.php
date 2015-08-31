@@ -112,6 +112,19 @@ function heybabies_form_alter(&$form, &$form_state, $form_id)
     else if ($form_id == 'views_form_commerce_cart_form_default')
     {
         unset($form['actions']['submit']);
+        
+        global $user;
+        if ($user->uid == 0)
+        {
+            $form['actions']['checkout']['#value'] = t('guest checkout');
+            $form['actions']['login'] = array(
+                '#type' => 'markup',
+                '#markup' => l(t('login & checkout'), 'user/login', array(
+                    'query' => array('destination' => '/checkout'),
+                    'attributes' => array('class' => array('login-checkout')),
+                )),
+            );
+        }
     }
     else if ($form_id == 'commerce_checkout_form_checkout')
     {
