@@ -112,7 +112,11 @@ function heybabies_form_alter(&$form, &$form_state, $form_id)
     }
     else if ($form_id == 'views_form_commerce_cart_form_default')
     {
-        unset($form['actions']['submit']);
+        $form['actions']['submit']['#value'] = t('Update quantity');
+        if (strpos($form['output']['#markup'], '<!--form-item-edit_quantity') === FALSE)
+        {
+            unset($form['actions']['submit']);
+        }
         
         global $user;
         if ($user->uid == 0)

@@ -1413,6 +1413,36 @@ tbody
         font-weight: bold;
         padding-top: 5px;
     }
+    .views-field-commerce-stock
+    {
+        margin: 5px 0;
+        
+        .views-label
+        {
+            display: inline-block;
+            line-height: 27px;
+            margin-right: 5px;
+        }
+        .form-item
+        {
+            width: 40px;
+            float: none;
+            display: inline-block;
+            margin: 0;
+            overflow: visible;
+            
+            input
+            {
+                width: 40px;
+                line-height: 1.5em;
+                text-align: center;
+            }
+        }
+        .stock-1 
+        {
+            display: none;
+        }
+    }
     .views-field-edit-delete input
     {
         display: block;
@@ -1462,6 +1492,12 @@ tbody
                 background: #8ac5ab;
             }
         }
+    }
+    
+    #edit-submit
+    {
+        background: #ccc;
+        outline-color: #ccc;
     }
 }
 .field-name-commerce-order-total .commerce-price-formatted-components

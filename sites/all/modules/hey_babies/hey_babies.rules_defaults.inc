@@ -9,6 +9,28 @@
  */
 function hey_babies_default_rules_configuration() {
   $items = array();
+  $items['commerce_ssr_stock_validate_checkout_out_of_stock_'] = entity_import('rules_config', '{ "commerce_ssr_stock_validate_checkout_out_of_stock_" : {
+      "LABEL" : "Stock: validate checkout (out of stock)",
+      "PLUGIN" : "reaction rule",
+      "WEIGHT" : "-1",
+      "OWNER" : "rules",
+      "REQUIRES" : [ "commerce_ss", "rules", "commerce_stock" ],
+      "ON" : { "commerce_stock_check_product_checkout" : [] },
+      "IF" : [
+        { "commerce_ss_stock_enabled_on_product" : { "commerce_product" : [ "commerce_product" ] } },
+        { "commerce_ss_stock_not_disabled" : { "commerce_product" : [ "commerce_product" ] } },
+        { "data_is" : { "data" : [ "commerce-product:commerce-stock" ], "value" : "0" } }
+      ],
+      "DO" : [
+        { "commerce_stock_checkout_state" : {
+            "stock_action" : "1",
+            "message" : "The item [commerce-product:title] is out of stock.",
+            "approved_quantity" : [ "commerce-product:commerce-stock" ]
+          }
+        }
+      ]
+    }
+  }');
   $items['commerce_tax_rate_on_hst'] = entity_import('rules_config', '{ "commerce_tax_rate_on_hst" : {
       "LABEL" : "Calculate ON HST",
       "PLUGIN" : "rule",
