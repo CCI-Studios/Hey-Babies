@@ -1059,6 +1059,7 @@ price Desc|highest price',
   $handler->display->display_options['arguments']['taxonomy_entity_index_tid_depth']['validate']['type'] = 'taxonomy_term';
   $handler->display->display_options['arguments']['taxonomy_entity_index_tid_depth']['validate_options']['vocabularies'] = array(
     'clothing_type' => 'clothing_type',
+    'tags' => 'tags',
   );
   $handler->display->display_options['arguments']['taxonomy_entity_index_tid_depth']['validate_options']['type'] = 'convert';
   $handler->display->display_options['arguments']['taxonomy_entity_index_tid_depth']['validate_options']['transform'] = TRUE;
@@ -1078,6 +1079,7 @@ price Desc|highest price',
   $handler->display->display_options['arguments']['taxonomy_entity_index_tid_depth_1']['validate']['type'] = 'taxonomy_term';
   $handler->display->display_options['arguments']['taxonomy_entity_index_tid_depth_1']['validate_options']['vocabularies'] = array(
     'clothing_type' => 'clothing_type',
+    'tags' => 'tags',
   );
   $handler->display->display_options['arguments']['taxonomy_entity_index_tid_depth_1']['validate_options']['type'] = 'convert';
   $handler->display->display_options['arguments']['taxonomy_entity_index_tid_depth_1']['validate_options']['transform'] = TRUE;
