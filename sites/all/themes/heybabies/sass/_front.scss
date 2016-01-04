@@ -365,38 +365,17 @@
     }
 }
 
-.block.contributions
+.webform-component--preferred-pick-up-date select
 {
-    padding: 50px 0 60px;
-    clear: both;
+    display: none;
+}
+.webform-client-form-5
+{
+    padding-top: 30px;
     
-    h2
-    {
-        color: $seafoam;
-        text-transform: lowercase;
-        text-align: center;
-        padding-bottom: 25px;
-        border-bottom: 1px solid #ccc;
-        margin-bottom: 25px;
-    }
-    
-    .block-content,
-    .node-content
-    {
-        width: 80%;
-        margin: 0 auto;
-    }
-    form
-    {
-        padding-top: 30px;
-    }
     .form-item
     {
         margin: 0.333em 0;
-    }
-    .webform-component--preferred-pick-up-date select
-    {
-        display: none;
     }
     .webform-component-textfield,
     .webform-component-email,
@@ -404,6 +383,7 @@
     {
         float: left;
         width: 47.5%;
+        border: 0;
         
         input
         {
@@ -461,6 +441,58 @@
         text-transform: lowercase;
         box-sizing: content-box;
         outline-color: $seafoam;
+        -webkit-appearance: none;
+        transition: all 0.2s;
+        
+        &:hover, &:focus
+        {
+            background: $seafoam;
+            color: white;
+        }
+    }
+}
+.block.contributions
+{
+    padding: 50px 0 60px;
+    clear: both;
+    
+    h2
+    {
+        color: $seafoam;
+        text-transform: lowercase;
+        text-align: center;
+        padding-bottom: 25px;
+        border-bottom: 1px solid #ccc;
+        margin-bottom: 25px;
+    }
+    
+    .block-content,
+    .node-content
+    {
+        width: 80%;
+        margin: 0 auto;
+    }
+    
+    
+    .button
+    {
+        display: block;
+        margin: 0 auto;
+        color: $seafoam;
+        background: white;
+        cursor: pointer;
+        font-size: 1em;
+        line-height: 40px;
+        height: 40px;
+        width: 160px;
+        text-align: center;
+        border: 2px solid $seafoam;
+        border-radius: 4px;
+        text-transform: lowercase;
+        box-sizing: content-box;
+        outline-color: $seafoam;
+        text-decoration: none;
+        appearance: none;
         -webkit-appearance: none;
         transition: all 0.2s;
         

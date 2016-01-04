@@ -1,6 +1,8 @@
 .form-type-textfield,
 .form-type-password,
-.edit-account .form-type-select
+.edit-account .form-type-select,
+.webform-component-textfield,
+.webform-component-email
 {
     border-bottom: 1px solid $seafoam;
     overflow: hidden;
