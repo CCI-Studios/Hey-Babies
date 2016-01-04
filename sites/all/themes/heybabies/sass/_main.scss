@@ -2345,3 +2345,24 @@ img.our-story
         margin-right: 0;
     }
 }
+
+.checkout-processing,
+.ajax-progress .throbber {
+    background: none;
+    border: 2px solid $seafoam;
+    width: 16px;
+    height: 16px;
+    border-radius: 100%;
+    display: inline-block;
+    padding: 0 !important;
+    border-bottom-color: transparent;
+    animation: throbber 1s linear infinite;
+}
+@keyframes throbber {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
