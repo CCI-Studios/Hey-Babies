@@ -1,4 +1,219 @@
 
+Slick 7.x-2.0-dev, 2015-12-12
+-----------------------------
+- Fixed for nested slicks with videos. The videos should be turned off when
+  either the nested slick, or the parent slick, with/without asnavfor, is
+  changing.
+
+Slick 7.x-2.0-dev, 2015-12-11
+-----------------------------
+- Updated for v1.5.9 with the new option useTransform.
+- Fixed for Navbar compatibility.
+
+Slick 7.x-2.0-dev, 2015-12-07
+-----------------------------
+- Updated slick.api.php with more samples, quick and asnavfor ones.
+- Respected empty centerPadding ('0' or '') to allow pure CSS controlled styled
+  rather than inline style. This removed inline padding: 0px, so CSS do not have
+  to use !important to override it.
+
+Slick 7.x-2.0-dev, 2015-12-02
+-----------------------------
+- Issue #2623396 by dalemoore, Spanners: Really wide View edit screen in admin
+  overlay
+- Removed too specific lines from most skin CSS, such as color, weight, etc.
+  where appropriate.
+- Fixed for Fullscreen skin thumbnail nav with asNavFor.
+- Removed over-specificity from slick.theme.css due to expected nested slicks
+  as it turned out to break some builtin layouts like Full width. Your overrides
+  should not be affected as the slick.theme.css is now less specific.
+
+Slick 7.x-2.0-dev, 2015-11-28
+-----------------------------
+- Cleaned up useless lines.
+- Fixed for FC nested slicks with iframe and media icons visibility.
+
+Slick 7.x-2.0-dev, 2015-11-26
+-----------------------------
+- Added more description on Slick Grid or multiple rows carousel.
+- Removed personal styling from slick.theme.css, mostly those testing rules
+  against Bartik.
+- Added "Lazy iframe" option to have truly lazyloaded iframes for Media and FC
+  to speed up loading time before JS fired.
+- Moved media icons and iframes after the image to allow using CSS siblings
+  selector (~) for spinner visibility in combination with [data-lazy] which is
+  removed when the image is fully loaded, e.g.:
+  .media-icon--spinner { display: none; }
+  img[data-lazy] ~ .media-icon--spinner { display: block; }
+
+Slick 7.x-2.0-dev, 2015-11-21
+-----------------------------
+- #2546614 by Dr.Osd: Colorbox integration has broken iframe width
+
+Slick 7.x-2.0-dev, 2015-11-16
+-----------------------------
+- Disabled thumbnail navigation if items < 2 to avoid gargantuan broken single
+  thumbnail nav since it will be unslicked anyway. The good thing is this allows
+  a combination of asnavfor at one page and/or a single image or slideshow
+  display at another without creating different fields.
+- Added caching per language to reflect the change at Slick Views per 2611838.
+
+Slick 7.x-2.0-dev, 2015-11-07
+-----------------------------
+- #2600970 by dalearyous: remove the image zoom or magnification for center
+  image slick carousel
+- #2610348 by IckZ: Colorbox not working when only one image is displayed.
+- #2596599 by mparker17: Add link to settings page in .info file
+  Oops, sorry, attribution!
+- #2596599 by mparker17: Add link to settings page in .info file
+
+Slick 7.x-2.0-dev, 2015-9-30
+----------------------------
+- Clarified several descriptions on form items, and elsewhere.
+- Moved some contents of slick.field.inc into slick.global.inc to share with
+  Slick views for its future enhancement with Media file like Slick fields.
+- Added configurable optional core slick-theme.css and module slick.theme.css
+  which are normally included by default along with skins.
+- Removed problematic Editor links for Media file, since it is not displayed
+  when cache enabled anyway.
+
+Slick 7.x-2.0-dev, 2015-9-12
+----------------------------
+- #2567233 by espacecode: Grid options require Visible slides, otherwise no
+  slides shown anymore.
+  Added more information on Grid options about requiring Visible slides.
+
+Slick 7.x-2.0-dev, 2015-9-11
+----------------------------
+- Issue #2566799 by quasi: Image linked to content should not be
+  removed without colorbox/photobox.
+- Cleaned up README.txt, and a few other things.
+
+Slick 7.x-2.0-dev, 2015-9-09
+----------------------------
+- Merged DRY stuffs into slick_get_image().
+
+Slick 7.x-2.0-dev, 2015-9-08
+----------------------------
+- Added hook_uninstall() since we now have a variable to delete.
+- Added a configurable option using slick_ui.module to toggle slick admin css
+  which can be accessed at: admin/config/media/slick/ui
+- #2553385 by gausarts, xtfer: Slick CSS admin compatibility with contrib admin
+  themes.
+
+Slick 7.x-2.0-dev, 2015-9-07
+----------------------------
+- Made slick admin css optional. Execute the following anywhere once to disable
+  slick admin stylings:
+  variable_set('slick_admin_css', FALSE);
+
+Slick 7.x-2.0-dev, 2015-9-06
+----------------------------
+- #2553385 by gausarts, heliogabal, esolitos: Slick CSS admin compatibility with
+  contrib admin themes
+  Added fixes for Ubuntu with FF 40 and Chrome 45, and a few cleanups.
+
+Slick 7.x-2.0-dev, 2015-9-03
+----------------------------
+- #2553385 by gausarts, heliogabal, esolitos: Slick CSS admin compatibility with
+  contrib admin themes
+
+Slick 7.x-2.0-dev, 2015-9-02
+----------------------------
+- Added a warning to Cache option: Only enable it when all is done, otherwise
+  cached options will be displayed while changing them.
+- Merged slick-current and arrows fixes into setPosition.
+
+Slick 7.x-2.0-dev, 2015-8-28
+----------------------------
+- Simplified cache option description.
+
+Slick 7.x-2.0-dev, 2015-8-27
+----------------------------
+- Moved slick stuffs out of unslick at template_preprocess_slick().
+- Updated slick.load.min.js to abandon inaccessible activeBreakpoint approach:
+  o Removed broken activeBreakpoint options, and use setPosition event instead.
+  o Moved all setCurrent to also be placed at setPosition event.
+  Note: setPosition was avoided so far because it is executed a lot, at least 4
+  times on init, but appears to be the guy to fix a few known issues at one
+  place with slick-current and arrows visibility with responsive options and
+  asNavFor.
+  Both are still kept till fixed by core, and finally dropped from the module.
+- Fixed for Notice: Undefined index: view_mode in
+  _slick_fields_field_formatter_settings_form() (line 224... due to the latest
+  admin Slick fields rearrangement.
+- Fixed for Notice: Undefined index: cache in slick_build() (line 376..
+
+Slick 7.x-2.0-dev, 2015-8-25
+----------------------------
+- Fixed for useless Media file entity editor links being cached for anonymous.
+- Improved Slick fields cache routines.
+- Fixed for slick-current with adjacent slicks with/without slick_wrapper,
+  block__no_wrapper/ views_view_no_wrapper, etc. No wonder core fails with it :(
+- Dropped slide--current, and pushed slick-current s planned instead to
+  reduce dup classes. If you use "slide--current", be sure to change it to
+  "slick-current". The workaround is still kept, only easier to drop later when
+  fixed.
+
+Slick 7.x-2.0-dev, 2015-8-23
+----------------------------
+- Added cache fallbacks:
+  o fetching from fresh contents if expiration time is provided, useful for
+    dynamic contents which value freshness.
+  o fetching from stale ones if "Persistent" is selected, useful for static
+    contents which value cache lifetime better than freshness.
+- Changed cache keys to a more reliable cid since keys will append active theme
+  which adds additional check.
+- Added configurable #cache property to slick_build() to cache render array.
+- Merged similar field formatter and Views default settings into
+  slick_get_global_default_settings().
+- Merged reusable form elements across field formatter and Views via
+  slick_get_top_elements() and slick_get_elements().
+
+Slick 7.x-2.0-dev, 2015-8-19
+----------------------------
+- #2553385 by gausarts, esolitos: Slick CSS admin compatibility with contrib
+  admin themes.
+- Fixed for arrows visibility with responsive options due to inaccessible
+  activeBreakpoint flag.
+- Fixed for Photobox "infinite true + slidesToShow > 1" incompatibility at the
+  price of dup thumbnails which however can be disabled by "thumbs: false".
+  This is less problematic than broken Photobox links.
+- Deprecated the following functions:
+  o _slick_fields_format_image() for slick_format_image().
+  o _slick_fields_format_media() for slick_format_media().
+  o _slick_fields_format_field_collection() for slick_format_field_collection().
+- Moved the contents of slick_fields includes files into core to re-use them
+  across field formatters and Views without hard dependency for slick_fields.
+  This is also to smoothen the transition out to Slick 3.x.
+- Added support for iframe only aspect ratio.
+- Added support for Youtube or Vimeo url using plain text field within file
+  entity of type image to display a video overlay over the main image background.
+  Provided as currently file entity doesn't support nested files.
+- Added slick_get_grid_elements() and slick_build_grids() to reuse grid for
+  field formatter and Views.
+- Removed Photobox "data-src" thumbnails to use global "data-thumb" instead.
+- Added slick_get_admin_assets() to re-use the admin assests across field
+  formatter and Views.
+
+Slick 7.x-2.0-dev, 2015-8-7
+---------------------------
+- Simplified slick.colorbox.css to use "colorbox-on--media" rather than
+  separate "colorbox-on--audio" + "colorbox-on--video" for the video/audio
+  colorbox body classes.
+- #2546614 by stefan.korn: Colorbox integration iframe width?
+- Removed 'slick-nav' classes since 'slick-arrow' was added at v1.5.6. If you
+  use 'slick-nav', be sure to update it to 'slick-arrow'.
+- Removed useless 'respondTo' option from responsive since it is always ignored/
+  hard-coded by core: _.respondTo = _.options.respondTo || 'window';
+- Fixed for video switcher image not being hidden when switched and a single
+  image, not carousel.
+- Added support to merge dots to .slick__arrow via appendDots: .slick__arrow, to
+  have this style: < o o o o o o o >
+- Added "Image linked to content" option to the "Media switcher" option to allow
+  aggregated small slick fields linked to their host entity while using the
+  Field formatter, not Views. E.g.: homepage small collages linked to contents.
+
 Slick 7.x-2.0-dev, 2015-7-4
 ---------------------------
 - Fixed a rare edge case with improper/broken data_export_import media files.

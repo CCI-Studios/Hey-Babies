@@ -23,10 +23,12 @@ class SlickUi extends ctools_export_ui {
     $options = $optionset->options;
     $slick_options = slick_get_options();
 
-    $form['#attached']['library'][] = array('slick_ui', 'slick.ui');
-    $form['#attached']['css'][] = $module_path . '/css/admin/slick.admin--vertical-tabs.css';
+    if (variable_get('slick_admin_css', TRUE)) {
+      $form['#attached']['library'][] = array('slick_ui', 'slick.ui');
+      $form['#attached']['css'][] = $module_path . '/css/admin/slick.admin--vertical-tabs.css';
+    }
 
-    $form['#attributes']['class'][] = 'no-js';
+    // $form['#attributes']['class'][] = 'no-js';
     $form['#attributes']['class'][] = 'form--slick';
     $form['#attributes']['class'][] = 'form--compact';
     $form['#attributes']['class'][] = 'form--optionset';
@@ -112,8 +114,8 @@ class SlickUi extends ctools_export_ui {
       '#title' => t('Goodies'),
       '#default_value' => !empty($options['general']['goodies']) ? array_values((array) $options['general']['goodies']) : array(),
       '#options' => array(
-        'pattern' => t('Use pattern overlay'),
         'arrow-down' => t('Use arrow down'),
+        'pattern' => t('Use pattern overlay'),
         'random' => t('Randomize'),
       ),
       '#description' => t('Applies to main display, not thumbnail pager. <ol><li>Pattern overlay is background image with pattern placed over the main stage.</li><li>Arrow down to scroll down into a certain page section, make sure to provide target selector.</li><li>Randomize the slide display, useful to manipulate cached blocks.</li></ol>'),
@@ -147,9 +149,11 @@ class SlickUi extends ctools_export_ui {
     );
 
     // Add empty suffix to style checkboxes like iOS.
-    foreach ($form['options']['general']['goodies']['#options'] as $key => $value) {
-      $form['options']['general']['goodies'][$key]['#field_suffix'] = '';
-      $form['options']['general']['goodies'][$key]['#title_display'] = 'before';
+    if (variable_get('slick_admin_css', TRUE)) {
+      foreach ($form['options']['general']['goodies']['#options'] as $key => $value) {
+        $form['options']['general']['goodies'][$key]['#field_suffix'] = '';
+        $form['options']['general']['goodies'][$key]['#title_display'] = 'before';
+      }
     }
 
     // Main options.
@@ -164,11 +168,6 @@ class SlickUi extends ctools_export_ui {
 
     foreach ($slick_elements as $name => $element) {
       $default_value = isset($options['settings'][$name]) ? $options['settings'][$name] : $element['default'];
-      // Allows to reset string values by emptying it, such as changing arrows.
-      if (is_string($default_value) && empty($default_value)) {
-        $default_value = $element['default'];
-      }
-
       $form['options']['settings'][$name] = array(
         '#title' => isset($element['title']) ? $element['title'] : '',
         '#description' => isset($element['description']) ? $element['description'] : '',
@@ -186,9 +185,11 @@ class SlickUi extends ctools_export_ui {
         $form['options']['settings'][$name]['#maxlength'] = 255;
       }
 
-      if (!isset($element['field_suffix']) && is_bool($element['default'])) {
-        $form['options']['settings'][$name]['#field_suffix'] = '';
-        $form['options']['settings'][$name]['#title_display'] = 'before';
+      if (variable_get('slick_admin_css', TRUE)) {
+        if (!isset($element['field_suffix']) && is_bool($element['default'])) {
+          $form['options']['settings'][$name]['#field_suffix'] = '';
+          $form['options']['settings'][$name]['#title_display'] = 'before';
+        }
       }
 
       if (is_int($element['default'])) {
@@ -218,7 +219,7 @@ class SlickUi extends ctools_export_ui {
     $form['options']['responsives'] = array(
       '#title' => t('Responsive display'),
       '#type' => 'fieldset',
-      '#description' => t('Containing breakpoints and settings objects. Settings set at a given breakpoint/screen width is self-contained and does not inherit the main settings, but defaults.'),
+      '#description' => t('Containing breakpoints and settings objects. Settings set at a given breakpoint/screen width is self-contained and does not inherit the main settings, but defaults. Be sure to set Breakpoints option above.'),
       '#collapsible' => FALSE,
       '#tree' => TRUE,
     );
@@ -284,9 +285,12 @@ class SlickUi extends ctools_export_ui {
               if (isset($responsive['field_suffix'])) {
                 $form['options']['responsives']['responsive'][$i][$key]['#field_suffix'] = $responsive['field_suffix'];
               }
-              if (!isset($responsive['field_suffix']) && is_bool($responsive['default'])) {
-                $form['options']['responsives']['responsive'][$i][$key]['#field_suffix'] = '';
-                $form['options']['responsives']['responsive'][$i][$key]['#title_display'] = 'before';
+
+              if (variable_get('slick_admin_css', TRUE)) {
+                if (!isset($responsive['field_suffix']) && $responsive['type'] == 'checkbox') {
+                  $form['options']['responsives']['responsive'][$i][$key]['#field_suffix'] = '';
+                  $form['options']['responsives']['responsive'][$i][$key]['#title_display'] = 'before';
+                }
               }
               break;
 
@@ -368,9 +372,12 @@ class SlickUi extends ctools_export_ui {
                 if (isset($item['field_suffix'])) {
                   $form['options']['responsives']['responsive'][$i][$key][$k]['#field_suffix'] = $item['field_suffix'];
                 }
-                if (!isset($item['field_suffix']) && is_bool($item['default'])) {
-                  $form['options']['responsives']['responsive'][$i][$key][$k]['#field_suffix'] = '';
-                  $form['options']['responsives']['responsive'][$i][$key][$k]['#title_display'] = 'before';
+
+                if (variable_get('slick_admin_css', TRUE)) {
+                  if (!isset($item['field_suffix']) && is_bool($item['default'])) {
+                    $form['options']['responsives']['responsive'][$i][$key][$k]['#field_suffix'] = '';
+                    $form['options']['responsives']['responsive'][$i][$key][$k]['#title_display'] = 'before';
+                  }
                 }
               }
               break;
@@ -443,13 +450,13 @@ class SlickUi extends ctools_export_ui {
 
       $elements['mobileFirst'] = array(
         'title' => t('Mobile first'),
-        'description' => t('Responsive settings use mobile first calculation.'),
+        'description' => t('Responsive settings use mobile first calculation, or equivalent to min-width query.'),
         'type' => 'checkbox',
       );
 
       $elements['asNavFor'] = array(
         'title' => t('asNavFor target'),
-        'description' => t('Leave empty if using sub-modules to have it auto-matched. Set the slider to be the navigation of other slider (Class or ID Name). Use selector identifier ("." or "#") accordingly. If class, use the provided Wrapper class under General as needed, e.g.: if the main display has class "slick--for", and the thumbnail navigation "slick--nav", place the opposite here as its target. Or use existing classes based on optionsets, e.g.: .slick--optionset--main, or .slick--optionset--main-nav. Overriden per field formatter.'),
+        'description' => t('Leave empty if using sub-modules to have it auto-matched. Set the slider to be the navigation of other slider (Class or ID Name). Use selector identifier ("." or "#") accordingly. See HTML structure section at README.txt for more info. Overriden by field formatter, or Views style.'),
         'type' => 'textfield',
       );
 
@@ -461,7 +468,7 @@ class SlickUi extends ctools_export_ui {
 
       $elements['adaptiveHeight'] = array(
         'title' => t('Adaptive height'),
-        'description' => t('Enables adaptive height for single slide horizontal carousels. This is useless with variableWidth.'),
+        'description' => t('Enables adaptive height for SINGLE slide horizontal carousels. This is useless with variableWidth.'),
         'type' => 'checkbox',
       );
 
@@ -500,14 +507,14 @@ class SlickUi extends ctools_export_ui {
 
       $elements['prevArrow'] = array(
         'title' => t('Previous arrow'),
-        'description' => t("Customize the previous arrow markups. Be sure to keep the expected class."),
+        'description' => t("Customize the previous arrow markups. Be sure to keep the expected class: slick-prev."),
         'type' => 'textfield',
         'states' => array('visible' => array(':input[name*="options[settings][arrows]"]' => array('checked' => TRUE))),
       );
 
       $elements['nextArrow'] = array(
         'title' => t('Next arrow'),
-        'description' => t("Customize the next arrow markups. Be sure to keep the expected class."),
+        'description' => t("Customize the next arrow markups. Be sure to keep the expected class: slick-next."),
         'type' => 'textfield',
         'states' => array('visible' => array(':input[name*="options[settings][arrows]"]' => array('checked' => TRUE))),
       );
@@ -540,7 +547,7 @@ class SlickUi extends ctools_export_ui {
 
       $elements['appendDots'] = array(
         'title' => t('Append dots'),
-        'description' => t('Change where the navigation dots are attached (Selector, htmlString). If you change this, be sure to provide its relevant markup.'),
+        'description' => t('Change where the navigation dots are attached (Selector, htmlString). If you change this, be sure to provide its relevant markup. Try <strong>.slick__arrow</strong> to achieve this style: <br />&lt; o o o o o o o &gt;<br />Be sure to enable Arrows in such a case.'),
         'type' => 'textfield',
         'states' => array('visible' => array(':input[name*="options[settings][dots]"]' => array('checked' => TRUE))),
       );
@@ -667,7 +674,7 @@ class SlickUi extends ctools_export_ui {
 
       $elements['useCSS'] = array(
         'title' => t('Use CSS'),
-        'description' => t('Enable/Disable CSS Transitions.'),
+        'description' => t('Enable/disable CSS transitions.'),
         'type' => 'checkbox',
       );
 
@@ -689,6 +696,12 @@ class SlickUi extends ctools_export_ui {
         'options' => _slick_css_easing_options(),
         'empty_option' => t('- None -'),
         'states' => array('visible' => array(':input[name*="options[settings][useCSS]"]' => array('checked' => TRUE))),
+      );
+
+      $elements['useTransform'] = array(
+        'title' => t('Use transform'),
+        'description' => t('Enable/disable CSS transforms.'),
+        'type' => 'checkbox',
       );
 
       $elements['easing'] = array(
@@ -761,7 +774,7 @@ class SlickUi extends ctools_export_ui {
 
       $elements[$key]['breakpoint'] = array(
         'title' => t('Breakpoint'),
-        'description' => t('Breakpoint width in pixel.'),
+        'description' => t('Breakpoint width in pixel. If mobileFirst enabled, equivalent to min-width, otherwise max-width.'),
         'type' => 'textfield',
         'field_suffix' => 'px',
         'default' => FALSE,

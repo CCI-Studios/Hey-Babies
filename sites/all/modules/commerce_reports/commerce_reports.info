@@ -17,9 +17,11 @@ core = 7.x
 ; Views handlers
 files[] = includes/views/handlers/commerce_reports_handler_sort_date.inc
 
-; Information added by Drupal.org packaging script on 2015-05-01
-version = "7.x-4.0-beta2"
+test_dependencies[] = views_data_export
+
+; Information added by Drupal.org packaging script on 2015-09-01
+version = "7.x-4.0-beta3"
 core = "7.x"
 project = "commerce_reports"
-datestamp = "1430498145"
+datestamp = "1441111140"
 

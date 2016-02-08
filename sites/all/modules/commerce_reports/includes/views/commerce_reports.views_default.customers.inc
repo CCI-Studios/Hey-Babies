@@ -139,10 +139,8 @@ function _commerce_reports_views_default_customer_views() {
   $handler->display->display_options['filters']['state']['id'] = 'state';
   $handler->display->display_options['filters']['state']['table'] = 'commerce_order';
   $handler->display->display_options['filters']['state']['field'] = 'state';
-  $handler->display->display_options['filters']['state']['value'] = array(
-    'pending' => 'pending',
-    'completed' => 'completed',
-  );
+  $handler->display->display_options['filters']['state']['relationship'] = 'uid_commerce_orders';
+  $handler->display->display_options['filters']['state']['value'] = commerce_reports_reportable_order_states();
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
@@ -172,10 +170,7 @@ function _commerce_reports_views_default_customer_views() {
   $handler->display->display_options['filters']['state']['table'] = 'commerce_order';
   $handler->display->display_options['filters']['state']['field'] = 'state';
   $handler->display->display_options['filters']['state']['relationship'] = 'uid_commerce_orders';
-  $handler->display->display_options['filters']['state']['value'] = array(
-    'pending' => 'pending',
-    'completed' => 'completed',
-  );
+  $handler->display->display_options['filters']['state']['value'] = commerce_reports_reportable_order_states();
   $handler->display->display_options['path'] = 'admin/commerce/reports/customers';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Customers';
@@ -315,10 +310,7 @@ function _commerce_reports_views_default_customer_views() {
     $handler->display->display_options['filters']['state']['id'] = 'state';
     $handler->display->display_options['filters']['state']['table'] = 'commerce_order';
     $handler->display->display_options['filters']['state']['field'] = 'state';
-    $handler->display->display_options['filters']['state']['value'] = array(
-      'pending' => 'pending',
-      'completed' => 'completed',
-    );
+    $handler->display->display_options['filters']['state']['value'] = commerce_reports_reportable_order_states();
     /* Filter criterion: User: Name */
     $handler->display->display_options['filters']['uid']['id'] = 'uid';
     $handler->display->display_options['filters']['uid']['table'] = 'users';
@@ -522,10 +514,7 @@ function _commerce_reports_views_default_customer_views() {
   $handler->display->display_options['filters']['state']['id'] = 'state';
   $handler->display->display_options['filters']['state']['table'] = 'commerce_order';
   $handler->display->display_options['filters']['state']['field'] = 'state';
-  $handler->display->display_options['filters']['state']['value'] = array(
-    'pending' => 'pending',
-    'completed' => 'completed',
-  );
+  $handler->display->display_options['filters']['state']['value'] = commerce_reports_reportable_order_states();
 
   /* Display: Block */
   $handler = $view->new_display('block', 'Customer Order Statistics', 'customer_statistics');
