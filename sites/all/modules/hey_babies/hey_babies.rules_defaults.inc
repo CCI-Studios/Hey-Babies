@@ -9,6 +9,39 @@
  */
 function hey_babies_default_rules_configuration() {
   $items = array();
+  $items['commerce_ss_canceling_an_order_send_an_email_to_the_user'] = entity_import('rules_config', '{ "commerce_ss_canceling_an_order_send_an_email_to_the_user" : {
+      "LABEL" : "Canceling an order, send an email to the user",
+      "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
+      "REQUIRES" : [ "rules", "mimemail", "entity" ],
+      "ON" : { "commerce_order_update" : [] },
+      "IF" : [
+        { "data_is" : { "data" : [ "commerce-order:status" ], "value" : "canceled" } },
+        { "data_is" : {
+            "data" : [ "commerce-order-unchanged:status" ],
+            "op" : "IN",
+            "value" : { "value" : {
+                "pending" : "pending",
+                "processing" : "processing",
+                "completed" : "completed"
+              }
+            }
+          }
+        }
+      ],
+      "DO" : [
+        { "mimemail" : {
+            "key" : "order-cancelled",
+            "to" : [ "commerce-order:mail" ],
+            "subject" : "Order Cancelled",
+            "body" : "Your order #[commerce-order:order-number] was cancelled. A refund is being processed.",
+            "plaintext" : "Your order #[commerce-order:order-number] was cancelled. A refund is being processed.",
+            "language" : [ "" ]
+          }
+        }
+      ]
+    }
+  }');
   $items['commerce_ssr_stock_validate_checkout_out_of_stock_'] = entity_import('rules_config', '{ "commerce_ssr_stock_validate_checkout_out_of_stock_" : {
       "LABEL" : "Stock: validate checkout (out of stock)",
       "PLUGIN" : "reaction rule",
