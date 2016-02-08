@@ -9,6 +9,29 @@
  */
 function hey_babies_taxonomy_default_vocabularies() {
   return array(
+    '2s_and_3s' => array(
+      'name' => '2s and 3s',
+      'machine_name' => '2s_and_3s',
+      'description' => '',
+      'hierarchy' => 0,
+      'module' => 'taxonomy',
+      'weight' => 0,
+      'rdf_mapping' => array(
+        'rdftype' => array(
+          0 => 'skos:ConceptScheme',
+        ),
+        'name' => array(
+          'predicates' => array(
+            0 => 'dc:title',
+          ),
+        ),
+        'description' => array(
+          'predicates' => array(
+            0 => 'rdfs:comment',
+          ),
+        ),
+      ),
+    ),
     'clothing_type' => array(
       'name' => 'Clothing type',
       'machine_name' => 'clothing_type',

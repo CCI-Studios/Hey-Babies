@@ -10,7 +10,7 @@
 function hey_babies_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'body'
+  // Exported field_base: 'body'.
   $field_bases['body'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -31,7 +31,7 @@ function hey_babies_field_default_field_bases() {
     'type' => 'text_with_summary',
   );
 
-  // Exported field_base: 'commerce_customer_address'
+  // Exported field_base: 'commerce_customer_address'.
   $field_bases['commerce_customer_address'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -48,7 +48,7 @@ function hey_babies_field_default_field_bases() {
     'type' => 'addressfield',
   );
 
-  // Exported field_base: 'commerce_price'
+  // Exported field_base: 'commerce_price'.
   $field_bases['commerce_price'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -70,7 +70,7 @@ function hey_babies_field_default_field_bases() {
     'type' => 'commerce_price',
   );
 
-  // Exported field_base: 'commerce_stock'
+  // Exported field_base: 'commerce_stock'.
   $field_bases['commerce_stock'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -91,7 +91,33 @@ function hey_babies_field_default_field_bases() {
     'type' => 'number_decimal',
   );
 
-  // Exported field_base: 'field_brand'
+  // Exported field_base: 'field_2_or_3'.
+  $field_bases['field_2_or_3'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_2_or_3',
+    'indexes' => array(
+      'tid' => array(
+        0 => 'tid',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'taxonomy',
+    'settings' => array(
+      'allowed_values' => array(
+        0 => array(
+          'vocabulary' => '2s_and_3s',
+          'parent' => 0,
+        ),
+      ),
+    ),
+    'translatable' => 0,
+    'type' => 'taxonomy_term_reference',
+  );
+
+  // Exported field_base: 'field_brand'.
   $field_bases['field_brand'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -112,7 +138,7 @@ function hey_babies_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_button_link'
+  // Exported field_base: 'field_button_link'.
   $field_bases['field_button_link'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -133,7 +159,7 @@ function hey_babies_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_button_text'
+  // Exported field_base: 'field_button_text'.
   $field_bases['field_button_text'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -154,7 +180,7 @@ function hey_babies_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_clothing_type'
+  // Exported field_base: 'field_clothing_type'.
   $field_bases['field_clothing_type'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -180,7 +206,7 @@ function hey_babies_field_default_field_bases() {
     'type' => 'taxonomy_term_reference',
   );
 
-  // Exported field_base: 'field_color'
+  // Exported field_base: 'field_color'.
   $field_bases['field_color'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -206,7 +232,7 @@ function hey_babies_field_default_field_bases() {
     'type' => 'taxonomy_term_reference',
   );
 
-  // Exported field_base: 'field_description'
+  // Exported field_base: 'field_description'.
   $field_bases['field_description'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -225,7 +251,7 @@ function hey_babies_field_default_field_bases() {
     'type' => 'text_with_summary',
   );
 
-  // Exported field_base: 'field_image'
+  // Exported field_base: 'field_image'.
   $field_bases['field_image'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -247,7 +273,7 @@ function hey_babies_field_default_field_bases() {
     'type' => 'image',
   );
 
-  // Exported field_base: 'field_image_background'
+  // Exported field_base: 'field_image_background'.
   $field_bases['field_image_background'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -269,7 +295,7 @@ function hey_babies_field_default_field_bases() {
     'type' => 'image',
   );
 
-  // Exported field_base: 'field_inventory_date'
+  // Exported field_base: 'field_inventory_date'.
   $field_bases['field_inventory_date'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -298,7 +324,7 @@ function hey_babies_field_default_field_bases() {
     'type' => 'datetime',
   );
 
-  // Exported field_base: 'field_link_boy'
+  // Exported field_base: 'field_link_boy'.
   $field_bases['field_link_boy'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -319,7 +345,7 @@ function hey_babies_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_link_girl'
+  // Exported field_base: 'field_link_girl'.
   $field_bases['field_link_girl'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -340,7 +366,7 @@ function hey_babies_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_link_mom'
+  // Exported field_base: 'field_link_mom'.
   $field_bases['field_link_mom'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -361,7 +387,7 @@ function hey_babies_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_phone_number'
+  // Exported field_base: 'field_phone_number'.
   $field_bases['field_phone_number'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -382,7 +408,7 @@ function hey_babies_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_photo'
+  // Exported field_base: 'field_photo'.
   $field_bases['field_photo'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -404,7 +430,7 @@ function hey_babies_field_default_field_bases() {
     'type' => 'image',
   );
 
-  // Exported field_base: 'field_physical_dimensions'
+  // Exported field_base: 'field_physical_dimensions'.
   $field_bases['field_physical_dimensions'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -419,7 +445,7 @@ function hey_babies_field_default_field_bases() {
     'type' => 'physical_dimensions',
   );
 
-  // Exported field_base: 'field_physical_weight'
+  // Exported field_base: 'field_physical_weight'.
   $field_bases['field_physical_weight'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -438,7 +464,7 @@ function hey_babies_field_default_field_bases() {
     'type' => 'physical_weight',
   );
 
-  // Exported field_base: 'field_product'
+  // Exported field_base: 'field_product'.
   $field_bases['field_product'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -459,7 +485,7 @@ function hey_babies_field_default_field_bases() {
     'type' => 'commerce_product_reference',
   );
 
-  // Exported field_base: 'field_related_products'
+  // Exported field_base: 'field_related_products'.
   $field_bases['field_related_products'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -494,7 +520,7 @@ function hey_babies_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_retail_price'
+  // Exported field_base: 'field_retail_price'.
   $field_bases['field_retail_price'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -514,7 +540,7 @@ function hey_babies_field_default_field_bases() {
     'type' => 'commerce_price',
   );
 
-  // Exported field_base: 'field_retail_source_link'
+  // Exported field_base: 'field_retail_source_link'.
   $field_bases['field_retail_source_link'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -535,7 +561,7 @@ function hey_babies_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_sex'
+  // Exported field_base: 'field_sex'.
   $field_bases['field_sex'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -561,7 +587,7 @@ function hey_babies_field_default_field_bases() {
     'type' => 'taxonomy_term_reference',
   );
 
-  // Exported field_base: 'field_shop_link'
+  // Exported field_base: 'field_shop_link'.
   $field_bases['field_shop_link'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -582,7 +608,7 @@ function hey_babies_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_size'
+  // Exported field_base: 'field_size'.
   $field_bases['field_size'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -608,7 +634,7 @@ function hey_babies_field_default_field_bases() {
     'type' => 'taxonomy_term_reference',
   );
 
-  // Exported field_base: 'field_social_link'
+  // Exported field_base: 'field_social_link'.
   $field_bases['field_social_link'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -629,7 +655,7 @@ function hey_babies_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_tags'
+  // Exported field_base: 'field_tags'.
   $field_bases['field_tags'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -655,7 +681,7 @@ function hey_babies_field_default_field_bases() {
     'type' => 'taxonomy_term_reference',
   );
 
-  // Exported field_base: 'field_text_position'
+  // Exported field_base: 'field_text_position'.
   $field_bases['field_text_position'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -682,7 +708,7 @@ function hey_babies_field_default_field_bases() {
     'type' => 'list_text',
   );
 
-  // Exported field_base: 'field_tracking_number'
+  // Exported field_base: 'field_tracking_number'.
   $field_bases['field_tracking_number'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -703,7 +729,7 @@ function hey_babies_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_username'
+  // Exported field_base: 'field_username'.
   $field_bases['field_username'] = array(
     'active' => 1,
     'cardinality' => 1,

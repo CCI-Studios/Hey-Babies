@@ -158,6 +158,14 @@ function hey_babies_image_default_styles() {
  */
 function hey_babies_node_info() {
   $items = array(
+    '2s_and_3s' => array(
+      'name' => t('2s and 3s'),
+      'base' => 'node_content',
+      'description' => '',
+      'has_title' => '1',
+      'title_label' => t('Title'),
+      'help' => '',
+    ),
     'front_feature' => array(
       'name' => t('Front Feature'),
       'base' => 'node_content',

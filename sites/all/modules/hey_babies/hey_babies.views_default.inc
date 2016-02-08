@@ -388,15 +388,16 @@ function hey_babies_views_default_views() {
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['style_plugin'] = 'slick';
-  $handler->display->display_options['style_options']['asnavfor_auto'] = 0;
-  $handler->display->display_options['style_options']['preserve_keys'] = 0;
   $handler->display->display_options['style_options']['slide_field_wrapper'] = 0;
+  $handler->display->display_options['style_options']['asnavfor_auto'] = 0;
   $handler->display->display_options['style_options']['slide_caption'] = array(
     'field_image_background' => 0,
     'body' => 0,
     'field_button_link' => 0,
     'field_button_text' => 0,
   );
+  $handler->display->display_options['style_options']['slide_overlay'] = '';
+  $handler->display->display_options['style_options']['preserve_keys'] = 0;
   $handler->display->display_options['style_options']['override'] = 0;
   $handler->display->display_options['style_options']['overridables'] = array(
     'arrows' => 0,
@@ -1427,15 +1428,16 @@ price Desc|highest price',
   $handler->display->display_options['pager']['options']['items_per_page'] = '5';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'slick';
-  $handler->display->display_options['style_options']['asnavfor_auto'] = 0;
-  $handler->display->display_options['style_options']['preserve_keys'] = 0;
   $handler->display->display_options['style_options']['slide_field_wrapper'] = 0;
+  $handler->display->display_options['style_options']['asnavfor_auto'] = 0;
   $handler->display->display_options['style_options']['slide_caption'] = array(
     'field_image' => 0,
     'title' => 0,
     'field_age' => 0,
     'commerce_price' => 0,
   );
+  $handler->display->display_options['style_options']['slide_overlay'] = '';
+  $handler->display->display_options['style_options']['preserve_keys'] = 0;
   $handler->display->display_options['style_options']['override'] = 0;
   $handler->display->display_options['style_options']['overridables'] = array(
     'arrows' => 0,
@@ -2128,13 +2130,14 @@ price Desc|highest price',
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['style_plugin'] = 'slick';
-  $handler->display->display_options['style_options']['asnavfor_auto'] = 0;
-  $handler->display->display_options['style_options']['preserve_keys'] = 0;
   $handler->display->display_options['style_options']['slide_field_wrapper'] = 0;
+  $handler->display->display_options['style_options']['asnavfor_auto'] = 0;
   $handler->display->display_options['style_options']['slide_caption'] = array(
     'field_image' => 0,
     'title' => 0,
   );
+  $handler->display->display_options['style_options']['slide_overlay'] = '';
+  $handler->display->display_options['style_options']['preserve_keys'] = 0;
   $handler->display->display_options['style_options']['override'] = 0;
   $handler->display->display_options['style_options']['overridables'] = array(
     'arrows' => 0,
